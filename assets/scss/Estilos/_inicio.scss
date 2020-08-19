@@ -1,0 +1,955 @@
+//Cabecera
+.tituloInicio {
+    font-family: 'Quicksand';
+}
+.subtInicio {
+    font-family: 'Permanent Marker';
+    color: $background-secundario;
+}
+//Container Principal
+.contenedorPrincipal{
+    background-color: $background-principal-o;
+    box-shadow: 0px 5px 20px 1px rgba(0,0,0,0.75);
+    .tarjetasCta {
+        margin-top: -10vh;
+        transition: 1s ease-out;
+        .contenedorTjt {
+            //box-shadow: 10px 10px 15px -4px rgba(0,0,0,0.75);
+            flex-flow: column wrap;
+            background: #ececec;
+            border-radius: 25px;
+            text-align: center;
+            transform: scale(0.85);
+            box-sizing: border-box;
+            .iconoTjt {
+                justify-content: center;
+                padding-top: 10px;
+                padding-bottom: 15px;
+                transition: 0.3s ease-out;
+            }
+            .textoTjt{
+                cursor: default;
+                h3{
+                    font-family: 'Quicksand';
+                    font-weight: 600;
+                    color:#696f6d;
+                }
+                p{
+                    font-family: 'Quicksand';
+                    color: $texto-principal-oscuro;
+                }
+            }
+        }
+        &:hover{
+            transform-origin: 50% 100%;
+    transform: rotateX(10deg) translateZ(50px);
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 1s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.5s ease; 
+            .contenedorTjt{
+                box-shadow: 0px 10px 15px 2px rgba(0, 0, 0, 0.50);
+                transition: box-shadow 0.5s ease;
+            }
+            .iconoTjt{
+                transform: scale(1.15);
+                transition: 0.3s ease-in;
+            }
+            .textoTjt{
+                h3{
+                color:$background-secundario;
+                transition: all 400ms cubic-bezier(0.420, 0.000, 0.800, 0.995);
+                }
+            }
+        }
+    }
+
+    .presentacion{
+        margin-top: 12vh;
+        justify-content: center;
+        .titPresentacion{
+            height: auto;
+            .cajaTitulo{
+                height: auto;
+                margin-bottom: 5vh;
+                .titulo{
+                    flex-flow: column wrap;
+                    height: auto;
+                    width: 100%;
+                    #presentacionWeb{
+                        color: transparent;
+                        background: #666666;
+                        -webkit-background-clip: text;
+                        -moz-background-clip: text;
+                        background-clip: text;
+                        text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+                        font-family: 'Quicksand';
+                        font-weight: 600;
+                        font-optical-sizing: auto;
+                        text-align: center;
+                        text-overflow: clip;
+                        text-rendering: optimizespeed;
+                        opacity: 0.8;
+                        letter-spacing: 0.15em;
+                        font-size: 3em;
+                        padding-bottom: 20px;
+                    }
+                    .subtitulos {
+                        justify-content: space-evenly;
+                        align-content: center;
+                        color:$background-secundario-o;
+                        height: 40px;
+                        .s1, .s2, .s3, .s4 {
+                            height: 100%;
+                            align-items: center;
+                            width: 20%;
+                            justify-content: center;
+                            .subt{
+                                font: 600 1.05em/1.68 'Quicksand';
+                                transition: 0.5s ease-in;
+                                cursor: pointer;
+                                transform: scale(1);
+                                &:hover{
+                                    transform: scale(1.2);
+                                    transition: 0.5s ease-in;
+                                    text-shadow: 0px 4px 3px rgba(166, 161, 161, 0.71);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+    }
+}
+
+//Contenedor Presentacion
+.containerPresentacion{
+    .filaPresentacion{
+        margin-top: 10vh;
+        margin-bottom: 15vh;
+        align-items: center;
+        .txtPresentacion{
+            padding-left: 50px;
+            padding-right: 5px;
+            .cajaPresentacion{
+                flex-flow: column wrap;
+                .ctaTit{
+                    font-size: 5em;
+                    font-family: 'Quicksand';
+                    color:$links-navbar;
+                            
+                    .logo{
+                        color:$background-secundario;
+                        .i{
+                            display: inline-block;
+                            transform: translateY(-10px);
+                            margin-left: 5px;
+                        }
+                        .o{
+                            display: inline-block;
+                            transform: translateY(25px);
+                            margin-left: 5px;
+                        }
+                    }
+                }
+                .separadorEspecial{
+                    border: 0.15em solid #2bbc7d;
+                    width: 60%;
+                    border-radius: 25px;
+                    margin: 2em 0 2em 0;
+                    background-color:#2bbc7d
+                }
+                .parrafoPres{
+                    margin-right: 2em;
+                    color: $texto-principal;
+                    font-size: 1.05em;
+                    font-family: 'Open Sans';
+                }
+            }
+        }
+        .fotoPresentacion{
+            .imagenCta{
+                margin-left: 25px;
+                .techStack{
+                    width: 550px;
+
+                }
+            }
+        }
+    }
+    
+    .filaAccesible {
+        flex-direction: row-reverse;
+        margin-top: 7vh;
+        .fotoAccesible{
+            overflow: hidden;
+            .imagenAcc{
+                display: flex;
+                justify-content: center;
+                #iconoAnimado{
+                    width: 80%;
+                    max-height: 440px;
+                    #barra-top,#barra-1,#barra-2{
+                        -webkit-animation: 5s cambioColor infinite alternate;
+                                animation: 5s cambioColor infinite alternate
+                    }
+                
+                    #html-izquierdo{
+                        -webkit-animation: 5s cambioColor infinite alternate, 1s moverIzq infinite alternate;
+                                animation: 5s cambioColor infinite alternate, 1s moverIzq infinite alternate;
+                    }
+                    #html-derecho{
+                        -webkit-animation: 5s cambioColor infinite alternate, 1s moverDer infinite alternate;
+                                animation: 5s cambioColor infinite alternate, 1s moverDer infinite alternate;
+                    }
+                    #texto-1{
+                        -webkit-animation: 0.9s opacidad infinite alternate;
+                                animation: 0.9s opacidad infinite alternate
+                    }
+                    #texto-2{
+                        -webkit-animation: 0.9s opacidad infinite alternate;
+                                animation: 0.9s opacidad infinite alternate;
+                        -webkit-animation-delay: 100ms;
+                                animation-delay: 100ms;
+                    }
+                    #texto-3{
+                        -webkit-animation: 0.9s opacidad infinite alternate;
+                                animation: 0.9s opacidad infinite alternate;
+                        -webkit-animation-delay: 300ms;
+                                animation-delay: 300ms;
+                    }
+                    #circulo{
+                        -webkit-animation: 1s opacidad infinite alternate;
+                                animation: 1s opacidad infinite alternate
+                    }
+                    @-webkit-keyframes opacidad {
+                        0%{
+                            opacity: 0.5;
+                        }
+                        100%{
+                            opacity: 1;
+                        }
+                    }
+                    @keyframes opacidad {
+                        0%{
+                            opacity: 0.5;
+                        }
+                        100%{
+                            opacity: 1;
+                        }
+                    }
+                    @-webkit-keyframes moverIzq {
+                        0%{
+                            transition: ease;
+                            transform:translate(-177.13785px, -97.98434px);
+                        }
+                        100%{
+                            transition: ease;
+                            transform: translate(-190px, -97.98434px);
+                        }
+                    }
+                    @keyframes moverIzq {
+                        0%{
+                            transition: ease;
+                            transform:translate(-177.13785px, -97.98434px);
+                        }
+                        100%{
+                            transition: ease;
+                            transform: translate(-190px, -97.98434px);
+                        }
+                    }
+                    @-webkit-keyframes moverDer {
+                        0%{
+                            transition: ease;
+                            transform: translate(-177.13785px , -97.98434px)
+                        }
+                        100%{
+                            transition: ease;
+                            transform: translate(-170px, -97.98434px);
+                        }
+                    }
+                    @keyframes moverDer {
+                        0%{
+                            transition: ease;
+                            transform: translate(-177.13785px , -97.98434px)
+                        }
+                        100%{
+                            transition: ease;
+                            transform: translate(-170px, -97.98434px);
+                        }
+                    }
+                    @-webkit-keyframes cambioColor {
+                        0%{
+                            fill:#00c58e;
+                        }
+                        30%{
+                            fill:#66dcbb;
+                        }
+                
+                        60%{
+                            fill:#7fcce2;
+                        }
+                
+                        100%{
+                            fill:#32aed0;
+                        }
+                    }
+                    @keyframes cambioColor {
+                        0%{
+                            fill:#00c58e;
+                        }
+                        30%{
+                            fill:#66dcbb;
+                        }
+                
+                        60%{
+                            fill:#7fcce2;
+                        }
+                
+                        100%{
+                            fill:#32aed0;
+                        }
+                    }
+                }
+            }
+        }
+        .txtAccesible{
+            overflow: hidden;
+            .cajaAccesible{
+                flex-flow: column wrap;
+                margin-right: 25px;
+                .titAcc{
+                    font-family: Quicksand;
+                    font-weight: 600;
+                    font-size: 3em;
+                    text-align: right;
+                    color:$links-navbar;  
+                    span{
+                        color: $background-secundario;
+                    } 
+                }
+                .separadorEspecial{
+                    border: 0.15em solid #2bbc7d;
+                    width: 60%;
+                    border-radius: 25px;
+                    margin: 0 0 1em 0;
+                    align-self:end;
+                    background-color:#2bbc7d ;
+                }
+                .parrafoAcc{
+                    color: $texto-principal;
+                    font-size: 1.05em;
+                    font-family: 'Open Sans';
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+//Componente Principal
+.componentePrincipal{
+    background-color: $background-oscuro;
+    height: 100vh;
+    box-shadow: 0px 0px 6px 4px #7b7b7b;
+    cursor: pointer;
+    .containerCp{
+        height: 100%;
+        margin-top: 17vh;   
+        .lateralCp{
+            flex-flow: column wrap;
+            justify-content: space-evenly;
+margin: 8vh 0 8vh 0;
+
+            .cajaSelector{
+                height: 30%;
+                flex-flow: column;
+                .titCp{
+                    color: $background-secundario;
+                    font-family: 'Quicksand';
+                    text-align: center;
+                    transform: scale(1.1);
+                    transform: translateY(50px); 
+                    transition: 0.4s ease-in;
+                    opacity: 0.5;
+                    font-weight: 600;
+                    font-size: 2em;
+                }
+                .subEspecial{
+                    margin:0.2rem 0 0.2rem 0;
+                
+                        
+                        transform: rotate(90deg);
+                        
+                        border: 2px solid #ddece5ba;
+                        transform: translate(-140% , 30px) rotate(90deg);
+                        width: 60px;
+                       
+                        transition: 0.3s ease-in;
+                        border-radius: 100px;
+                        opacity: 0.7;
+                    }
+                }
+                .txtCp{
+                    color: $texto-principal-light;
+                    font-family: 'Quicksand';
+                    
+                    opacity: 0;
+                }
+               
+                .design, .marketing, .branding{
+                    &.activo{
+                        .subEspecial{
+                        
+                            transition: 0.4s ease-in;
+                         
+                            transform: translate(-25% , 30px) rotate(90deg);
+                            
+                        
+                    }
+                    .titCp{
+                        transform: translateY(10%);
+                        transform: scale(0.85);
+                        transition: 0.4s ease-in;
+                        opacity: 1;   
+                    }
+                    .txtCp{
+                        transition: 0.45s ease-in;
+                        opacity: 1;
+                        display: inline;
+                        padding-left: 8%;
+                    }
+                    }
+                }
+                
+        }
+
+        .gridDinamica{
+            display: block;
+            overflow: hidden;
+            padding: 0;
+            //animacion
+           
+              .fade-enter-active{
+                  transition: opacity .3s ease-in;
+                  -webkit-filter: blur(0.5px);
+                          filter: blur(0.5px);
+              }
+              .fade-leave-active{
+                  transition: opacity .25s ease
+                  
+              }
+              .fade-leave-to{
+                  opacity: 0;
+                  transition: opacity .1s ease-out;
+                  -webkit-filter: blur(2px);
+                          filter: blur(2px);
+              }
+              .fade-enter{
+                  opacity: 0;
+              }
+            .grid{
+                display: block;
+                height: 100%;
+                .grid_list{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    list-style: none;
+                    li{
+                        display: block;
+                        width: 50%;
+                        float: left;
+                        height: 50%;
+                        background-size: cover;
+                        overflow: hidden;
+                        .linkItem{
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            position: relative;
+                            &::before{
+                                content: '';
+                                width: 100%;
+                                height: 100%;
+                                display: block;
+                                position: relative;
+                                background: rgba(0, 0, 0, 0.8);
+                                opacity: 0.8;
+                            }
+                            .script{
+                                display: block;
+                                width: 100%;
+                                height: 50%;
+                                position: absolute;
+                                left: 0px;
+                                bottom: 0px;
+                                background: -webkit-linear-gradient(bottom,rgba(0,0,0,0.4),rgba(0,0,0,0));
+                                .tit{
+                                    
+                                        display: block;
+                                        margin-left: 43px;
+                                        margin-top: 119px;
+                                        font-size: 24px;
+                                        color: #fff;
+                                        transition: margin-top 0.3s ease-out;
+                                        font-family:'Quicksand';
+                                }
+                                .txt{
+                                    display: block;
+                                    margin-left: 43px;
+                                    margin-top: 9px;
+                                    line-height: 1.8;
+                                    font-size: 16px;
+                                    color: #fff;
+                                    opacity: 0;
+                                    transform: translate(0px,15px);
+                                    transition: opacity 0.3s ease-out;
+                                    margin-right: 43px;
+                                }
+                            }
+                            &:hover{
+                                .script .tit{
+                                    margin-top:29px
+                                }
+                                .script .txt{
+                                    opacity: 1;
+                                    transform: translate(0px, 0);
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                &.grid_1{
+                    .grid_list{
+                        .item_1{
+                            background-image: url('/img/DG/DGWB-3.jpg');
+                        }
+                        .item_2{
+                            background-image: url('/img/DG/DGWB-2.jpg');
+                        }
+                        .item_3{
+                            background-image: url('/img/DG/DGWB-1.jpg');
+                        }
+                        .item_4{
+                            background-image: url('/img/DG/DGWB-4.jpg');
+                        }
+                    }
+                }
+                &.grid_2{
+                    .grid_list{
+                        .item_1{
+                            background-image: url('/img/DG/DGMD-1.jpg');
+                        }
+                        .item_2{
+                            background-image: url('/img/DG/DGMD-2.jpg');
+                        }
+                        .item_3{
+                            background-image: url('/img/DG/DGMD-3.jpg');
+                        }
+                        .item_4{
+                            background-image: url('/img/DG/DGMD-4.jpg');
+                        }
+                    }
+                }
+                &.grid_3{
+                    .grid_list{
+                        .item_1{
+                            background-image: url('/img/DG/DGBR-1.jpg');
+                        }
+                        .item_2{
+                            background-image: url('/img/DG/DGBR-2.jpg');
+                        }
+                        .item_3{
+                            background-image: url('/img/DG/DGBR-3.jpg');
+                        }
+                        .item_4{
+                            background-image: url('/img/DG/DGBR-4.jpg');
+                        }
+                    }
+                }
+                }
+            }
+           
+        }
+    }
+
+// Brands
+
+    .Brands{
+        height: 70vh;
+        background: $background-principal-o;
+        //position: absolute;
+        z-index: -3;
+        .filaBrand{
+            height:100%;
+            justify-content: space-between;
+            .contadores{
+                order:2;
+                justify-content: center;
+                .containerContadores{
+                    flex-flow: column wrap;
+                    height: 100%;
+                    justify-content: space-around;
+                    .contador{
+                        flex-flow: column wrap;
+                        align-content: center;
+                        cursor: context-menu;
+                        transition: .3s ease-in;
+                        h4{
+                            text-align: center;
+                            font-size:3em;
+                            color: $background-secundario;
+                        }
+                        h6{
+                            font-weight: 600;
+                            font-size: 1.3em;
+                            color:$texto-principal-light;
+                        }
+                        h4,h6{
+                            font-family: 'Quicksand';
+                        }
+                        &:hover{
+                            transform: scale(1.1)
+                        }
+                    }
+                }
+            }
+
+            .brandText{
+                flex-flow: column wrap;
+justify-content: space-around;
+                .textoBrand{
+                    flex-flow: column wrap;
+                    justify-content: space-around;
+                    align-items: center;
+                    .tit{
+                        margin-bottom: 0.5em;
+                        font-family: 'Quicksand';
+                        font-weight: 600;
+                        font-size: 3em;
+                        text-align: center;
+                        color:$texto-principal-light;
+                    }
+                    .txtBrand{
+                        text-align: justify;
+                        margin-top: 2em;
+                        font-family: 'Quicksand';
+                        font-weight: 500;
+                    
+                    }
+                    
+                }
+                .tjtsBrands{
+                    flex-flow: row wrap;
+                    width: 100%;
+                   .containerTjtBrand{
+                    width: 100%;
+                    justify-content: space-around;
+                    .tarjetaBrand{
+                        flex-flow: column;
+                        border-radius: 25px;
+                        width: 30%;
+                        height: 10vw;
+                        justify-content: center;
+                        background-color: $background-p-t;
+                        box-shadow: 0px 0px 5px 2px #c6c8ca;
+                        transition: 0.3s ease-in;
+                        background-size:1px 200px;
+                        .proyecto {
+                            font-family: 'Open Sans';
+                            font-size: 1.4em;
+                            cursor: context-menu;
+                            color: gray;
+                            font-weight: 600;
+                            @include easeIn();
+                        }
+                        .descripcion{
+                            font-family: 'Quicksand';
+                            font-size: 1.2em;
+                            cursor: context-menu;
+                            color: gray;
+                            @include easeIn()
+                        } 
+                        .linkTjt{
+                            font-family: 'Quicksand';
+                            font-weight: 600;
+                            color:gray;
+                            width: 40%;
+                            @include easeIn()
+                        }
+                        .proyecto,.descripcion,.linkTjt{
+                            margin-left: 20px;
+                        }
+                        &:hover{
+                            transform: translateY(-20px)
+                        }
+                    }
+                        .tarjetaBrand.Captotal:hover{
+                            .proyecto,.linkTjt{
+                                color:#ea7216;
+                            }
+                            .descripcion{
+                                color:$texto-principal;
+                            }
+                            
+                        }
+                        .tarjetaBrand.Cemar:hover{
+                            .proyecto,.linkTjt{
+                                color:#ff4353
+                            }
+                            .descripcion{
+                                color:$texto-principal;
+                            }
+                        }
+                        .tarjetaBrand.Hortec:hover{
+                            .proyecto,.linkTjt{
+                                color:#8cb201;
+                            }
+                            .descripcion{
+                                color:$texto-principal;
+                            }
+                        }
+                    
+                    
+                   }
+
+                }
+            }
+        }
+    }
+
+
+
+//Responsive
+@include mediaSm {
+    .displayTitulo{
+        top:50%!important;
+        left:50%!important;
+        .tituloInicio{
+            font-size: 2.4em;
+        }
+        .subtInicio{
+            font-size: 1.2em;
+        }
+    }
+    .contenedorPrincipal{
+        .tarjetasCta{
+            margin-top: 0;
+            padding-bottom: 50px;
+            .contenedorTjt{
+                margin-top: -50px;
+            }
+        }
+        .presentacion{
+            margin-top: 1vh!important;
+            padding-bottom: 7vh!important;
+            .cajaTitulo{
+                margin-bottom: 5vh;
+                .titulo{
+                    flex-flow: column wrap;
+                    height: auto;
+                    width: 100%;
+                    #presentacionWeb{
+                        font-size: 1.2em!important;
+                    }
+                    .subtitulos{
+                        flex-flow: row wrap;
+                        margin-top: 1em;
+                        justify-content: space-between;
+                        .s1,.s2,.s3,.s4{
+                            width: 50%!important;
+                            .subt{
+                                font: 400 1em/1.68 'Quicksand'!important;
+                                text-align: center;
+                            }
+                            
+                        }
+                        .s1{
+                            order: 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .containerPresentacion{
+        .txtPresentacion{
+            padding: 0 5px 0 10px!important;
+            .cajaPresentacion{
+                .ctaTit{
+                    font-size: 4em!important;
+                }
+                .parrafoPres{
+                    margin-right: 0.3em;
+                    text-align: justify;
+                }
+            }
+        }
+        .fotoPresentacion{
+            .imagenCta{
+                margin-left: 0!important;
+                margin-top: 5vh;
+                display: flex;
+                justify-content: center;
+                .techStack{
+                width: 325px!important;
+                }
+            }
+        }
+        .filaAccesible{
+            .txtAccesible{
+                .cajaAccesible{
+                    margin-right: 0!important;
+                    .titAcc{
+                        text-align: left!important;
+                        margin-bottom: 10px;
+                    }
+                    .separadorEspecial{
+                        align-self: start;
+                    }
+                    .parrafoAcc{
+                        text-align: justify;
+                    }
+                }
+            }
+        }
+        .fotoAccesible{
+            .imagenAcc{
+                #iconoAnimado{
+                    max-height: 350px!important;
+                }
+            }
+        }
+    }
+    .componentePrincipal{
+        overflow: hidden;
+        height: 95vh!important;
+        .containerCp{
+            align-content: start;
+            margin-top: 0px!important;
+            .lateralCp{
+                flex-flow: row wrap!important;
+                width: 100vw;
+                padding: 0;
+                height: 15vh;
+                margin: 0;
+                align-items: center;
+                .cajaSelector{
+                    width: 33.3%;
+                    justify-content: center;
+                    align-content: center;
+                    flex-flow: row wrap;
+                    height: 100%;
+                    //margin-top: 50px;
+                    .titCp{
+                        transform: none!important;
+                        font-size: 1.1em;
+                    }
+                    .subEspecial,.txtCp{
+                        display: none!important
+                    }
+                }
+            }
+        }
+        .gridDinamica{
+            display: flex!important;
+            flex-flow: column wrap;
+            height: 80vh;
+            .grid{
+                display: flex;
+                height: 100%;
+                flex-flow: row wrap;
+                overflow: hidden;
+                .grid_list{
+                    padding: 0;
+                    display: flex;
+                    flex-flow: column wrap;
+                    overflow: hidden;
+                    li{
+                        display: flex;
+
+                        .linkItem .script{
+                            .tit{
+                                margin-left: 20px!important;
+                                margin-top: 80px!important;
+                                font-size: 1.1em!important;
+                            }
+                            .txt{
+                                display: none!important;
+                            }
+                            .txt-mvl{
+                                display: block!important;
+                                margin-left: 20px;
+                                margin-top: 10px;
+                                line-height: 1.8;
+                                font-size: 16px;
+                                color: #fff;
+                                opacity: 0;
+                                transform: translate(0px, 15px);
+                                transition: opacity 0.3s ease-out;
+                                margin-right: 25px;
+                            }
+                        }
+                        .linkItem:hover{
+                            .script {
+                                .tit{
+                                    margin-top: 30px!important;
+                                }
+                                .txt-mvl{
+                                opacity: 1;
+transform: translate(0px, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .Brands{
+        height: 150vh!important;
+        .filaBrand{
+            .contadores{
+                padding: 0;
+               
+                .containerContadores{
+                    flex-flow: column wrap;
+                    height: 100%;
+                    justify-content: space-between;
+                    align-content: center;
+                    width: 100%;
+                    .contador {
+                        flex-flow: column wrap;
+                        align-content: center;
+                        width: 50%;
+                        
+                        h4{
+                            font-size: 2em;        
+                        }
+                        h6{
+                            font-size: 1em;
+
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            .brandText{
+                .textoBrand{
+                    margin-top: 20px;
+                }
+                .tjtsBrands{
+                    flex-flow: column wrap!important;
+                    .containerTjtBrand{
+                        flex-flow: column wrap!important;
+                        height: 70vh;
+                        .tarjetaBrand{
+                            width: 100%!important;
+                            height: 17vh!important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

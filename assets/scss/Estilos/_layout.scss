@@ -1,0 +1,290 @@
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  /*LOGO*/
+  .logoParicio {
+    font-family: 'Open Sans';
+    -webkit-animation: 1s appear;
+            animation: 1s appear;
+    -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+    margin: auto;
+    .cls-1.logo-i{
+        -webkit-animation:1s fadeDown;
+                animation:1s fadeDown;
+        -webkit-animation-iteration-count: 1;
+                animation-iteration-count: 1;
+    }
+    .cls-1.logo-o{
+        -webkit-animation:1s fadeUp;
+                animation:1s fadeUp;
+        -webkit-animation-iteration-count: 1;
+                animation-iteration-count: 1;
+    }
+    .cls-1,
+    .cls-2{
+        fill:#00c58e;
+    }
+    &:hover{
+        .cls-1.logo-i{
+            -webkit-animation: 0.9s dispersarArriba;
+                    animation: 0.9s dispersarArriba;
+            -webkit-animation-direction: alternate;
+                    animation-direction: alternate;
+                    -webkit-animation-iteration-count: infinite;
+                            animation-iteration-count: infinite;
+        }
+        .cls-1.logo-o{
+            -webkit-animation: 0.9s dispersarAbajo;
+                    animation: 0.9s dispersarAbajo;
+            -webkit-animation-direction: alternate;
+                    animation-direction: alternate;
+                    -webkit-animation-iteration-count: infinite;
+                    animation-iteration-count: infinite;
+        }
+    }
+}
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeDown {
+    0%{
+        opacity: 0.3;
+        transform: translate(131.49px, 15px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(131.49px, 36.07px);
+    }
+}
+@keyframes fadeDown {
+    0%{
+        opacity: 0.3;
+        transform: translate(131.49px, 15px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(131.49px, 36.07px);
+    }
+}
+@-webkit-keyframes fadeUp{
+    0%{
+        opacity: 0.3;
+        transform: translate(147.45px, 70px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(147.45px, 50.12px);
+    }
+}
+@keyframes fadeUp{
+    0%{
+        opacity: 0.3;
+        transform: translate(147.45px, 70px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(147.45px, 50.12px);
+    }
+}
+
+@-webkit-keyframes dispersarArriba {
+    0%{
+        transform: translate(131.49px, 36.07px);
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.8;
+    }
+    100%{
+        transform: translate(131.49px, 26.07px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes dispersarArriba {
+    0%{
+        transform: translate(131.49px, 36.07px);
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.8;
+    }
+    100%{
+        transform: translate(131.49px, 26.07px);
+        opacity: 0.5;
+    }
+}
+
+@-webkit-keyframes dispersarAbajo {
+    0% {
+        transform: translate(147.45px, 50.12px);
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.8;
+    }
+    100%{
+         transform: translate(147.45px, 66.12px);
+         opacity: 0.5;
+    }
+}
+
+@keyframes dispersarAbajo {
+    0% {
+        transform: translate(147.45px, 50.12px);
+        opacity: 1;
+    }
+    50%{
+        opacity: 0.8;
+    }
+    100%{
+         transform: translate(147.45px, 66.12px);
+         opacity: 0.5;
+    }
+}
+
+  /*CABECERAS*/
+  .cabecera{
+    min-height: 100vh;
+    max-height: 999px;
+    padding: 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  
+    & > .content{
+      margin-top: 12%;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+  
+    &.cabecera-pequeña{
+        min-height: 60vh;
+        max-height: 440px;
+    }
+  
+    &:before{
+        background-color: rgba(0,0,0,.3);
+    }
+  
+    > .b-container-cabecera{
+      z-index: 2;
+      padding-top: 12vh;
+      padding-bottom: 40px;
+    }
+  
+      .imagen-cabecera{
+          position: absolute;
+          background-size: cover;
+          background-position: center center;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+      }
+  
+      .content-center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #FFFFFF;
+        padding: 0 15px;
+        width: 100%;
+        max-width: 880px;
+        &.displayTitulo {
+          top:55%;
+          left:30%;
+        }
+      }
+
+  
+      footer{
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+      }
+      .container{
+          height: 100%;
+          z-index: 1;
+          text-align: center;
+          position: relative;
+      }
+   
+      &:after,
+      &:before{
+          position: absolute;
+          z-index: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          left: 0;
+          top: 0;
+          content: "";
+      }
+  }
+/*Barra de Navegación*/
+html::-webkit-scrollbar{
+  display: none;
+  width: 0!important;
+  
+}
+//Cabecera Pequeña
+.cabecera-peque {
+  min-height: 60vh;
+  min-width: 999px;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .imagenCabeceraPeque {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(/img/hcoop.jpg);
+    z-index: -50;
+    overflow: hidden;
+  }
+  .contenido-cab {
+    width: 25wv;
+    justify-content: center;
+    .tit-cab {
+      text-align: center;
+      color: $background-principal;
+      font-family: 'Quicksand';
+      h1 {
+        font-weight: 600!important;
+        span{
+          color: $background-secundario;
+        }
+      }
+    }
+  }
+}

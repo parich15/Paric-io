@@ -1,0 +1,86 @@
+//Colores Corporativos
+
+$texto-principal: #424242!default;
+$texto-principal-light: #9e9e9e!default;
+$texto-principal-oscuro: #212121!default;
+$blanco: #fff!default;
+$background-principal: #f5f5f5!default;
+$background-principal-o:#ddd!default;
+$background-secundario: #00c58e!default; 
+$background-secundario-o:#2bbc7d!default;
+$background-oscuro:#212121;
+$background-o-t: #212121de;
+$background-p-t:#f5f5f5d7;
+$links-navbar: #757575;
+$dark-mode:#3f4141;
+
+//Fuentes
+//Permanent Marker , Quicksand, Open Sans
+
+
+//Responsive Queries
+// Media Query Mixins
+
+//Pequeño
+@mixin mediaSm {
+    @media screen and (max-width: 500px) {
+        @content;
+    }
+}
+
+//Medio
+@mixin mediaMd {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+//Grande
+@mixin mediaLg {
+    @media screen and (min-width: 769px) and (max-width: 1170px) {
+        @content;
+    }
+}
+//Muy Grande
+@mixin mediaXl {
+    @media screen and (min-width: 1171px) {
+        @content;
+    }
+}
+
+@mixin easeIn {
+    transition: ease-in 200ms;
+}
+
+@mixin linear-gradient($color1, $color2){
+    background: $color1; /* For browsers that do not support gradients */ /* For Safari 5.1 to 6.0 */ /* For Opera 11.1 to 12.0 */ /* For Firefox 3.6 to 15 */
+    background: linear-gradient(0deg, $color1 , $color2); /* Standard syntax */
+}
+//Especiales 
+.clear-filter{
+    &:after,
+    &:before{
+        display: none;
+    }
+    &[filter-color="black"]{
+        @include linear-gradient (rgba(44, 44, 44, 0.63), rgba(23, 20, 19, 0.7));
+    }
+} 
+.io{
+    color: $background-secundario;
+}
+
+.navbar-toggler:focus{
+    outline: none!important;
+}
+
+// Linear Gradient Mixing
+@mixin gradient($start-color, $end-color, $orientation) {
+    background: $start-color;
+    @if $orientation == 'vertical' {
+      background: linear-gradient(to bottom, $start-color, $end-color);
+    } @else if $orientation == 'horizontal' {
+      background: linear-gradient(to right, $start-color, $end-color);
+    } @else {
+      background: radial-gradient(ellipse at center, $start-color, $end-color);
+    }
+  }
