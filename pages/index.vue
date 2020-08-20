@@ -105,7 +105,7 @@
           </div>
         </b-col>
         <b-col class="col-12 col-md-10 brandText d-flex">
-          <div class="textoBrand d-flex">
+          <div class="textoBrand d-flex mt-5">
             <div data-aos="fade-up">
               <h2 class="tit">
                 Mi Portfol<span class="io">io</span>
@@ -113,11 +113,21 @@
               <hr class="subEspecial">
               <p class="txtBrand">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius quidem et dolores at repellat incidunt rerum tempora optio cumque animi? Natus dolorem neque excepturi odit quos quisquam vero id unde.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore unde similique sed omnis minima rerum doloribus voluptatem repellendus sapiente! <br><br> Similique debitis dolores quae tenetur.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati reiciendis deleniti veniam architecto quis assumenda fugit earum itaque et corporis.
               </p>
             </div>
           </div>
           <div class="tjtsBrands d-flex">
+            <h6 class="ctaProyectos">
+              Algunos de mis proyectos
+            </h6>
             <tarjetas-proyecto />
+            <div class="botonProyectos d-flex justify-content-center my-2" data-aos="fade-in">
+              <b-button variant="outline-primary">
+                Todos los proyectos
+              </b-button>
+            </div>
           </div>
         </b-col>
       </b-row>

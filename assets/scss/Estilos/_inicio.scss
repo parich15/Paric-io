@@ -576,7 +576,7 @@ margin: 8vh 0 8vh 0;
 // Brands
 
     .Brands{
-        height: 70vh;
+        height: 75vh;
         background: $background-principal-o;
         //position: absolute;
         z-index: -3;
@@ -622,19 +622,26 @@ justify-content: space-around;
                     flex-flow: column wrap;
                     justify-content: space-around;
                     align-items: center;
+                    padding-left: 3%;
                     .tit{
                         margin-bottom: 0.5em;
                         font-family: 'Quicksand';
                         font-weight: 600;
                         font-size: 3em;
-                        text-align: center;
-                        color:$texto-principal-light;
+                        text-align: left;
+                        color:$links-navbar;
+                    }
+                    .subEspecial{
+                        width: 35%;
+                        border: 2px #00c58e solid;
+                        border-radius: 10px;
                     }
                     .txtBrand{
                         text-align: justify;
                         margin-top: 2em;
-                        font-family: 'Quicksand';
+                        font-family: 'Open Sans';
                         font-weight: 500;
+                        width: 90%;
                     
                     }
                     
@@ -642,6 +649,20 @@ justify-content: space-around;
                 .tjtsBrands{
                     flex-flow: row wrap;
                     width: 100%;
+                    .ctaProyectos{
+                    font-weight: 600;
+                    margin-top: 30px;
+                    font-size: 1.2em;
+                    text-decoration: underline;
+                        -webkit-text-decoration-color: currentcolor;
+                                text-decoration-color: currentcolor;
+                        text-decoration-thickness: auto;
+                    -webkit-text-decoration-color: #00c590;
+                            text-decoration-color: #00c590;
+                    text-decoration-thickness: 2px;
+                    padding-left: 3%;
+                    margin-bottom: 1.7em;
+                    }
                    .containerTjtBrand{
                     width: 100%;
                     justify-content: space-around;
@@ -685,6 +706,7 @@ justify-content: space-around;
                         }
                     }
                         .tarjetaBrand.Captotal:hover{
+                            box-shadow: 0px 1px 6px #ea7216ab;
                             .proyecto,.linkTjt{
                                 color:#ea7216;
                             }
@@ -694,6 +716,7 @@ justify-content: space-around;
                             
                         }
                         .tarjetaBrand.Cemar:hover{
+                            box-shadow: 0px 1px 6px #ff4353;
                             .proyecto,.linkTjt{
                                 color:#ff4353
                             }
@@ -702,6 +725,7 @@ justify-content: space-around;
                             }
                         }
                         .tarjetaBrand.Hortec:hover{
+                            box-shadow: 0px 1px 6px #8cb517;
                             .proyecto,.linkTjt{
                                 color:#8cb201;
                             }
@@ -712,7 +736,9 @@ justify-content: space-around;
                     
                     
                    }
-
+                   .botonProyectos{
+                       width: 100%;
+                   }
                 }
             }
         }
