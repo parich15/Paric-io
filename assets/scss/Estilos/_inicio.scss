@@ -578,7 +578,7 @@ margin: 8vh 0 8vh 0;
     .Brands{
         height: 75vh;
         background: $background-principal-o;
-        //position: absolute;
+        position: absolute;
         z-index: -3;
         .filaBrand{
             height:100%;
@@ -635,6 +635,7 @@ justify-content: space-around;
                         width: 35%;
                         border: 2px #00c58e solid;
                         border-radius: 10px;
+                        background: #00c58e ;
                     }
                     .txtBrand{
                         text-align: justify;
@@ -963,9 +964,16 @@ transform: translate(0px, 0);
             .brandText{
                 .textoBrand{
                     margin-top: 20px;
+                    .subEspecial{
+                        width: 70%;
+                    }
                 }
                 .tjtsBrands{
                     flex-flow: column wrap!important;
+                    .ctaProyectos{
+                        font-family: 'Quicksand';
+                        font-size: 1.5em;
+                    }
                     .containerTjtBrand{
                         flex-flow: column wrap!important;
                         height: 70vh;
