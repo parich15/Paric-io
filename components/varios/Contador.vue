@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+// import anime from 'animejs/lib/anime.es.js'
 export default {
   name: 'Contador',
   props: {
@@ -45,11 +45,11 @@ export default {
       }
     )
     observer.observe(document.querySelector('.contador'))
-  }
-  /* methods: {
+  },
+  methods: {
     setContador (val) {
       const obj = { n: this.contador }
-      /anime({
+      this.$anime({
         targets: obj,
         n: val,
         round: 1,
@@ -60,7 +60,7 @@ export default {
         }
       })
     }
-  } */
+  }
 }
 </script>
 

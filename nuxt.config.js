@@ -23,7 +23,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel:"stylesheet", href:"https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Permanent+Marker&family=Quicksand:wght@400;500;600&display=swap"}
+      { rel:"stylesheet", href:"https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Permanent+Marker&family=Quicksand:wght@400;500;600&display=swap"},
     ]
   },
   /*
@@ -40,6 +40,10 @@ export default {
     {
       src: '~/plugins/aos.js',
       mode: 'client'
+    },
+    {
+      src:'~/plugins/anime.js',
+      mode:'client'
     }
   ],
   /*
