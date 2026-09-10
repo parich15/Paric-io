@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from './fixtures'
 
 for (const [language, expectedPath, expectedLang] of [
   ['es-ES', '/', 'es-ES'],
@@ -7,7 +7,7 @@ for (const [language, expectedPath, expectedLang] of [
   ['fr-FR', '/en', 'en-GB'],
 ]) {
   test(`entrada por raíz con navegador ${language}`, async ({ browser }) => {
-    const context = await browser.newContext({ locale: language, reducedMotion: 'reduce' })
+    const context = await browser.newContext({ baseURL: 'http://127.0.0.1:4173', locale: language, reducedMotion: 'reduce' })
     const page = await context.newPage()
     await page.goto('/')
     await expect(page).toHaveURL(new RegExp(`${expectedPath}$`))
@@ -17,7 +17,7 @@ for (const [language, expectedPath, expectedLang] of [
 }
 
 test('respeta el idioma de URLs concretas y la elección manual persistida', async ({ browser }) => {
-  const context = await browser.newContext({ locale: 'en-US', reducedMotion: 'reduce' })
+  const context = await browser.newContext({ baseURL: 'http://127.0.0.1:4173', locale: 'en-US', reducedMotion: 'reduce' })
   const page = await context.newPage()
   await page.goto('/proyectos/nocturne')
   await expect(page.locator('html')).toHaveAttribute('lang', 'es-ES')
