@@ -1,0 +1,16 @@
+/* Placa de diálogo: la geometría pertenece al marco, nunca al texto editable. */
+.p5-field { display: flex; flex-direction: column; min-width: 0; padding-top: var(--space-3); }
+.p5-field-label { position: relative; z-index: 1; align-self: flex-start; max-width: calc(100% - 32px); margin: 0 0 -5px var(--space-6); padding: var(--space-1) var(--space-4); background: var(--fg); color: var(--bg); transform: skewX(var(--skew-sm)) rotate(var(--rot-2)); }
+.p5-field-label > span { display: block; transform: skewX(calc(-1 * var(--skew-sm))); overflow-wrap: anywhere; }
+.p5-field-panel { position: relative; isolation: isolate; }
+.p5-field-panel::before, .p5-field-panel::after { content: ''; position: absolute; z-index: -1; pointer-events: none; clip-path: polygon(0 6px, 100% 0, calc(100% - 6px) 100%, 6px calc(100% - 3px)); }
+.p5-field-panel::before { inset: 0; background: var(--fg); transition: background var(--dur-hover) ease; }
+.p5-field-panel::after { inset: var(--border-3); background: var(--bg); }
+.p5-field-comma { position: absolute; left: -6px; top: 3px; width: 24px; height: 32px; background: var(--fg); clip-path: polygon(0 0, 100% 16%, 55% 38%, 82% 64%, 48% 55%, 66% 100%, 8% 48%, 24% 36%); pointer-events: none; transition: background var(--dur-hover) ease; }
+.p5-field-control { display: block; box-sizing: border-box; width: 100%; min-width: 0; min-height: 56px; padding: var(--space-7) var(--space-9); border: var(--border-3) solid transparent; border-radius: 0; background: transparent; color: var(--fg); caret-color: var(--accent); }
+textarea.p5-field-control { resize: vertical; }
+.p5-field-control:focus-visible { outline: var(--border-3) solid var(--accent); outline-offset: 3px; }
+.p5-field:focus-within .p5-field-panel::before, .p5-field:focus-within .p5-field-comma, .p5-field.has-error .p5-field-panel::before { background: var(--accent); }
+.p5-field-control:disabled { opacity: .4; cursor: not-allowed; }
+.p5-field > [id$="-error"] { margin-top: var(--space-3); }
+@media (prefers-reduced-motion: reduce) { .p5-field-panel::before, .p5-field-comma { transition: none; } }
