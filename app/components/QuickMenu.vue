@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useEventListener } from '@vueuse/core'
 import { isEditingTarget } from '~/utils/keyboard'
 
 const { t, locale } = useI18n()
@@ -54,9 +55,8 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 watch(() => route.fullPath, () => { if (root.value?.open) root.value.close() })
-onMounted(() => window.addEventListener('keydown', onKeydown))
+useEventListener('keydown', onKeydown)
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', onKeydown)
   root.value?.close()
 })
 </script>
