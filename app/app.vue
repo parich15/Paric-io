@@ -7,6 +7,10 @@ useHead(() => ({ htmlAttrs: { lang: localeHead.value.htmlAttrs?.lang }, link: lo
 <template>
   <div>
     <a class="skip-link" href="#main-content">{{ t('common.skip') }}</a>
+    <NuxtRouteAnnouncer />
+    <AppHeader />
     <NuxtPage />
+    <AppMotion />
+    <AppIntro />
   </div>
 </template>
