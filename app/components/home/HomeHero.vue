@@ -33,7 +33,7 @@ const contactTarget = computed(() => ({ path: localePath('index'), hash: locale.
 </template>
 
 <style scoped>
-.home-hero { position: relative; display: grid; align-content: center; min-height: 100svh; padding: 140px var(--page-x) 100px; isolation: isolate; }
+.home-hero { position: relative; display: grid; align-content: center; min-height: 100svh; padding: 140px var(--page-x) 100px; isolation: isolate; overflow: hidden; }
 .hero-plane { position: absolute; z-index: -1; top: -10%; right: -12%; width: 52%; height: 130%; background: var(--p5-red); transform: skewX(var(--skew-lg)); overflow: hidden; }
 .hero-plane > div { width: 100%; height: 100%; opacity: .25; }
 .hero-ring { position: absolute; z-index: -1; top: 22%; right: 8vw; width: min(28vw, 340px); aspect-ratio: 1; border: var(--border-6) dashed var(--p5-ink); border-radius: var(--radius-full); }

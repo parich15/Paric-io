@@ -1,14 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const root = useTemplateRef<HTMLElement>('root')
-
-const entrance = useMotionEnter(root)
-onMounted(() => { void entrance.play() })
 useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDescription') })
 </script>
 
 <template>
-  <main id="main-content" ref="root" class="home-page" tabindex="-1">
+  <main id="main-content" class="home-page" tabindex="-1">
     <HomeHero />
     <div class="home-marquee" aria-hidden="true">
       <span v-for="repeat in 4" :key="repeat">{{ t('home.marquee') }}</span>
