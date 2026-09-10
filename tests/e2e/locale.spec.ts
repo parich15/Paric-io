@@ -6,19 +6,17 @@ for (const [language, expectedPath, expectedLang] of [
   ['en-US', '/en', 'en-GB'],
   ['fr-FR', '/en', 'en-GB'],
 ]) {
-  test(`entrada por raíz con navegador ${language}`, async ({ browser }) => {
-    const context = await browser.newContext({ baseURL: 'http://127.0.0.1:4173', locale: language, reducedMotion: 'reduce' })
-    const page = await context.newPage()
-    await page.goto('/')
-    await expect(page).toHaveURL(new RegExp(`${expectedPath}$`))
-    await expect(page.locator('html')).toHaveAttribute('lang', expectedLang!)
-    await context.close()
+  test.describe(`navegador ${language}`, () => {
+    test.use({ locale: language })
+    test('entrada por raíz', async ({ page }) => {
+      await page.goto('/')
+      await expect(page).toHaveURL(new RegExp(`${expectedPath}$`))
+      await expect(page.locator('html')).toHaveAttribute('lang', expectedLang!)
+    })
   })
 }
 
-test('respeta el idioma de URLs concretas y la elección manual persistida', async ({ browser }) => {
-  const context = await browser.newContext({ baseURL: 'http://127.0.0.1:4173', locale: 'en-US', reducedMotion: 'reduce' })
-  const page = await context.newPage()
+test('respeta el idioma de URLs concretas y la elección manual persistida', async ({ page, context }) => {
   await page.goto('/proyectos/nocturne')
   await expect(page.locator('html')).toHaveAttribute('lang', 'es-ES')
   await page.getByRole('button', { name: 'Abrir menú', exact: true }).click()
@@ -36,7 +34,6 @@ test('respeta el idioma de URLs concretas y la elección manual persistida', asy
   await expect(page).toHaveURL(/\/$/)
   await page.reload()
   await expect(page.locator('html')).toHaveAttribute('lang', 'es-ES')
-  await context.close()
 })
 
 test('selector de idioma conserva ancla y parámetros', async ({ page }) => {
