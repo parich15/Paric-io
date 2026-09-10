@@ -1,14 +1,63 @@
-<script setup>
-/** Barrido de transición: tres planos (rojo, tinta, papel) cruzan la pantalla y un sello con el destino. show: true para lanzar. */
-defineProps({ show: Boolean, label: String, fixed: { type: Boolean, default: true } })
+<script setup lang="ts">
+/** Planos persistentes; AppMotion controla su timeline y la retirada mediante show. */
+withDefaults(defineProps<{ show?: boolean, label?: string, fixed?: boolean }>(), { show: false, label: '', fixed: true })
+
+const root = useTemplateRef('root')
+const stamp = useTemplateRef('stamp')
+
+function getElements() {
+  if (!root.value || !stamp.value) return null
+  return { root: root.value, stamp: stamp.value, planes: [...root.value.querySelectorAll<HTMLElement>('[data-wipe-plane]')] }
+}
+
+defineExpose({ getElements })
 </script>
+
 <template>
-  <div v-if="show" :class="[fixed ? 'fixed' : 'absolute', 'inset-0 z-[150] pointer-events-none overflow-hidden']">
-    <div class="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] bg-red animate-wipe"></div>
-    <div class="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] bg-ink animate-wipe [animation-delay:.08s]"></div>
-    <div class="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] bg-paper animate-wipe [animation-delay:.16s]"></div>
-    <div class="absolute inset-0 grid place-items-center">
-      <div class="display-p5 text-h1 text-paper bg-ink px-7 pb-2 -rotate-[5deg] animate-stamp [animation-delay:.35s] text-center max-w-[90vw]">{{ label }}</div>
+  <div v-show="show" ref="root" data-testid="page-wipe" class="p5-wipe" :class="{ 'p5-wipe--fixed': fixed }" aria-hidden="true" inert>
+    <div v-for="tone in ['red', 'ink', 'paper']" :key="tone" data-wipe-plane class="p5-wipe__plane" :class="`p5-wipe__plane--${tone}`"></div>
+    <div class="p5-wipe__center">
+      <div ref="stamp" class="p5-wipe__stamp display-p5">{{ label }}</div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.p5-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-wipe);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.p5-wipe--fixed { position: fixed; }
+
+.p5-wipe__plane {
+  position: absolute;
+  inset: -20% calc(-20% - 30vh);
+  transform: translateX(-130%) skewX(-18deg);
+}
+
+.p5-wipe__plane--red { background: var(--p5-red); }
+.p5-wipe__plane--ink { background: var(--p5-ink); }
+.p5-wipe__plane--paper { background: var(--p5-paper); }
+
+.p5-wipe__center { position: absolute; inset: 0; display: grid; place-items: center; }
+
+.p5-wipe__stamp {
+  max-width: 90vw;
+  padding: 0 28px 8px;
+  background: var(--p5-ink);
+  color: var(--p5-paper);
+  font-size: var(--size-h1);
+  text-align: center;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transform: rotate(-4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p5-wipe { display: none !important; }
+}
+</style>
