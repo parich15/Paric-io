@@ -97,7 +97,7 @@ Los pesos: fondo grande y quieto · protagonista grande y con vida (hover, drag)
 - Debe funcionar en ambos temas sin código extra: usa semánticos (`bg-bg`, `text-fg`), no base (`bg-ink`) salvo cuando el color es intencionalmente fijo (el rojo, o un overlay que siempre es tinta).
 - Texto en mayúsculas mediante utilidades, no en el contenido: el slot recibe "Ver en vivo" y el componente lo pone en mayúsculas.
 - Estados mínimos: default, hover (muelle), focus-visible (outline 3px), disabled (`opacity-40 pointer-events-none`). Activo/inactivo si aplica.
-- Expórtalo en `app/components/p5/index.ts`, añádelo a `ds-browser.js` (lista `names`) y a la tabla de `readme.md`/`DESIGN.md`. Crea o amplía un specimen en `references/components/cards/`.
+- Expórtalo en `app/components/p5/index.ts` y añádelo a la tabla de `DESIGN.md`. Crea o amplía un specimen en `references/components/cards/`; el loader original `references/ds-browser.js` es solo una referencia, no el runtime de producto.
 
 ### 3.4 Diseñar una vista nueva
 Plantilla mental, en orden:
@@ -150,6 +150,6 @@ Solo si la ruptura hace la vista **más clara** para el usuario y se documenta a
 ## 5. Relación con el resto de documentos
 
 - `DESIGN.md` — reglas y tokens concretos. Si este documento y aquel discrepan en un valor, gana `DESIGN.md`; si discrepan en intención, gana este.
-- `readme.md` — manifiesto e índice de archivos.
-- `SKILL.md` — punto de entrada para agentes.
+- `README.md` — arranque e índice de documentación.
+- `AGENTS.md` y `.agents/skills/` — convenciones y skills para agentes.
 - `references/ui_kits/portfolio/index.html` — la vista de referencia; cualquier vista nueva debería sentirse hermana suya.

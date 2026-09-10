@@ -1,7 +1,7 @@
 .carousel-card {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 48%;
   width: min(58vw, 880px, 78svh);
   aspect-ratio: 16 / 10;
   margin-left: calc(min(58vw, 880px, 78svh) / -2);
@@ -23,6 +23,7 @@
 }
 @media (max-width: 759px) {
   .carousel-card {
+    top: 50%;
     width: 82vw;
     margin-left: -41vw;
     margin-top: -25.625vw;

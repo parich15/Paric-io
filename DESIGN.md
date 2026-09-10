@@ -273,7 +273,8 @@ app/components/p5/*.vue       → 14 SFC + index.ts (barril)
 references/components/cards/*.html    → specimens de componentes
 references/guidelines/*.html          → specimens de fundamentos
 references/ui_kits/portfolio/         → pantalla Proyectos + detalle, referencia de composición
-ds-browser.js              → previsualización sin build (Tailwind browser + Vue + SFC loader)
-readme.md · SKILL.md       → manifiesto y skill para agentes
+references/ds-browser.js   → loader original de specimens (no sustituye al runtime Nuxt)
+README.md · AGENTS.md      → arranque y convenciones para agentes
+.agents/skills/            → skills de diseño y verificación
 DESIGN-SPECS.md            → filosofía, dirección artística y método para extender el sistema
 ```

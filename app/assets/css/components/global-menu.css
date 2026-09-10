@@ -53,6 +53,11 @@
   .menu-email { position: relative; inset: auto; grid-column: 1 / -1; }
   .menu-keys { display: none; }
 }
+@media (width >= 760px) and (height < 700px) {
+  .menu-layout { gap: var(--space-7); }
+  .menu-context { grid-column: 2; grid-row: 1; align-self: start; }
+  .menu-navigation { grid-row: 1; padding-block: 0; }
+}
 @media (width < 760px) {
   .menu-topbar { padding: var(--space-7) var(--space-9); gap: var(--space-3); }
   .menu-topbar > div { gap: var(--space-3); }
