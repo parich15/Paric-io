@@ -22,6 +22,8 @@ Todos los componentes de producto viven en `app/components/`, incluidos los P5 e
 Skills versionadas en `.agents/skills`: frontend-design (dirección), design-system (tokens/componentes), responsive-design (reflujo), motion-design (Anime.js) y visual-qa (capturas). Consultar la correspondiente al trabajo. Para diseño nuevo se pueden investigar referencias Persona 5; comunicar enlace y aplicación propuesta al director antes de extender el lenguaje visual.
 
 ## Código
+Los estilos scoped también se guardan en `app/assets/css/components/` o `app/assets/css/pages/` y se enlazan mediante `<style scoped src="~/assets/css/…"></style>`. La geometría dinámica permanece en bindings de estilo; no duplicar tokens.
+
 Estructura Nuxt 4: `app/pages` compone vistas, `app/components` presenta e interactúa, `app/composables` encapsula comportamiento reutilizado, `app/plugins` integra dependencias y `app/data` contiene contenido tipado. Composition API y `<script setup lang="ts">`. Props/eventos tipados, nombres claros, funciones concretas, contratos pequeños y composición. SOLID proporcional; no añadir abstracciones especulativas. JSDoc en castellano donde explique contratos, efectos o decisiones relevantes; no comentar cada línea. CSS gestiona geometría y hover, Anime.js secuencias; separar wrappers animados de los que conservan skew/rotación. Limpiar listeners y animaciones al desmontar.
 
 ## Idiomas

@@ -16,7 +16,7 @@ for (const viewport of [
       async function capture(name: string) {
         await page.evaluate(() => document.fonts.ready)
         await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
-        await page.screenshot({ path: testInfo.outputPath(`${name}.png`), fullPage: true, animations: 'disabled' })
+        await page.screenshot({ path: testInfo.outputPath(`${name}.png`), fullPage: name === 'home' || name === 'detail', animations: 'disabled' })
       }
 
       await page.goto(homePath)

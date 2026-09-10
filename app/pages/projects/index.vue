@@ -51,7 +51,7 @@ onMounted(async () => {
         class="project-stage" :class="{ 'is-dragging': dragging }" role="group" :aria-label="t('projects.all')"
         :aria-describedby="'project-drag-hint'"
         @pointerdown="carousel.onPointerDown" @pointermove="carousel.onPointerMove" @pointerup="carousel.onPointerUp"
-        @pointercancel="carousel.cancelDrag" @lostpointercapture="carousel.cancelDrag" @click.capture="carousel.onClickCapture"
+        @pointercancel="carousel.cancelDrag" @lostpointercapture.self="carousel.cancelDrag" @click.capture="carousel.onClickCapture"
       >
         <ProjectCarouselCard
           v-for="(project, cardIndex) in projects" :key="project.slug" :project="project" :index="cardIndex"
@@ -99,60 +99,4 @@ onMounted(async () => {
   </main>
 </template>
 
-<style scoped>
-.projects-page { background: var(--bg); color: var(--fg); transition: background var(--dur-theme), color var(--dur-theme); }
-.projects-screen { position: relative; isolation: isolate; height: 100svh; min-height: 560px; overflow: hidden; }
-.projects-plane {
-  position: absolute;
-  top: -10%;
-  right: -14%;
-  width: 46%;
-  height: 130%;
-  background: var(--accent);
-  transform: skewX(var(--skew-lg));
-  transition: background var(--dur-theme);
-}
-.projects-plane::after { content: ''; position: absolute; inset: 0; background-image: var(--halftone-ink); background-size: var(--halftone-size-lg); opacity: 0.25; }
-[data-theme='light'] .projects-plane { background: var(--fg); }
-[data-theme='light'] .projects-plane::after { background-image: var(--halftone-paper); }
-.projects-dots { position: absolute; inset: 0 42% 0 -10%; transform: skewX(var(--skew-lg)); opacity: 0; transition: opacity var(--dur-theme); }
-[data-theme='light'] .projects-dots { opacity: 0.32; }
-.projects-zigzag { position: absolute; top: -10%; left: -8%; width: 22%; height: 130%; transform: skewX(-14deg); opacity: 0.12; }
-[data-theme='light'] .projects-zigzag { opacity: 0.16; }
-.projects-number { position: absolute; right: 4vw; bottom: -4vh; font-size: clamp(180px, 38vw, 560px); line-height: 0.8; rotate: var(--rot-6); opacity: 0.18; pointer-events: none; user-select: none; }
-.project-categories { position: absolute; z-index: var(--z-nav); left: 2.5vw; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }
-.project-category { padding: var(--space-4) var(--space-10) var(--space-5); }
-.project-stage { position: absolute; inset: 0; z-index: var(--z-stage); perspective: 1400px; perspective-origin: 50% 45%; cursor: grab; touch-action: pan-y; user-select: none; }
-.project-stage.is-dragging { cursor: grabbing; }
-.project-stage.is-dragging :deep(.carousel-card) { transition: none; }
-.project-caption { position: absolute; left: max(9vw, 120px); bottom: 9vh; z-index: var(--z-ui); display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-6); max-width: 70vw; pointer-events: none; }
-.project-caption h1 { margin: 0; transform: rotate(var(--rot-4)); }
-.project-description { max-width: min(520px, 80vw); background: var(--fg); color: var(--bg); padding: var(--space-1) var(--space-6); border: var(--border-3) solid var(--bg); box-shadow: var(--hard-sm); transform: skewX(var(--skew)) rotate(var(--rot-1)); }
-.project-description p { margin: 0; font-family: var(--type-label); font-weight: 800; font-size: clamp(14px, 1.4vw, 20px); letter-spacing: 0.06em; line-height: 1.3; transform: skewX(calc(-1 * var(--skew))); }
-.project-controls { position: absolute; right: 4vw; bottom: 10vh; z-index: var(--z-ui); display: flex; align-items: center; gap: var(--space-6); }
-.project-arrow { width: 52px; height: 52px; padding: 0; justify-content: center; font-family: var(--type-display); font-size: 26px; background: var(--bg); }
-.project-arrow:hover { background: var(--accent); color: var(--accent-fg); }
-.project-counter { color: var(--accent-fg); text-shadow: var(--text-shadow-hard); font-size: clamp(24px, 3vw, 40px); white-space: nowrap; }
-.project-counter small { font-size: 0.6em; color: var(--p5-gray); text-shadow: none; }
-.project-keyboard { position: absolute; left: 50%; bottom: max(16px, calc(5vh - var(--space-11))); z-index: var(--z-ui); display: flex; align-items: center; gap: var(--space-10); padding: var(--space-2) var(--space-8); background: var(--fg); color: var(--bg); border: var(--border-3) solid var(--bg); box-shadow: var(--hard-md); transform: translateX(-50%) skewX(var(--skew)); white-space: nowrap; pointer-events: none; }
-.project-static-list { padding: var(--space-14) var(--page-x); }
-.project-static-list li { margin-block: var(--space-11); }
-.project-static-list a { display: inline-block; padding-block: var(--space-5); text-decoration: underline; }
-@media (min-width: 760px) and (max-height: 699px) {
-  .project-caption { bottom: 6vh; }
-}
-@media (max-width: 759px) {
-  .projects-screen { height: auto; min-height: 100svh; display: flex; flex-direction: column; padding-top: var(--page-top); }
-  .project-stage { position: relative; inset: auto; flex: none; width: 100%; height: max(280px, 68vw); max-height: 500px; perspective: 900px; }
-  .project-caption { position: relative; inset: auto; margin: -12px 5vw 0; max-width: 90vw; gap: var(--space-6); }
-  .project-caption :deep(.text-h1) { font-size: clamp(40px, 7vw, 54px); }
-  .project-description { max-width: 88vw; }
-  .project-controls { position: relative; inset: auto; justify-content: flex-end; margin: var(--space-11) 5vw var(--space-7); }
-  .project-counter { padding: var(--space-3); background: var(--bg); color: var(--fg); }
-  .project-counter small { color: var(--fg-muted); }
-  .project-categories { position: relative; inset: auto; order: 4; transform: none; flex-direction: row; justify-content: center; align-items: center; gap: var(--space-4); margin-top: auto; padding: var(--space-11) 5vw var(--space-13); }
-  .project-category { writing-mode: horizontal-tb !important; font-size: 18px; min-height: 44px; padding-inline: var(--space-6); }
-  .project-category[aria-pressed='true'] { font-size: 22px; }
-  .projects-number { bottom: 12%; }
-}
-</style>
+<style scoped src="~/assets/css/pages/projects.css"></style>

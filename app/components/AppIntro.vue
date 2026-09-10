@@ -77,37 +77,4 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style scoped>
-.app-intro {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-intro);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background: var(--p5-ink);
-  pointer-events: none;
-}
-
-.app-intro__plane { position: absolute; top: -10%; height: 120%; transform: skewX(-22deg); }
-.app-intro__plane--red { left: -5%; width: 70%; background: var(--p5-red); }
-.app-intro__plane--paper { right: -5%; width: 35%; background: var(--p5-paper); }
-.app-intro__center { position: relative; text-align: center; }
-
-.app-intro__stamp {
-  display: inline-block;
-  max-width: 94vw;
-  padding: 8px clamp(8px, 3vw, 32px) 16px;
-  background: var(--p5-ink);
-  color: var(--p5-paper);
-  font-size: var(--size-hero);
-  box-shadow: 12px 12px 0 var(--p5-paper);
-  transform: rotate(-4deg);
-}
-
-.app-intro__loading { margin-top: 28px; font-size: 20px; letter-spacing: var(--track-loader); color: var(--p5-ink); }
-
-@media (prefers-reduced-motion: reduce) {
-  .app-intro { display: none !important; }
-}
-</style>
+<style scoped src="~/assets/css/components/app-intro.css"></style>

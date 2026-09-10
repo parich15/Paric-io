@@ -76,6 +76,7 @@ export function useProjectCarousel(root: Ref<HTMLElement | null>) {
     gesture = { id: event.pointerId, startX: event.clientX, startY: event.clientY, position: index.value, width: target.clientWidth * (target.clientWidth < 760 ? 0.6 : 0.42), target }
   }
 
+  /** Transfiere la captura táctil implícita del contenido al escenario sin cancelar el gesto. */
   function onPointerMove(event: PointerEvent) {
     if (!gesture || event.pointerId !== gesture.id) return
     const deltaX = event.clientX - gesture.startX

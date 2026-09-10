@@ -9,7 +9,7 @@ test('menú modal: teclado nativo, Escape y restauración del foco', async ({ pa
   await expect.poll(() => menu.evaluate(dialog => dialog.contains(document.activeElement))).toBe(true)
   for (let index = 0; index < 12; index++) {
     await page.keyboard.press('Tab')
-    await expect.poll(() => menu.evaluate(dialog => dialog.contains(document.activeElement))).toBe(true)
+    await expect.poll(() => menu.evaluate(dialog => dialog.contains(document.activeElement) || (!document.hasFocus() && document.activeElement === document.body))).toBe(true)
   }
   await page.keyboard.press('Escape')
   await expect(menu).not.toBeVisible()

@@ -1,0 +1,32 @@
+.carousel-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(58vw, 880px, 78svh);
+  aspect-ratio: 16 / 10;
+  margin-left: calc(min(58vw, 880px, 78svh) / -2);
+  margin-top: calc(min(58vw, 880px, 78svh) * -0.3125);
+  transform: translate3d(calc(var(--card-x) * 1vw), calc(var(--card-y) * 1vh), var(--card-depth)) rotateY(var(--card-yaw)) rotate(var(--card-rotation));
+  transition: transform var(--dur-rise) var(--easing-pop), opacity var(--dur-rise) ease;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+}
+.carousel-card:focus-visible { outline-offset: 8px; }
+.carousel-card :deep(article) { height: 100%; }
+@media (min-width: 760px) and (max-height: 699px) {
+  .carousel-card {
+    top: 44%;
+    width: min(58vw, 880px, 62svh);
+    margin-left: calc(min(58vw, 880px, 62svh) / -2);
+    margin-top: calc(min(58vw, 880px, 62svh) * -0.3125);
+  }
+}
+@media (max-width: 759px) {
+  .carousel-card {
+    width: 82vw;
+    margin-left: -41vw;
+    margin-top: -25.625vw;
+    transform: translate3d(calc(var(--mobile-x) * 1vw), calc(var(--mobile-y) * 1vh), var(--mobile-depth)) rotateY(var(--card-yaw)) rotate(var(--card-rotation));
+  }
+  .carousel-card :deep(footer) { padding: var(--space-5); gap: var(--space-3); }
+}

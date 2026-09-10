@@ -48,7 +48,10 @@ test('teclado, selección visible y Escape contextual en detalle', async ({ page
 
 test('la selección por tarjeta y el cambio de idioma conservan el proyecto', async ({ page }) => {
   await page.goto('/proyectos')
-  await page.getByRole('link', { name: 'Seleccionar Velvet Commerce', exact: true }).click()
+  await expect(page.locator('.project-static-list')).toHaveCount(0)
+  const nextCard = await page.getByRole('link', { name: 'Seleccionar Velvet Commerce', exact: true }).boundingBox()
+  expect(nextCard).not.toBeNull()
+  await page.mouse.click(nextCard!.x + nextCard!.width * .9, nextCard!.y + nextCard!.height * .5)
   await expect(page.locator('main h1')).toHaveAccessibleName('Velvet Commerce')
   await page.getByRole('button', { name: 'Abrir menú', exact: true }).click()
   await page.getByRole('dialog').getByRole('link', { name: 'EN', exact: true }).click()
@@ -61,6 +64,7 @@ test('la selección por tarjeta y el cambio de idioma conservan el proyecto', as
 test('gesto táctil horizontal cambia de tarjeta sin abrir detalle', async ({ page, context }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/proyectos')
+  await expect(page.locator('.project-static-list')).toHaveCount(0)
   const card = page.locator('[data-project-card][aria-current="true"]')
   const bounds = await card.boundingBox()
   expect(bounds).not.toBeNull()

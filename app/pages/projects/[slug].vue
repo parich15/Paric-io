@@ -109,42 +109,4 @@ useSeoMeta({
   </main>
 </template>
 
-<style scoped>
-.project-detail { position: relative; isolation: isolate; min-height: 100svh; overflow: clip; padding: var(--page-top) var(--page-x) var(--space-16); background: var(--bg); color: var(--fg); }
-.detail-plane { position: absolute; top: -10%; left: -14%; width: 42%; height: 130%; background: var(--accent); transform: skewX(var(--skew-lg)); }
-.detail-plane::after { content: ''; position: absolute; inset: 0; background-image: var(--halftone-ink); background-size: var(--halftone-size-lg); opacity: 0.25; }
-.detail-ring { position: absolute; right: -6vw; top: 6vh; width: min(30vw, 380px); aspect-ratio: 1; border: var(--border-6) dashed var(--fg); border-radius: var(--radius-full); opacity: 0.3; }
-.detail-content { position: relative; z-index: 1; }
-.detail-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-7); margin-bottom: var(--space-14); }
-.detail-back { display: inline-flex; align-items: center; gap: var(--space-4); min-height: 44px; padding: var(--space-3) var(--space-8); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); box-shadow: var(--hard-ink); font-family: var(--type-label); font-weight: 800; font-size: var(--size-btn-sm); text-transform: uppercase; letter-spacing: var(--track-label-wide); transform: skewX(var(--skew)); transition: transform var(--dur-hover) var(--easing-pop); }
-.detail-back:hover { color: var(--p5-ink); transform: skewX(var(--skew)) scale(1.06) rotate(var(--rot-2)); }
-.detail-identification { display: flex; gap: var(--space-5); align-items: center; }
-.detail-number { font-family: var(--type-display); font-size: clamp(28px, 3.5vw, 52px); line-height: 1; }
-.detail-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: var(--space-14); align-items: center; }
-.detail-introduction { display: flex; flex-direction: column; gap: var(--space-11); min-width: 0; }
-.detail-client { display: inline-flex; align-self: flex-start; align-items: center; gap: var(--space-5); padding: var(--space-2) var(--space-6); font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); background: var(--p5-paper); color: var(--p5-ink); transform: rotate(var(--rot-2)) skewX(var(--skew-sm)); }
-.detail-client > span { width: 10px; height: 10px; flex: none; rotate: 45deg; background: var(--accent); }
-.detail-introduction h1 { margin: 0; }
-.detail-introduction h1 :deep(span) { text-shadow: var(--text-shadow-ink); }
-.detail-description { margin: 0; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; font-weight: 600; }
-.detail-tags, .detail-actions { display: flex; flex-wrap: wrap; gap: var(--space-7); }
-.detail-tags { gap: var(--space-3); }
-.detail-demo p, .detail-unavailable { margin: var(--space-5) 0 0; font-size: var(--size-body); line-height: 1.5; }
-.detail-unavailable { margin: 0; }
-.detail-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--space-11); margin-top: var(--space-16); }
-.detail-story { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--space-14); margin-top: var(--space-16); }
-.detail-story section { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }
-.detail-story p { margin: 0; max-width: 520px; font-size: var(--size-body); line-height: 1.5; font-weight: 600; }
-.detail-gallery { margin-top: var(--space-15); }
-.detail-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--space-12); margin-top: var(--space-14); }
-.detail-next { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-9); margin-top: var(--space-17); padding: var(--space-12) var(--space-13); background: var(--p5-paper); color: var(--p5-ink); box-shadow: var(--hard-xl); transform: skewX(var(--skew-xs)); transition: transform var(--dur-hover) var(--easing-pop), background var(--dur-hover), color var(--dur-hover); }
-.detail-next > span { transform: skewX(calc(-1 * var(--skew-xs))); }
-.detail-next .label-p5 { font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); }
-.detail-next .display-p5 { font-size: clamp(30px, 5vw, 72px); line-height: 0.95; overflow-wrap: anywhere; }
-.detail-next:hover { background: var(--accent); color: var(--accent-fg); transform: skewX(var(--skew-xs)) scale(1.01); }
-@media (max-width: 759px) {
-  .detail-toolbar { margin-bottom: var(--space-13); }
-  .detail-introduction { gap: var(--space-9); }
-  .detail-next { padding-inline: var(--space-9); }
-}
-</style>
+<style scoped src="~/assets/css/pages/project-detail.css"></style>
