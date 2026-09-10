@@ -8,7 +8,7 @@
 
 Portfolio personal de **Oscar Paricio** con la energía visual de un menú de *Persona 5*: tres tintas (negro, papel, rojo), tipografía enorme en mayúsculas, todo inclinado y girado, sombras duras sin desenfoque, y transiciones de barrido que hacen sentir cada cambio de pantalla como un golpe.
 
-**Stack:** Vue 3 (SFC, `<script setup>`) + Tailwind 4 (`@theme inline`). Tokens en `tokens/*.css`, utilidades en `tokens/tailwind.css`, componentes en `components/vue/`.
+**Stack:** Vue 3 (SFC, `<script setup>`) + Tailwind 4 (`@theme inline`). Tokens en `app/assets/css/*.css`, utilidades en `app/assets/css/tailwind.css`, componentes en `app/components/p5/`.
 
 ---
 
@@ -60,7 +60,7 @@ Gradientes suaves de dos colores, tonos pastel, azules/morados, sombras con blur
 
 ## 3. Tipografía
 
-Tres familias, tres trabajos. Todas vía Google Fonts (`tokens/fonts.css`).
+Tres familias, tres trabajos. Todas locales, procedentes de Google Fonts (`app/assets/css/fonts.css`).
 
 | Rol | Familia | Token | Peso | Reglas |
 |---|---|---|---|---|
@@ -168,7 +168,7 @@ Valores exactos, no una rejilla de 8. Escala `--space-1…17`: 4, 6, 8, 10, 12, 
 
 **Press:** no hay estado press distinto; el muelle del hover ya da la respuesta. Foco: `outline: 3px solid var(--accent); outline-offset: 3px`.
 
-**Entradas** (`@keyframes` en `tokens/motion.css`, utilidades `animate-*`):
+**Entradas** (`@keyframes` en `app/assets/css/motion.css`, utilidades `animate-*`):
 - `stamp`: de `scale(2.2) rotate(-14deg)` a `scale(1) rotate(-4deg)`. Titulares, números, sello del wipe.
 - `rise`: 30px hacia arriba + fade. Bloques de contenido, escalonados `.2s / .3s / .45s / .55s`.
 - `in`: 60px desde la izquierda con skew. Opciones de menú, escalonadas `.08s`.
@@ -182,9 +182,9 @@ Valores exactos, no una rejilla de 8. Escala `--space-1…17`: 4, 6, 8, 10, 12, 
 
 ---
 
-## 8. Componentes (`components/vue/`)
+## 8. Componentes (`app/components/p5/`)
 
-Importa desde el barril: `import { P5Button, P5Card } from '@/design-system/components/vue'`. Todos aceptan `class` para posicionamiento externo. **No dupliques estilos que ya viven en un componente.**
+Importa desde el barril: `import { P5Button, P5Card } from '~/components/p5'`. Todos aceptan `class` para posicionamiento externo. **No dupliques estilos que ya viven en un componente.**
 
 | Componente | Cuándo | Props |
 |---|---|---|
@@ -261,18 +261,18 @@ Importa desde el barril: `import { P5Button, P5Card } from '@/design-system/comp
 ## 12. Mapa de archivos
 
 ```
-styles.css                 → @import de todos los tokens (:root)
-tokens/colors.css          → tintas, neutros, semánticos, [data-theme="light"]
-tokens/typography.css      → familias, escala, tracking, pesos
-tokens/spacing.css         → escala px, padding de página, z-index
-tokens/effects.css         → sombras duras, bordes, skew/rot, clip, texturas
-tokens/motion.css          → easings, duraciones, @keyframes, reduced-motion
-tokens/fonts.css           → Google Fonts (Anton, Barlow, Barlow Condensed)
-tokens/tailwind.css        → @import "tailwindcss" + @theme inline + @utility propias  ← entrada Tailwind 4
-components/vue/*.vue       → 14 SFC + index.js (barril)
-components/cards/*.html    → specimens de componentes
-guidelines/*.html          → specimens de fundamentos
-ui_kits/portfolio/         → pantalla Proyectos + detalle, referencia de composición
+app/assets/css/main.css                 → @import de todos los tokens (:root)
+app/assets/css/colors.css          → tintas, neutros, semánticos, [data-theme="light"]
+app/assets/css/typography.css      → familias, escala, tracking, pesos
+app/assets/css/spacing.css         → escala px, padding de página, z-index
+app/assets/css/effects.css         → sombras duras, bordes, skew/rot, clip, texturas
+app/assets/css/motion.css          → easings, duraciones, @keyframes, reduced-motion
+app/assets/css/fonts.css           → fuentes locales con licencias en public/fonts (Anton, Barlow, Barlow Condensed)
+app/assets/css/tailwind.css        → @import "tailwindcss" + @theme inline + @utility propias  ← entrada Tailwind 4
+app/components/p5/*.vue       → 14 SFC + index.ts (barril)
+references/components/cards/*.html    → specimens de componentes
+references/guidelines/*.html          → specimens de fundamentos
+references/ui_kits/portfolio/         → pantalla Proyectos + detalle, referencia de composición
 ds-browser.js              → previsualización sin build (Tailwind browser + Vue + SFC loader)
 readme.md · SKILL.md       → manifiesto y skill para agentes
 DESIGN-SPECS.md            → filosofía, dirección artística y método para extender el sistema

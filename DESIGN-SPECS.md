@@ -45,7 +45,7 @@ Cinco piezas construyen todo el sistema. Cualquier vista nueva debe poder descri
 | **Textura** | Halftone / zigzag / vetas a baja opacidad | Solo sobre planos, nunca sobre texto ni sobre toda la vista |
 
 ### 2.3 Composición de una vista
-El esqueleto que se repite (ver `ui_kits/portfolio/`):
+El esqueleto que se repite (ver `references/ui_kits/portfolio/`):
 
 1. **Fondo**: un plano rojo o tinta inclinado ocupando ~45% de un lado; opcionalmente un plano texturizado más estrecho en el lado opuesto; un elemento gigante en outline (número, letra) a opacidad .18 anclado a una esquina.
 2. **Cabecera fija**: marca a la izquierda, contexto ("MENÚ: SECCIÓN" + subtítulo) y botón MENÚ rojo a la derecha. Es idéntica en todas las vistas: es el ancla.
@@ -86,18 +86,18 @@ Los pesos: fondo grande y quieto · protagonista grande y con vida (hover, drag)
 4. **Decide qué es rojo.** Una cosa. Si nada, la vista no tiene acción principal y hay que replanteárselo.
 
 ### 3.2 Añadir un token
-- Vive en `tokens/<concern>.css` como `--nombre` en `:root`. Nombres en inglés, prefijo por familia (`--size-`, `--hard-`, `--skew-`…).
-- Si Tailwind debe exponerlo, mapéalo en `tokens/tailwind.css` dentro de `@theme inline` (`--color-*`, `--text-*`, `--shadow-*`, `--ease-*`, `--animate-*`) o como `@utility` si es una combinación.
+- Vive en `app/assets/css/<concern>.css` como `--nombre` en `:root`. Nombres en inglés, prefijo por familia (`--size-`, `--hard-`, `--skew-`…).
+- Si Tailwind debe exponerlo, mapéalo en `app/assets/css/tailwind.css` dentro de `@theme inline` (`--color-*`, `--text-*`, `--shadow-*`, `--ease-*`, `--animate-*`) o como `@utility` si es una combinación.
 - Valores exactos de los prototipos, no redondeados a una rejilla. Si no viene de ningún sitio, justifícalo en un comentario de una línea.
-- Añade un specimen en `guidelines/` con `<!-- @dsCard group="…" -->` si el token es visible.
+- Añade un specimen en `references/guidelines/` con `<!-- @dsCard group="…" -->` si el token es visible.
 
 ### 3.3 Añadir un componente Vue
-- `components/vue/P5Nombre.vue`, `<script setup>`, props tipadas con `default`, comentario JSDoc de una línea encima de `defineProps` diciendo qué es y cuándo.
-- Estilos solo con utilidades Tailwind del tema (`bg-fg`, `shadow-hard`, `skew-p5`, `label-p5`…). Sin CSS scoped salvo para `@keyframes` propios (que deberían ir a `tokens/motion.css`).
+- `app/components/p5/P5Nombre.vue`, `<script setup>`, props tipadas con `default`, comentario JSDoc de una línea encima de `defineProps` diciendo qué es y cuándo.
+- Estilos solo con utilidades Tailwind del tema (`bg-fg`, `shadow-hard`, `skew-p5`, `label-p5`…). Sin CSS scoped salvo para `@keyframes` propios (que deberían ir a `app/assets/css/motion.css`).
 - Debe funcionar en ambos temas sin código extra: usa semánticos (`bg-bg`, `text-fg`), no base (`bg-ink`) salvo cuando el color es intencionalmente fijo (el rojo, o un overlay que siempre es tinta).
 - Texto en mayúsculas mediante utilidades, no en el contenido: el slot recibe "Ver en vivo" y el componente lo pone en mayúsculas.
 - Estados mínimos: default, hover (muelle), focus-visible (outline 3px), disabled (`opacity-40 pointer-events-none`). Activo/inactivo si aplica.
-- Expórtalo en `components/vue/index.js`, añádelo a `ds-browser.js` (lista `names`) y a la tabla de `readme.md`/`DESIGN.md`. Crea o amplía un specimen en `components/cards/`.
+- Expórtalo en `app/components/p5/index.ts`, añádelo a `ds-browser.js` (lista `names`) y a la tabla de `readme.md`/`DESIGN.md`. Crea o amplía un specimen en `references/components/cards/`.
 
 ### 3.4 Diseñar una vista nueva
 Plantilla mental, en orden:
@@ -141,7 +141,7 @@ Solo si la ruptura hace la vista **más clara** para el usuario y se documenta a
 - **Plano, placa, sello, cuña, textura**: ver §2.2.
 - **Letra a letra**: titular donde cada carácter rota y algunos llevan placa (`P5Heading`).
 - **Wipe**: barrido de tres planos con sello de destino (`P5Wipe`).
-- **Stamp / rise / in / pop**: animaciones de entrada (`tokens/motion.css`).
+- **Stamp / rise / in / pop**: animaciones de entrada (`app/assets/css/motion.css`).
 - **Muelle**: easing `cubic-bezier(.2,1.4,.3,1)` de hover.
 - **Pista de teclado**: barra de tinta con `P5Kbd` que enseña los atajos de la vista.
 
@@ -152,4 +152,4 @@ Solo si la ruptura hace la vista **más clara** para el usuario y se documenta a
 - `DESIGN.md` — reglas y tokens concretos. Si este documento y aquel discrepan en un valor, gana `DESIGN.md`; si discrepan en intención, gana este.
 - `readme.md` — manifiesto e índice de archivos.
 - `SKILL.md` — punto de entrada para agentes.
-- `ui_kits/portfolio/index.html` — la vista de referencia; cualquier vista nueva debería sentirse hermana suya.
+- `references/ui_kits/portfolio/index.html` — la vista de referencia; cualquier vista nueva debería sentirse hermana suya.

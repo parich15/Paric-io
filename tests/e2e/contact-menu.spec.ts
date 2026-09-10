@@ -31,7 +31,7 @@ test('contacto es una maqueta y los atajos no interceptan escritura', async ({ p
   await expect(page.getByRole('dialog')).not.toBeVisible()
   await expect(page.getByRole('button', { name: 'Envío no disponible', exact: true })).toBeDisabled()
   await expect(page.locator('form')).toContainText('Formulario de maqueta')
-  await expect(page.locator('a[href="mailto:oscar@paric.io"]').first()).toBeVisible()
+  await expect(page.locator('main a[href="mailto:oscar@paric.io"]').first()).toBeVisible()
   expect(requests).toEqual([])
   await expect(page.getByText(/enviado|message sent/i)).toHaveCount(0)
 })

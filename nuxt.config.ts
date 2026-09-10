@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@nuxtjs/i18n', '@vueuse/nuxt', '@nuxt/eslint'],
   css: ['~/assets/css/main.css'],
-  components: [{ path: '~/components', pathPrefix: false }, { path: '~~/design-system/components/vue', pathPrefix: false }],
+  components: [{ path: '~/components', pathPrefix: false }],
   vite: { plugins: [tailwindcss()] },
   typescript: { strict: true },
   app: { head: { titleTemplate: '%s · Paric.io', meta: [{ name: 'theme-color', content: '#0A0A0A' }] } },
@@ -30,4 +30,3 @@ export default defineNuxtConfig({
     },
   },
 })
-

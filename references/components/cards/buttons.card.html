@@ -1,0 +1,11 @@
+<!-- @dsCard group="Components" viewport="700x300" subtitle="P5Button · primary / outline / paper / ghost · sm md lg · disabled" name="Botones" -->
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Botones</title>
+<script src="../../ds-browser.js" data-root="../../"></script>
+<style>body{margin:0;padding:20px;background:var(--bg);color:var(--fg);font-family:var(--type-body)} .row{display:flex;flex-wrap:wrap;gap:18px;align-items:center}</style></head><body>
+<div id="app" class="flex flex-col gap-6">
+  <div class="row"><p5-button size="lg">Ver en vivo</p5-button><p5-button variant="outline" size="lg">Código</p5-button><p5-button variant="paper" size="lg">Volver</p5-button><p5-button variant="ghost" size="lg">Saltar →</p5-button></div>
+  <div class="row"><p5-button>Menú</p5-button><p5-button variant="outline">Filtrar</p5-button><p5-button variant="paper">← Volver a proyectos</p5-button><p5-button disabled>Enviando…</p5-button></div>
+  <div class="row"><p5-button size="sm">Enviar</p5-button><p5-button size="sm" variant="outline">Cancelar</p5-button><p5-button size="sm" variant="paper">Copiar email</p5-button></div>
+</div>
+<script>const app = P5.mount('#app', {});</script>
+</body></html>

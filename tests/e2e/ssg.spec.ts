@@ -11,7 +11,7 @@ for (const locale of ['es', 'en'] as const) {
     await page.goto(homePath)
     await expect(page.locator('h1')).toContainText(/Oscar.*Paricio/i)
     await expect(page.locator('html')).toHaveAttribute('lang', locale === 'es' ? 'es-ES' : 'en-GB')
-    await expect(page.locator('a[href="mailto:oscar@paric.io"]').first()).toBeVisible()
+    await expect(page.locator('main a[href="mailto:oscar@paric.io"]').first()).toBeVisible()
     expect(await page.locator('link[rel="alternate"][hreflang]').count()).toBeGreaterThanOrEqual(2)
 
     await page.goto(galleryPath)

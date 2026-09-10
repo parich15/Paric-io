@@ -1,7 +1,7 @@
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt({
-  ignores: ['references/**', 'design-system/ds-browser.js', 'design-system/ui_kits/**', 'design-system/components/cards/**', 'design-system/guidelines/**'],
+  ignores: ['references/**'],
 }, {
   rules: {
     'vue/multi-word-component-names': 'off',

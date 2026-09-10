@@ -1,5 +1,10 @@
-@import '../../../design-system/tokens/tailwind.css';
-@source '../../../design-system/components/vue';
+@import './tailwind.css';
+@import './fonts.css';
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './effects.css';
+@import './motion.css';
 
 html { scroll-padding-top: 100px; }
 body { min-width: 360px; }

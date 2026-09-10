@@ -27,7 +27,6 @@ Castellano: `/` y `/proyectos`; inglés: `/en` y `/en/projects`. Solo una visita
 
 El contacto es una maqueta: los campos no se envían ni almacenan y nunca se anuncia un envío. El enlace `mailto:oscar@paric.io` es la vía de contacto. Acciones demo sin destino están deshabilitadas.
 
-Guías y trabajo multiagente: [AGENTS.md](AGENTS.md), [DESIGN.md](DESIGN.md), [DESIGN-SPECS.md](DESIGN-SPECS.md). Referencias originales en `references/`, componentes, tokens y guidelines en `design-system/`. Excepción de contraste: [ADR 001](docs/adr/001-contraste.md).
+Guías y trabajo multiagente: [AGENTS.md](AGENTS.md), [DESIGN.md](DESIGN.md), [DESIGN-SPECS.md](DESIGN-SPECS.md). Referencias originales en `references/`, componentes en `app/components/`, CSS y tokens en `app/assets/css/`, y guidelines en `references/guidelines/`. Excepción de contraste: [ADR 001](docs/adr/001-contraste.md).
 
 El blog queda para una ampliación con Nuxt Content y contenido versionado; sin backoffice. CI, remoto y despliegue fuera de este arranque.
-
