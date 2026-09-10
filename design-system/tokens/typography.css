@@ -1,0 +1,42 @@
+/* Paric.io · Tipografía. Tres familias, todas en mayúsculas para display y etiquetas. */
+:root {
+  --type-display: "Anton", Impact, sans-serif;            /* titulares, números, botones grandes */
+  --type-label: "Barlow Condensed", "Arial Narrow", sans-serif; /* etiquetas, tags, kbd, botones */
+  --type-body: "Barlow", Helvetica, Arial, sans-serif;     /* párrafos */
+
+  /* Escala display (fluida) */
+  --size-hero: clamp(64px, 14vw, 180px);
+  --size-title: clamp(52px, 8.5vw, 150px);
+  --size-h1: clamp(40px, 7vw, 120px);
+  --size-h2: clamp(32px, 4vw, 56px);
+  --size-h3: clamp(22px, 2vw, 30px);
+  --size-num: clamp(48px, 7vw, 110px);
+
+  /* Escala fija */
+  --size-btn-lg: 22px;
+  --size-btn: 18px;
+  --size-btn-sm: 16px;
+  --size-body-lg: 22px;
+  --size-body: 18px;
+  --size-label: 14px;
+  --size-label-sm: 13px;
+  --size-label-xs: 12px;
+
+  /* Interlineado */
+  --lh-display: 0.9;
+  --lh-tight: 1.05;
+  --lh-body: 1.5;
+
+  /* Tracking (etiquetas siempre muy abiertas) */
+  --track-display: 0.04em;
+  --track-btn: 0.06em;
+  --track-label: 0.14em;
+  --track-label-wide: 0.18em;
+  --track-label-xwide: 0.24em;
+  --track-loader: 0.3em;
+
+  /* Pesos */
+  --weight-body: 400;
+  --weight-body-strong: 600;
+  --weight-label: 800;
+}

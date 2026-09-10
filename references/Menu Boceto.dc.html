@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@600;800&family=Barlow+Condensed:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#0A0A0A; color:#F5F5F5; font-family:'Barlow', sans-serif; overflow:hidden; }
+  * { box-sizing:border-box; }
+  a { color:#F5F5F5; text-decoration:none; }
+  a:hover { color:#E60012; }
+  @keyframes p5in { 0% { transform: translateX(-80px) skewX(-12deg); opacity:0; } 100% { transform: translateX(0) skewX(-12deg); opacity:1; } }
+  @keyframes p5stamp { 0% { transform: scale(2) rotate(-14deg); opacity:0; } 60% { transform: scale(0.95) rotate(-4deg); opacity:1; } 100% { transform: scale(1) rotate(-4deg); opacity:1; } }
+  @keyframes p5blink { 0%, 100% { opacity:1; } 50% { opacity:0.2; } }
+  @keyframes p5slash { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(0) skewX(-20deg); } }
+  @keyframes p5zig { 0% { background-position: 30px 0, 30px 0, 0 0, 0 0; } 100% { background-position: 30px -60px, 30px -60px, 0 -60px, 0 -60px; } }
+  @keyframes p5barsin { 0% { opacity:0; transform: translateX(-6%); } 100% { opacity:1; transform: translateX(0); } }
+  @keyframes p5bars { 0% { transform: translateX(-3%) scaleX(1); } 50% { transform: translateX(3%) scaleX(1.04); } 100% { transform: translateX(-3%) scaleX(1); } }
+  @keyframes p5pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+</style>
+</helmet>
+
+<div data-screen-label="Menú P5" tabIndex="0" onKeyDown="{{ onKey }}" style="position:relative; width:100vw; height:100vh; overflow:hidden; background:#0A0A0A; outline:none; font-family:'Barlow', sans-serif; cursor:default;">
+
+  <!-- FONDO: rojo izquierda con vetas -->
+  <div style="position:absolute; inset:0; background:#E60012;"></div>
+  <div style="position:absolute; top:0; bottom:0; left:-10%; width:120%; background: repeating-linear-gradient(100deg, #B3000E 0 6%, #E60012 6% 14%, #8F000B 14% 17%, #E60012 17% 30%); animation: p5barsin 0.8s ease both, p5bars 9s ease-in-out 0.8s infinite;"></div>
+  <!-- FONDO: zigzag B/N derecha -->
+  <div style="position:absolute; top:-10%; right:-10%; width:62%; height:130%; transform: skewX(-14deg); background-color:#F5F5F5; background-image: linear-gradient(135deg, #0A0A0A 25%, transparent 25%), linear-gradient(225deg, #0A0A0A 25%, transparent 25%), linear-gradient(45deg, #0A0A0A 25%, transparent 25%), linear-gradient(315deg, #0A0A0A 25%, #F5F5F5 25%); background-position: 30px 0, 30px 0, 0 0, 0 0; background-size: 60px 60px; opacity:0.92; animation: p5slash 0.5s cubic-bezier(.2,.9,.2,1) both, p5zig 2.6s ease-in-out infinite;"></div>
+  <!-- Franja negra diagonal central -->
+  <div style="position:absolute; top:-10%; left:38%; width:26%; height:130%; background:#0A0A0A; transform: skewX(-16deg); box-shadow: -14px 0 0 #F5F5F5;"></div>
+  <!-- Halftone -->
+  <div style="position:absolute; inset:0; background-image: radial-gradient(#0A0A0A 1.4px, transparent 1.6px); background-size: 12px 12px; opacity:0.16; pointer-events:none;"></div>
+
+  <!-- RETRATO (cambia de pose según la opción) -->
+  <div style="position:absolute; left:50%; top:50%; width:min(58vh, 46vw); aspect-ratio: 4/5; margin-left: calc(min(58vh, 46vw) / -2); margin-top: calc(min(58vh, 46vw) * -0.625); transform: translate({{ pose.x }}, {{ pose.y }}) rotate({{ pose.rot }}) scale({{ pose.scale }}); transition: transform 0.55s cubic-bezier(.2,1.25,.3,1), clip-path 0.55s cubic-bezier(.2,1.25,.3,1); clip-path: {{ pose.clip }}; z-index:3; filter: drop-shadow(18px 14px 0 #0A0A0A);">
+    <div style="position:absolute; inset:0; display:{{ showSobre }};">
+      <img src="uploads/1617281089112.jpg" alt="Oscar Paricio" style="width:100%; height:100%; object-fit:cover; object-position: 50% 20%; display:block; filter: {{ photoFilter }}; transition: filter .4s;">
+      <div style="position:absolute; inset:0; background: {{ photoOverlay }}; mix-blend-mode: multiply; pointer-events:none;"></div>
+      <div style="position:absolute; inset:0; background-image: radial-gradient(#0A0A0A 1.2px, transparent 1.5px); background-size: 7px 7px; opacity:{{ halftone }}; mix-blend-mode: multiply; pointer-events:none;"></div>
+    </div>
+    <!-- INICIO: estrella / marca -->
+    <svg viewBox="0 0 400 500" style="position:absolute; inset:0; width:100%; height:100%; display:{{ showInicio }};">
+      <rect width="400" height="500" fill="#F5F5F5"></rect>
+      <polygon points="0,500 400,120 400,500" fill="#0A0A0A"></polygon>
+      <polygon points="200,60 245,175 365,180 270,255 300,375 200,305 100,375 130,255 35,180 155,175" fill="#E60012" stroke="#0A0A0A" stroke-width="14" stroke-linejoin="round" transform="rotate(-8 200 220)"></polygon>
+      <text x="200" y="455" text-anchor="middle" font-family="Anton, sans-serif" font-size="92" fill="#F5F5F5" transform="rotate(-4 200 440)">P.IO</text>
+    </svg>
+    <!-- PROYECTOS: retícula de tarjetas -->
+    <svg viewBox="0 0 400 500" style="position:absolute; inset:0; width:100%; height:100%; display:{{ showProyectos }};">
+      <rect width="400" height="500" fill="#0A0A0A"></rect>
+      <g transform="skewX(-8)">
+        <rect x="70" y="60" width="150" height="120" fill="#F5F5F5"></rect>
+        <rect x="240" y="60" width="150" height="120" fill="#E60012"></rect>
+        <rect x="70" y="200" width="150" height="120" fill="#E60012"></rect>
+        <rect x="240" y="200" width="150" height="120" fill="#F5F5F5"></rect>
+        <rect x="70" y="340" width="320" height="100" fill="#F5F5F5"></rect>
+        <rect x="95" y="375" width="180" height="14" fill="#0A0A0A"></rect>
+        <rect x="95" y="400" width="120" height="14" fill="#E60012"></rect>
+      </g>
+      <circle cx="330" cy="100" r="22" fill="#0A0A0A"></circle>
+    </svg>
+    <!-- STACK: capas -->
+    <svg viewBox="0 0 400 500" style="position:absolute; inset:0; width:100%; height:100%; display:{{ showStack }};">
+      <rect width="400" height="500" fill="#E60012"></rect>
+      <polygon points="200,80 360,160 200,240 40,160" fill="#F5F5F5" stroke="#0A0A0A" stroke-width="12" stroke-linejoin="round"></polygon>
+      <polygon points="200,170 360,250 200,330 40,250" fill="#0A0A0A" stroke="#F5F5F5" stroke-width="12" stroke-linejoin="round"></polygon>
+      <polygon points="200,260 360,340 200,420 40,340" fill="#F5F5F5" stroke="#0A0A0A" stroke-width="12" stroke-linejoin="round"></polygon>
+      <text x="200" y="318" text-anchor="middle" font-family="Anton, sans-serif" font-size="44" fill="#F5F5F5" transform="rotate(-6 200 300)">TS</text>
+    </svg>
+    <!-- CONTACTO: sobre -->
+    <svg viewBox="0 0 400 500" style="position:absolute; inset:0; width:100%; height:100%; display:{{ showContacto }};">
+      <rect width="400" height="500" fill="#F5F5F5"></rect>
+      <polygon points="0,0 400,0 400,220 0,300" fill="#0A0A0A"></polygon>
+      <g transform="rotate(-8 200 260)">
+        <rect x="60" y="170" width="280" height="190" fill="#E60012" stroke="#0A0A0A" stroke-width="14"></rect>
+        <polyline points="60,170 200,290 340,170" fill="none" stroke="#0A0A0A" stroke-width="14" stroke-linejoin="round"></polyline>
+        <polyline points="60,360 170,265 230,265 340,360" fill="none" stroke="#0A0A0A" stroke-width="14" stroke-linejoin="round"></polyline>
+      </g>
+      <circle cx="330" cy="150" r="30" fill="#F5F5F5" stroke="#0A0A0A" stroke-width="12"></circle>
+    </svg>
+    <!-- BLOG: bocadillo -->
+    <svg viewBox="0 0 400 500" style="position:absolute; inset:0; width:100%; height:100%; display:{{ showBlog }};">
+      <rect width="400" height="500" fill="#0A0A0A"></rect>
+      <polygon points="0,380 400,300 400,500 0,500" fill="#E60012"></polygon>
+      <g transform="rotate(-6 200 220)">
+        <rect x="50" y="90" width="300" height="220" fill="#F5F5F5"></rect>
+        <polygon points="110,310 150,310 90,370" fill="#F5F5F5"></polygon>
+        <rect x="90" y="140" width="220" height="18" fill="#0A0A0A"></rect>
+        <rect x="90" y="185" width="160" height="18" fill="#0A0A0A"></rect>
+        <rect x="90" y="230" width="190" height="18" fill="#E60012"></rect>
+      </g>
+    </svg>
+  </div>
+
+  <!-- LISTA DE OPCIONES -->
+  <ul style="position:absolute; left:4vw; top:12vh; margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap: 2px; z-index:5;">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+      <li onMouseEnter="{{ it.hover }}" onClick="{{ it.select }}" style="animation: p5in 0.4s cubic-bezier(.2,.9,.2,1) both; animation-delay: {{ it.delay }}; transform: skewX(-12deg); margin-left: {{ it.indent }};">
+        <span style="display:inline-block; font-family:'Anton', sans-serif; font-size: {{ it.size }}; line-height:0.95; letter-spacing:0.02em; padding: 2px 16px 6px; color: {{ it.fg }}; background: {{ it.bg }}; transform: rotate({{ it.rot }}); box-shadow: {{ it.shadow }}; cursor:pointer; transition: transform .2s cubic-bezier(.2,1.4,.3,1), background .15s, color .15s, font-size .2s;">{{ it.label }}</span>
+      </li>
+    </sc-for>
+  </ul>
+
+  <!-- ETIQUETAS DERECHA -->
+  <div style="position:absolute; right:3vw; top:8vh; display:flex; flex-direction:column; align-items:flex-end; gap:14px; z-index:5;">
+    <div style="background:#0A0A0A; color:#F5F5F5; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:18px; letter-spacing:0.2em; padding:6px 16px; transform: rotate(3deg); border: 3px solid #F5F5F5;">PARIC.IO</div>
+    <div style="background:#F5F5F5; color:#0A0A0A; padding: 10px 22px 12px; transform: skewX(-10deg) rotate(-2deg); box-shadow: 8px 8px 0 #E60012; text-align:right;">
+      <div style="font-family:'Anton', sans-serif; font-size:clamp(26px, 3vw, 44px); line-height:1;">MENÚ: <span style="color:#E60012;">PRINCIPAL</span></div>
+      <div style="font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:14px; letter-spacing:0.24em; margin-top:4px;">SELECCIONA UNA SECCIÓN</div>
+    </div>
+    <div style="background:#E60012; color:#F5F5F5; font-family:'Anton', sans-serif; font-size:clamp(40px, 6vw, 96px); line-height:1; padding: 0 16px 6px; transform: rotate(-4deg); animation: p5stamp 0.4s cubic-bezier(.2,1.2,.3,1) both;">{{ activeNum }}</div>
+  </div>
+
+  <!-- COMMAND / SECCIÓN -->
+  <div style="position:absolute; left:max(22vw, 330px); bottom:8vh; z-index:6; display:flex; flex-direction:column; align-items:flex-start; gap:22px; pointer-events:none;">
+    <div style="display:flex; align-items:baseline;">
+      <sc-for list="{{ bigWord }}" as="l" hint-placeholder-count="7">
+        <span style="display:inline-block; font-family:'Anton', sans-serif; font-size:clamp(64px, 11vw, 170px); line-height:0.9; color:{{ l.fg }}; background:{{ l.bg }}; padding: 0 0.03em; transform: rotate({{ l.rot }}deg) translateY({{ l.dy }}px); text-shadow: 6px 6px 0 #0A0A0A;">{{ l.ch }}</span>
+      </sc-for>
+    </div>
+    <div style="background:#F5F5F5; color:#0A0A0A; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:clamp(16px, 1.5vw, 22px); letter-spacing:0.06em; padding: 4px 14px; transform: skewX(-10deg) rotate(-1deg); border: 3px solid #0A0A0A; box-shadow: 4px 4px 0 #E60012;">{{ hint }}</div>
+  </div>
+
+  <!-- CONTADORES -->
+  <div style="position:absolute; left:4vw; bottom:6vh; z-index:5; display:flex; flex-direction:column; gap:6px; font-family:'Anton', sans-serif; color:#F5F5F5; text-shadow: 3px 3px 0 #0A0A0A;">
+    <div style="font-size:clamp(20px, 2.4vw, 34px); display:flex; align-items:center; gap:12px;"><span style="display:inline-block; color:#F5F5F5; text-shadow:none; animation: p5pulse 1.2s ease-in-out infinite;">✦</span>DISPONIBLE</div>
+    <div style="font-size:clamp(16px, 1.9vw, 28px); display:flex; align-items:center; gap:12px;"><span style="color:#0A0A0A; background:#F5F5F5; padding:0 8px;">@</span><a href="mailto:oscar@paric.io" style="color:#F5F5F5;">oscar@paric.io</a></div>
+  </div>
+
+  <!-- CONTROLES -->
+  <div style="position:absolute; right:3vw; bottom:5vh; z-index:5; display:flex; gap:22px; font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:18px; letter-spacing:0.12em; color:#0A0A0A; background:#F5F5F5; padding:8px 20px; transform: skewX(-10deg); border:3px solid #0A0A0A; box-shadow: 6px 6px 0 #E60012;">
+    <span style="display:flex; align-items:center; gap:8px;"><span style="border:3px solid #0A0A0A; background:#F5F5F5; padding:1px 8px; font-size:14px;">ESC</span>Cerrar</span>
+    <span style="display:flex; align-items:center; gap:8px;"><span style="border:3px solid #0A0A0A; background:#F5F5F5; padding:1px 8px; font-size:14px;">↑↓</span>Mover</span>
+    <span style="display:flex; align-items:center; gap:8px;"><span style="border:3px solid #0A0A0A; background:#F5F5F5; padding:1px 8px; font-size:14px;">↵</span>Confirmar</span>
+  </div>
+
+  <!-- SELECCIÓN CONFIRMADA -->
+  <sc-if value="{{ confirmed }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; z-index:20; display:grid; place-items:center; background: rgba(10,10,10,0.55);">
+      <div style="font-family:'Anton', sans-serif; font-size:clamp(48px, 10vw, 140px); color:#F5F5F5; background:#E60012; padding: 0 32px 10px; transform: rotate(-5deg); animation: p5stamp 0.4s cubic-bezier(.2,1.2,.3,1) both; box-shadow: 14px 14px 0 #0A0A0A;">{{ confirmedLabel }}</div>
+      <div style="position:absolute; bottom:12vh; font-family:'Barlow Condensed', sans-serif; font-weight:800; letter-spacing:0.3em; color:#F5F5F5; animation: p5blink 0.8s steps(2) infinite;">ESC PARA VOLVER</div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;photoTreatment&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;mono&quot;,&quot;options&quot;:[&quot;mono&quot;,&quot;duotone&quot;,&quot;color&quot;],&quot;tsType&quot;:&quot;'mono'|'duotone'|'color'&quot;,&quot;section&quot;:&quot;Retrato&quot;},&quot;autoCycle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Animación&quot;}}">
+class Component extends DCLogic {
+  state = { active: 0, confirmed: false };
+  items = [
+    { key: 'Inicio', label: 'INICIO', word: 'INICIO', hint: 'Volver a la portada', num: '01', pose: { x: '8vw', y: '-4vh', rot: '6deg', scale: 0.9, clip: 'polygon(0 0, 78% 0, 100% 100%, 22% 100%)' } },
+    { key: 'Proyectos', label: 'PROYECTOS', word: 'OBRAS', hint: 'Ver los últimos trabajos', num: '02', pose: { x: '14vw', y: '-6vh', rot: '-5deg', scale: 1.05, clip: 'polygon(0 10%, 100% 0, 100% 90%, 0 100%)' } },
+    { key: 'Sobre', label: 'SOBRE MÍ', word: 'PERFIL', hint: 'Quién está detrás de Paric.io', num: '03', pose: { x: '4vw', y: '2vh', rot: '-4deg', scale: 1.0, clip: 'polygon(12% 0, 100% 0, 88% 100%, 0 100%)' } },
+    { key: 'Stack', label: 'STACK', word: 'SKILLS', hint: 'React · Next · TypeScript · Motion', num: '04', pose: { x: '18vw', y: '8vh', rot: '3deg', scale: 0.85, clip: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)' } },
+    { key: 'Contacto', label: 'CONTACTO', word: 'HABLA', hint: 'Respondo en menos de 24 h', num: '05', pose: { x: '6vw', y: '-10vh', rot: '-2deg', scale: 0.95, clip: 'polygon(0 0, 100% 12%, 90% 100%, 10% 100%)' } },
+    { key: 'Blog', label: 'BLOG', word: 'BLOG', hint: 'Notas, experimentos y lab', num: '06', pose: { x: '0vw', y: '4vh', rot: '8deg', scale: 0.8, clip: 'polygon(0 0, 100% 0, 100% 80%, 0 100%)' } },
+  ];
+  componentDidMount() {
+    this.onKeyWin = (e) => {
+      const n = this.items.length;
+      if (e.key === 'ArrowDown') this.setState(s => ({ active: (s.active + 1) % n, confirmed: false }));
+      if (e.key === 'ArrowUp') this.setState(s => ({ active: (s.active - 1 + n) % n, confirmed: false }));
+      if (e.key === 'Enter') this.setState({ confirmed: true });
+      if (e.key === 'Escape') this.setState({ confirmed: false });
+    };
+    window.addEventListener('keydown', this.onKeyWin);
+    if (this.props.autoCycle ?? false) this.timer = setInterval(() => this.setState(s => ({ active: (s.active + 1) % this.items.length })), 1800);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKeyWin); clearInterval(this.timer); }
+  letters(word) {
+    const bgs = [null, '#F5F5F5', null, null, '#E60012', null];
+    return word.split('').map((ch, i) => {
+      const bg = bgs[i % bgs.length];
+      return { ch, rot: ((i % 3) - 1) * 5, dy: (i % 2) * 10 - 5, bg: bg || 'transparent', fg: bg === '#F5F5F5' ? '#0A0A0A' : '#F5F5F5' };
+    });
+  }
+  renderVals() {
+    const { active, confirmed } = this.state;
+    const cur = this.items[active];
+    const treatment = this.props.photoTreatment ?? 'mono';
+    const filters = { mono: 'grayscale(1) contrast(1.9) brightness(1.05)', duotone: 'grayscale(1) contrast(1.6) brightness(1.1)', color: 'contrast(1.25) saturate(1.2)' };
+    const overlays = { mono: 'transparent', duotone: '#E60012', color: 'transparent' };
+    return {
+      onKey: () => {},
+      pose: cur.pose,
+      photoFilter: filters[treatment] || filters.mono,
+      photoOverlay: overlays[treatment] || 'transparent',
+      halftone: treatment === 'color' ? 0 : 0.35,
+      showInicio: cur.key === 'Inicio' ? 'block' : 'none',
+      showProyectos: cur.key === 'Proyectos' ? 'block' : 'none',
+      showSobre: cur.key === 'Sobre' ? 'block' : 'none',
+      showStack: cur.key === 'Stack' ? 'block' : 'none',
+      showContacto: cur.key === 'Contacto' ? 'block' : 'none',
+      showBlog: cur.key === 'Blog' ? 'block' : 'none',
+      items: this.items.map((it, i) => {
+        const on = i === active; const d = Math.abs(i - active);
+        return {
+          label: it.label, delay: (0.05 + i * 0.05) + 's',
+          size: on ? 'clamp(44px, 5.6vw, 84px)' : 'clamp(28px, 3.4vw, 52px)',
+          fg: on ? '#E60012' : '#F5F5F5', bg: on ? '#F5F5F5' : '#0A0A0A',
+          rot: on ? '-4deg' : ((i % 2 ? 2 : -2) + 'deg'),
+          shadow: on ? '8px 8px 0 #0A0A0A' : 'none',
+          indent: (d * 1.2) + 'vw',
+          hover: () => this.setState({ active: i }),
+          select: () => this.setState({ active: i, confirmed: true }),
+        };
+      }),
+      activeNum: cur.num,
+      bigWord: this.letters(cur.word),
+      hint: cur.hint,
+      confirmed,
+      confirmedLabel: cur.label,
+    };
+  }
+}
+</script>
+</body>
+</html>

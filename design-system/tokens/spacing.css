@@ -1,0 +1,39 @@
+/* Paric.io · Espaciado y layout. Base 2px; padding de página en vw. */
+:root {
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 14px;
+  --space-7: 16px;
+  --space-8: 18px;
+  --space-9: 20px;
+  --space-10: 22px;
+  --space-11: 24px;
+  --space-12: 28px;
+  --space-13: 32px;
+  --space-14: 48px;
+  --space-15: 72px;
+  --space-16: 80px;
+  --space-17: 96px;
+
+  --page-x: 6vw;
+  --page-top: 110px;
+  --header-pad: 20px 28px;
+  --content-max: 560px;      /* ancho máximo de párrafos */
+  --card-min: 280px;         /* minmax de rejillas auto-fit */
+  --fact-min: 220px;
+
+  --radius: 0;               /* el sistema NO usa esquinas redondeadas */
+  --radius-full: 50%;        /* solo para anillos decorativos */
+
+  --z-bg: 0;
+  --z-stage: 10;
+  --z-ui: 30;
+  --z-nav: 40;
+  --z-detail: 100;
+  --z-header: 120;
+  --z-wipe: 150;
+  --z-intro: 200;
+}

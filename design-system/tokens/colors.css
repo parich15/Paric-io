@@ -1,0 +1,39 @@
+/* Paric.io · Colores. Paleta de tres tintas: tinta, papel y rojo. Sin degradados suaves. */
+:root {
+  /* Base */
+  --p5-ink: #0A0A0A;
+  --p5-ink-2: #1C1C1C;
+  --p5-ink-3: #2A2A2A;
+  --p5-paper: #F5F5F5;
+  --p5-paper-2: #E4E4E4;
+  --p5-paper-3: #CFCFCF;
+  --p5-gray: #C9C9C9;
+  --p5-gray-2: #5A5A5A;
+  --p5-red: #E60012;
+  --p5-red-dark: #B3000E;
+  --p5-red-deep: #8F000B;
+
+  /* Semánticos · tema oscuro (por defecto: sección PROFESIONAL) */
+  --bg: var(--p5-ink);
+  --bg-2: var(--p5-ink-2);
+  --fg: var(--p5-paper);
+  --fg-muted: var(--p5-gray);
+  --accent: var(--p5-red);
+  --accent-fg: var(--p5-paper);
+  --surface-card: var(--p5-ink);
+  --border-strong: var(--p5-paper);
+  --shadow-ink: var(--p5-ink);
+  --selection-bg: var(--p5-red);
+  --selection-fg: #FFFFFF;
+}
+
+/* Tema claro (sección PERSONAL): se invierten tinta y papel; el rojo no cambia. */
+[data-theme="light"] {
+  --bg: var(--p5-paper);
+  --bg-2: var(--p5-paper-2);
+  --fg: var(--p5-ink);
+  --fg-muted: var(--p5-gray-2);
+  --surface-card: var(--p5-paper);
+  --border-strong: var(--p5-ink);
+  --shadow-ink: var(--p5-ink);
+}

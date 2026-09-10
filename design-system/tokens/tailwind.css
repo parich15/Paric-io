@@ -1,0 +1,124 @@
+/* Paric.io · Tailwind 4. Punto de entrada para proyectos Vue/Vite:
+ *   // main.css
+ *   @import "./tokens/tailwind.css";
+ * Los valores viven en :root (styles.css); aquí solo se mapean a utilidades con @theme inline. */
+@import "tailwindcss";
+@import "../styles.css";
+
+@theme inline {
+  /* Colores → bg-ink, text-paper, border-red, shadow-… */
+  --color-*: initial;
+  --color-ink: var(--p5-ink);
+  --color-ink-2: var(--p5-ink-2);
+  --color-ink-3: var(--p5-ink-3);
+  --color-paper: var(--p5-paper);
+  --color-paper-2: var(--p5-paper-2);
+  --color-paper-3: var(--p5-paper-3);
+  --color-gray: var(--p5-gray);
+  --color-gray-2: var(--p5-gray-2);
+  --color-red: var(--p5-red);
+  --color-red-dark: var(--p5-red-dark);
+  --color-red-deep: var(--p5-red-deep);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #FFFFFF;
+
+  /* Fuentes → font-display, font-label, font-body */
+  --font-*: initial;
+  --font-display: var(--type-display);
+  --font-label: var(--type-label);
+  --font-body: var(--type-body);
+
+  /* Tamaños → text-hero, text-title, text-h1… */
+  --text-hero: var(--size-hero);
+  --text-title: var(--size-title);
+  --text-h1: var(--size-h1);
+  --text-h2: var(--size-h2);
+  --text-h3: var(--size-h3);
+  --text-num: var(--size-num);
+  --text-btn-lg: var(--size-btn-lg);
+  --text-btn: var(--size-btn);
+  --text-btn-sm: var(--size-btn-sm);
+  --text-body-lg: var(--size-body-lg);
+  --text-body: var(--size-body);
+  --text-label: var(--size-label);
+  --text-label-sm: var(--size-label-sm);
+  --text-label-xs: var(--size-label-xs);
+
+  --leading-display: var(--lh-display);
+  --leading-tight: var(--lh-tight);
+  --leading-body: var(--lh-body);
+
+  --tracking-display: var(--track-display);
+  --tracking-btn: var(--track-btn);
+  --tracking-label: var(--track-label);
+  --tracking-label-wide: var(--track-label-wide);
+  --tracking-label-xwide: var(--track-label-xwide);
+  --tracking-loader: var(--track-loader);
+
+  /* Sombras duras → shadow-hard, shadow-hard-lg, shadow-hard-ink */
+  --shadow-*: initial;
+  --shadow-hard-sm: var(--hard-sm);
+  --shadow-hard: var(--hard);
+  --shadow-hard-md: var(--hard-md);
+  --shadow-hard-lg: var(--hard-lg);
+  --shadow-hard-xl: var(--hard-xl);
+  --shadow-hard-2xl: var(--hard-2xl);
+  --shadow-hard-ink: var(--hard-ink);
+  --shadow-hard-ink-lg: var(--hard-ink-lg);
+  --shadow-none: 0 0 #0000;
+
+  /* Radios: ninguno */
+  --radius-*: initial;
+  --radius-none: 0;
+  --radius-full: 50%;
+
+  /* Movimiento → ease-pop, ease-slash, duration-hover */
+  --ease-pop: var(--easing-pop);
+  --ease-slash: var(--easing-slash);
+  --ease-wipe: var(--easing-wipe);
+  --ease-stamp: var(--easing-stamp);
+  --animate-wipe: p5wipe var(--dur-wipe) var(--easing-wipe) both;
+  --animate-stamp: p5stamp var(--dur-stamp) var(--easing-stamp) both;
+  --animate-pop: p5pop var(--dur-stamp) var(--easing-stamp) both;
+  --animate-rise: p5rise var(--dur-rise) ease both;
+  --animate-in: p5in var(--dur-enter) var(--easing-slash) both;
+  --animate-blink: p5blink .8s steps(2) infinite;
+  --animate-spin-slow: p5spin var(--dur-spin) linear infinite;
+  --animate-zig: p5zig 3s ease-in-out infinite;
+}
+
+/* Utilidades propias del sistema */
+@utility skew-p5 { transform: skewX(var(--skew)); }
+@utility skew-p5-xs { transform: skewX(var(--skew-xs)); }
+@utility skew-p5-md { transform: skewX(var(--skew-md)); }
+@utility skew-p5-lg { transform: skewX(var(--skew-lg)); }
+@utility unskew-p5 { transform: skewX(calc(-1 * var(--skew))); }
+@utility clip-slant { clip-path: var(--clip-slant); }
+@utility clip-slant-tight { clip-path: var(--clip-slant-tight); }
+@utility text-shadow-hard { text-shadow: var(--text-shadow-hard); }
+@utility text-shadow-hard-lg { text-shadow: var(--text-shadow-hard-lg); }
+@utility text-shadow-ink { text-shadow: var(--text-shadow-ink); }
+@utility text-stroke-fg { -webkit-text-stroke: 3px var(--fg); color: transparent; }
+@utility halftone-ink { background-image: var(--halftone-ink); background-size: var(--halftone-size); }
+@utility halftone-paper { background-image: var(--halftone-paper); background-size: var(--halftone-size); }
+@utility zigzag { background-color: var(--p5-paper); background-image: var(--zigzag); background-size: var(--zigzag-size); background-position: var(--zigzag-position); }
+@utility stripes-red { background: var(--stripes-red); }
+@utility label-p5 { font-family: var(--type-label); font-weight: var(--weight-label); text-transform: uppercase; letter-spacing: var(--track-label); }
+@utility display-p5 { font-family: var(--type-display); font-weight: 400; text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--track-display); }
+@utility pop-hover { transition: transform var(--dur-hover) var(--easing-pop), background-color var(--dur-hover), color var(--dur-hover), box-shadow var(--dur-hover); }
+
+@layer base {
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--type-body); }
+  ::selection { background: var(--selection-bg); color: var(--selection-fg); }
+  a { color: var(--fg); text-decoration: none; }
+  a:hover { color: var(--accent); }
+  button, input, textarea, select { font: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+}

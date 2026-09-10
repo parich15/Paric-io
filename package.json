@@ -1,0 +1,39 @@
+{
+  "name": "paricio-portfolio",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.3.4",
+  "engines": { "node": ">=22.19.0 <23" },
+  "scripts": {
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "serve .output/public -l 4173",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "^10.6.0",
+    "@tailwindcss/vite": "^4.2.0",
+    "@vueuse/core": "^14.0.0",
+    "@vueuse/nuxt": "^14.0.0",
+    "animejs": "^4.5.0",
+    "nuxt": "^4.5.2",
+    "tailwindcss": "^4.2.0",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "serve": "^14.2.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0",
+    "vue-tsc": "^3.0.0"
+  }
+}

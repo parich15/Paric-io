@@ -1,0 +1,128 @@
+<!-- @dsCard group="Portfolio" viewport="1280x720" subtitle="Pantalla PROYECTOS del portfolio: selector de categoría, tarjeta activa, titular letra a letra y controles" name="Proyectos" -->
+<!-- @startingPoint section="Portfolio" subtitle="Pantalla Proyectos con tema oscuro/claro y detalle" viewport="1280x720" -->
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Paric.io · Proyectos</title>
+<script src="../../ds-browser.js" data-root="../../"></script>
+<style>body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--type-body);overflow:hidden}</style>
+</head><body>
+<div id="app">
+<div :data-theme="cat === 'personal' ? 'light' : null" class="relative w-screen h-screen overflow-hidden bg-bg text-fg transition-colors duration-[.6s]">
+  <!-- fondo -->
+  <div :class="['absolute -top-[10%] -right-[14%] w-[46%] h-[130%] skew-p5-lg transition-colors duration-[.6s]', cat === 'personal' ? 'bg-ink' : 'bg-red']" style="transform: skewX(-16deg)"></div>
+  <div class="absolute -top-[10%] -left-[8%] w-[22%] h-[130%] zigzag animate-zig" style="transform: skewX(-14deg); opacity: .12"></div>
+  <div class="absolute right-[4vw] -bottom-[4vh] display-p5 text-stroke-fg text-[clamp(180px,38vw,560px)] leading-[0.8] opacity-[0.18] -rotate-6 select-none pointer-events-none">{{ num }}</div>
+
+  <!-- cabecera -->
+  <header class="absolute top-0 inset-x-0 z-40 flex items-center justify-between px-7 py-5">
+    <a href="#" class="inline-block bg-fg text-bg display-p5 text-[22px] px-[14px] pt-1 pb-[6px] shadow-hard pop-hover hover:scale-[1.06]" style="transform: skewX(-12deg) rotate(-2deg)">PARIC.IO</a>
+    <div class="flex items-center gap-4">
+      <div class="bg-fg text-bg px-[18px] pt-[6px] pb-2 shadow-hard-md text-right" style="transform: skewX(-10deg) rotate(-2deg)">
+        <div class="display-p5 text-[clamp(18px,2vw,28px)] leading-none">MENÚ: <span class="text-red">PROYECTOS</span></div>
+        <div class="label-p5 text-label-xs tracking-label-xwide mt-[2px]">{{ cat === 'pro' ? 'TRABAJOS PROFESIONALES' : 'PROYECTOS PERSONALES' }}</div>
+      </div>
+      <p5-button href="#">Menú <span class="inline-block w-[22px] h-[3px] bg-current shadow-[0_-7px_0_currentColor,0_7px_0_currentColor]"></span></p5-button>
+    </div>
+  </header>
+
+  <!-- selector -->
+  <nav class="absolute z-40 left-[2.5vw] top-1/2 -translate-y-1/2 flex flex-col gap-[18px] items-start">
+    <p5-nav-item :active="cat === 'pro'" vertical @click="setCat('pro')">Profesional</p5-nav-item>
+    <p5-nav-item :active="cat === 'personal'" vertical :rotate="2" @click="setCat('personal')">Personal</p5-nav-item>
+  </nav>
+
+  <!-- tarjeta activa -->
+  <div class="absolute left-1/2 top-[43%] -translate-x-1/2 -translate-y-1/2 w-[min(46vw,680px)] z-10 cursor-pointer" @click="open = true" :key="cat + i">
+    <p5-card :num="num" :title="cur.title" :year="cur.year" :kind="cur.kind" :tags="cur.tags" class="animate-rise"></p5-card>
+  </div>
+
+  <!-- título -->
+  <div class="absolute left-[max(9vw,120px)] bottom-[9vh] z-30 flex flex-col items-start gap-[14px] pointer-events-none max-w-[70vw]">
+    <p5-heading :key="cur.id" :text="cur.title" :offset="1" :plates="cat === 'personal'" :shadow="cat === 'pro'" class="animate-stamp"></p5-heading>
+    <div class="bg-fg text-bg label-p5 tracking-[0.06em] text-[clamp(14px,1.4vw,20px)] normal-case px-[14px] py-1 border-3 border-bg shadow-hard-sm max-w-[min(520px,80vw)]" style="transform: skewX(-10deg) rotate(-1deg)">{{ cur.desc }}</div>
+  </div>
+
+  <!-- contador -->
+  <div class="absolute right-[4vw] bottom-[10vh] z-30 flex items-center gap-[14px]">
+    <button @click="step(-1)" aria-label="Anterior" class="w-[52px] h-[52px] border-3 border-fg bg-bg text-fg cursor-pointer display-p5 text-[26px] leading-none pop-hover hover:scale-110 hover:bg-red hover:text-paper" style="transform: skewX(-10deg)">←</button>
+    <div class="display-p5 text-[clamp(24px,3vw,40px)] leading-none text-paper text-shadow-hard flex items-baseline gap-[6px]"><span>{{ num }}</span><span class="text-[0.6em] text-gray [text-shadow:none]">/ {{ total }}</span></div>
+    <button @click="step(1)" aria-label="Siguiente" class="w-[52px] h-[52px] border-3 border-fg bg-bg text-fg cursor-pointer display-p5 text-[26px] leading-none pop-hover hover:scale-110 hover:bg-red hover:text-paper" style="transform: skewX(-10deg)">→</button>
+  </div>
+
+  <!-- teclado -->
+  <div class="absolute left-1/2 bottom-[5vh] z-30 pointer-events-none hidden [@media(min-height:700px)_and_(min-width:760px)]:flex gap-[22px] text-bg bg-fg px-[18px] py-[6px] border-3 border-bg shadow-hard-md" style="transform: translateX(-50%) skewX(-10deg)">
+    <p5-kbd keys="←→">Navegar</p5-kbd><p5-kbd keys="↵">Abrir</p5-kbd><p5-kbd keys="TAB">Categoría</p5-kbd>
+  </div>
+
+  <p5-wipe :show="wiping" :label="wipeLabel"></p5-wipe>
+
+  <!-- detalle -->
+  <div v-if="open" class="absolute inset-0 z-[100] bg-ink text-paper overflow-y-auto" data-theme="dark">
+    <div class="relative min-h-screen px-[6vw] pt-[110px] pb-20 overflow-hidden">
+      <div class="absolute -top-[10%] -left-[14%] w-[42%] h-[130%] bg-red" style="transform: skewX(-16deg)"></div>
+      <div class="absolute -right-[6vw] top-[6vh] w-[min(30vw,380px)] aspect-square border-6 border-dashed border-paper rounded-full animate-spin-slow opacity-30"></div>
+      <div class="relative z-[2] flex justify-between items-center gap-4 flex-wrap mb-12">
+        <p5-button variant="paper" @click="close">← Volver a proyectos</p5-button>
+        <div class="flex gap-3 items-center"><p5-badge tone="paper" :rotate="2">{{ cur.kind }}</p5-badge><span class="bg-red text-paper display-p5 text-[clamp(28px,3.5vw,52px)] leading-none px-[14px] pb-1 -rotate-4 animate-stamp">{{ num }}</span></div>
+      </div>
+      <div class="relative z-[2] grid gap-12 items-center" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr))">
+        <div class="flex flex-col gap-[26px] min-w-0 animate-rise">
+          <span class="inline-flex self-start items-center gap-3 bg-paper text-ink label-p5 text-btn-sm tracking-label-xwide px-[14px] py-[5px]" style="transform: rotate(-2deg) skewX(-8deg)"><span class="w-[10px] h-[10px] bg-red rotate-45"></span>{{ cur.year }} · {{ cur.client }}</span>
+          <h1 class="m-0"><p5-heading :text="cur.title" size="title" :shadow="false" class="[&_span]:text-shadow-ink"></p5-heading></h1>
+          <p class="m-0 font-body font-semibold text-[clamp(18px,1.6vw,22px)] leading-[1.45] max-w-[560px]">{{ cur.desc }}</p>
+          <div class="flex flex-wrap gap-2"><p5-tag v-for="t in cur.tags" :key="t" class="text-label px-[10px] py-[3px]">{{ t }}</p5-tag></div>
+          <div class="flex flex-wrap gap-4 mt-[6px]"><p5-button size="lg" href="#">Ver en vivo</p5-button><p5-button size="lg" variant="outline" href="#">Código</p5-button></div>
+        </div>
+        <div class="relative aspect-[16/11] bg-ink border-4 border-paper rotate-2 shadow-hard-2xl overflow-hidden grid place-items-center animate-rise">
+          <div class="absolute inset-0 halftone-paper opacity-[0.14]"></div>
+          <div class="absolute -left-[20%] -bottom-[30%] w-[70%] h-[90%] bg-red" style="transform: skewX(-20deg)"></div>
+          <p5-placeholder label="CAPTURA PRINCIPAL"></p5-placeholder>
+        </div>
+      </div>
+      <div class="relative z-[2] mt-20 grid gap-6 animate-rise" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr))">
+        <p5-fact-card v-for="f in cur.facts" :key="f[0]" :label="f[0]" :value="f[1]"></p5-fact-card>
+      </div>
+      <div class="relative z-[2] mt-20 grid gap-12" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr))">
+        <div class="flex flex-col gap-[18px]"><p5-stamp as="h2" size="h2" tone="paper" class="self-start">El reto</p5-stamp><p class="m-0 text-body leading-body font-semibold max-w-[520px]">{{ cur.challenge }}</p></div>
+        <div class="flex flex-col gap-[18px]"><p5-stamp as="h2" size="h2" tone="red" class="self-start">La solución</p5-stamp><p class="m-0 text-body leading-body font-semibold max-w-[520px]">{{ cur.solution }}</p></div>
+      </div>
+      <button @click="next" class="relative z-[2] mt-24 w-full flex justify-between items-center gap-5 flex-wrap bg-paper text-ink border-0 cursor-pointer px-8 py-[26px] shadow-hard-xl text-left pop-hover hover:bg-red hover:text-paper" style="transform: skewX(-6deg)">
+        <span class="label-p5 text-btn-sm tracking-label-xwide">Siguiente proyecto</span>
+        <span class="display-p5 text-[clamp(30px,5vw,72px)] leading-[0.95]">{{ nextTitle }} →</span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+const data = {
+  pro: [
+    { id: 'nocturne', title: 'NOCTURNE STUDIO', year: '2026', client: 'Nocturne', kind: 'PROFESIONAL', desc: 'Web corporativa con transiciones de página y CMS headless para un estudio de fotografía.', tags: ['NUXT', 'GSAP', 'SANITY'], facts: [['ROL', 'Front-end lead'], ['DURACIÓN', '10 semanas'], ['EQUIPO', '3 personas'], ['RESULTADO', '+42% tiempo en página']], challenge: 'Mostrar cientos de fotografías a pantalla completa sin sacrificar rendimiento ni la sensación de galería física.', solution: 'Transiciones compartidas entre rutas, precarga inteligente por scroll y un CMS que permite al estudio publicar sin tocar código.' },
+    { id: 'velvet', title: 'VELVET COMMERCE', year: '2025', client: 'Velvet', kind: 'PROFESIONAL', desc: 'Tienda online a medida: checkout en un paso y catálogo filtrable en tiempo real.', tags: ['VUE', 'STRIPE', 'NODE'], facts: [['ROL', 'Full-stack'], ['DURACIÓN', '4 meses'], ['EQUIPO', '5 personas'], ['RESULTADO', '−31% abandono']], challenge: 'Un checkout heredado de seis pasos hacía perder un tercio de las compras en móvil.', solution: 'Checkout en un solo paso con Stripe, filtros instantáneos en cliente y un diseño que respira en pantallas pequeñas.' },
+    { id: 'pulse', title: 'PULSE DASHBOARD', year: '2025', client: 'Pulse Fintech', kind: 'PROFESIONAL', desc: 'Panel de analítica con gráficos en vivo y modo oscuro para una fintech emergente.', tags: ['ANGULAR', 'D3', 'WEBSOCKETS'], facts: [['ROL', 'Front-end'], ['DURACIÓN', '6 meses'], ['EQUIPO', '8 personas'], ['RESULTADO', '60 fps con 10k puntos']], challenge: 'Representar miles de operaciones por segundo sin que la interfaz se congele.', solution: 'Render en canvas con D3, agregación en el servidor vía WebSockets y componentes desacoplados del flujo de datos.' },
+  ],
+  personal: [
+    { id: 'synth', title: 'SYNTHWAVE LAB', year: '2026', client: 'Proyecto propio', kind: 'PERSONAL', desc: 'Sintetizador en el navegador con secuenciador visual y exportación a WAV.', tags: ['WEB AUDIO', 'VUE', 'CANVAS'], facts: [['ROL', 'Todo'], ['DURACIÓN', 'Fines de semana'], ['ESTADO', 'Beta abierta'], ['ESTRELLAS', '340 en GitHub']], challenge: 'Quería entender la Web Audio API a fondo y hacer algo que fuera divertido de tocar.', solution: 'Un motor de audio con osciladores encadenables y una interfaz que se dibuja al ritmo del secuenciador.' },
+    { id: 'kanji', title: 'KANJI QUEST', year: '2025', client: 'Proyecto propio', kind: 'PERSONAL', desc: 'App de repaso espaciado para aprender kanji, con trazos animados y rachas.', tags: ['NUXT', 'INDEXEDDB', 'SVG'], facts: [['ROL', 'Todo'], ['DURACIÓN', '3 meses'], ['ESTADO', 'Publicado'], ['USUARIOS', '1.2k activos']], challenge: 'Las apps existentes eran o feas o de pago. Quería una que usara yo mismo cada día.', solution: 'Algoritmo SM-2, trazos SVG animados y todo guardado en el dispositivo: sin cuentas ni servidores.' },
+  ],
+};
+P5.mount('#app', {
+  data: { cat: 'pro', i: 0, open: false, wiping: false, wipeLabel: '' },
+  computed: {
+    list() { return data[this.cat] },
+    cur() { return this.list[this.i] },
+    num() { return String(this.i + 1).padStart(2, '0') },
+    total() { return String(this.list.length).padStart(2, '0') },
+    nextTitle() { return this.list[(this.i + 1) % this.list.length].title },
+  },
+  methods: {
+    wipe(label, mid) { this.wiping = true; this.wipeLabel = label; setTimeout(mid, 500); setTimeout(() => { this.wiping = false }, 1150) },
+    step(d) { const n = data[this.cat].length; this.i = (this.i + d + n) % n },
+    setCat(c) { if (c !== this.cat) { this.cat = c; this.i = 0 } },
+    close() { this.wipe('PROYECTOS', () => { this.open = false }) },
+    next() { this.wipe(data[this.cat][(this.i + 1) % data[this.cat].length].title, () => this.step(1)) },
+  },
+}).then(app => {
+  const vm = app._instance.proxy;
+  window.addEventListener('keydown', e => { if (e.key === 'ArrowRight') vm.step(1); if (e.key === 'ArrowLeft') vm.step(-1); if (e.key === 'Enter') vm.open = true; if (e.key === 'Escape' && vm.open) vm.close(); if (e.key === 'Tab') { e.preventDefault(); vm.setCat(vm.cat === 'pro' ? 'personal' : 'pro') } });
+});
+</script>
+</body></html>

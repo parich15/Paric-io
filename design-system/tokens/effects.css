@@ -1,0 +1,52 @@
+/* Paric.io · Efectos. Sombras duras (sin blur), bordes gruesos, inclinaciones y texturas. */
+:root {
+  /* Sombras duras: desplazamiento sólido, nunca difuminado */
+  --hard-sm: 4px 4px 0 var(--accent);
+  --hard: 5px 5px 0 var(--accent);
+  --hard-md: 6px 6px 0 var(--accent);
+  --hard-lg: 8px 8px 0 var(--accent);
+  --hard-xl: 12px 12px 0 var(--accent);
+  --hard-2xl: 16px 16px 0 var(--accent);
+  --hard-ink: 5px 5px 0 var(--shadow-ink);
+  --hard-ink-lg: 8px 8px 0 var(--shadow-ink);
+  --text-shadow-hard: 4px 4px 0 var(--accent);
+  --text-shadow-hard-lg: 5px 5px 0 var(--accent);
+  --text-shadow-ink: 6px 6px 0 var(--p5-ink);
+
+  /* Bordes */
+  --border-2: 2px;
+  --border-3: 3px;
+  --border-4: 4px;
+  --border-6: 6px;
+
+  /* Inclinaciones (skew) y giros (rotate) */
+  --skew-xs: -6deg;
+  --skew-sm: -8deg;
+  --skew: -10deg;
+  --skew-md: -12deg;
+  --skew-lg: -16deg;
+  --skew-xl: -20deg;
+  --rot-1: -1deg;
+  --rot-2: -2deg;
+  --rot-3: -3deg;
+  --rot-4: -4deg;
+  --rot-6: -6deg;
+  --rot-pos-2: 2deg;
+  --rot-pos-3: 3deg;
+
+  /* Clip trapezoidal de los botones primarios */
+  --clip-slant: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  --clip-slant-tight: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+
+  /* Texturas */
+  --halftone-ink: radial-gradient(var(--p5-ink) 1.4px, transparent 1.6px);
+  --halftone-paper: radial-gradient(var(--p5-paper) 1.3px, transparent 1.5px);
+  --halftone-size: 12px 12px;
+  --halftone-size-lg: 16px 16px;
+  --halftone-size-xl: 18px 18px;
+  --halftone-opacity: 0.14;
+  --zigzag: linear-gradient(135deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(225deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(45deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(315deg, var(--p5-ink) 25%, var(--p5-paper) 25%);
+  --zigzag-size: 60px 60px;
+  --zigzag-position: 30px 0, 30px 0, 0 0, 0 0;
+  --stripes-red: repeating-linear-gradient(100deg, var(--p5-red-dark) 0 6%, var(--p5-red) 6% 14%, var(--p5-red-deep) 14% 17%, var(--p5-red) 17% 30%);
+}

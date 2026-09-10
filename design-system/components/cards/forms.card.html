@@ -1,0 +1,14 @@
+<!-- @dsCard group="Components" viewport="700x330" subtitle="P5Input (normal, foco, error) · P5Textarea · P5Switch · P5NavItem" name="Formularios y navegación" -->
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Formularios y navegación</title>
+<script src="../../ds-browser.js" data-root="../../"></script>
+<style>body{margin:0;padding:20px;background:var(--bg);color:var(--fg);font-family:var(--type-body)} .row{display:flex;flex-wrap:wrap;gap:18px;align-items:center}</style></head><body>
+<div id="app" class="grid gap-6" style="grid-template-columns: 1fr 1fr">
+  <div class="flex flex-col gap-4"><p5-input label="Nombre" v-model="n" placeholder="Tu nombre"></p5-input><p5-input label="Email" v-model="e" type="email" error="Revisa el formato"></p5-input></div>
+  <p5-textarea label="Mensaje" v-model="m" placeholder="Cuéntame qué tienes en mente" :rows="5"></p5-textarea>
+  <div class="row col-span-2 justify-between">
+    <div class="row"><p5-switch v-model="light" off="Profesional" on="Personal"></p5-switch><p5-switch v-model="dark" off="Oscuro" on="Claro"></p5-switch></div>
+    <div class="row"><p5-nav-item active>Profesional</p5-nav-item><p5-nav-item :rotate="2">Personal</p5-nav-item></div>
+  </div>
+</div>
+<script>const app = P5.mount('#app', { n: 'Oscar', e: 'oscar@paric', m: '', light: true, dark: false });</script>
+</body></html>

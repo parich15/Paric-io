@@ -1,0 +1,35 @@
+/* Paric.io · Movimiento. Muelles exagerados en hover, barridos diagonales en transiciones. */
+:root {
+  --easing-pop: cubic-bezier(.2, 1.4, .3, 1);   /* hover/press: rebote */
+  --easing-slash: cubic-bezier(.2, .9, .2, 1);  /* entradas diagonales */
+  --easing-wipe: cubic-bezier(.7, 0, .3, 1);    /* barrido de pantalla */
+  --easing-stamp: cubic-bezier(.2, 1.2, .3, 1); /* sellos */
+
+  --dur-fast: .15s;
+  --dur-hover: .2s;
+  --dur-base: .25s;
+  --dur-enter: .4s;
+  --dur-stamp: .45s;
+  --dur-rise: .5s;
+  --dur-theme: .6s;
+  --dur-wipe: 1.1s;
+  --dur-spin: 30s;
+
+  --hover-scale: 1.06;
+  --hover-scale-lg: 1.08;
+  --hover-rotate: -2deg;
+}
+
+@keyframes p5wipe { 0% { transform: translateX(-130%) skewX(-18deg); } 40% { transform: translateX(0) skewX(-18deg); } 60% { transform: translateX(0) skewX(-18deg); } 100% { transform: translateX(130%) skewX(-18deg); } }
+@keyframes p5stamp { 0% { transform: scale(2.2) rotate(-14deg); opacity: 0; } 55% { transform: scale(.94) rotate(-4deg); opacity: 1; } 100% { transform: scale(1) rotate(-4deg); opacity: 1; } }
+@keyframes p5pop { 0% { transform: scale(0) rotate(-30deg); opacity: 0; } 70% { transform: scale(1.15) rotate(-3deg); opacity: 1; } 100% { transform: scale(1) rotate(-6deg); opacity: 1; } }
+@keyframes p5rise { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+@keyframes p5in { 0% { transform: translateX(-60px) skewX(-12deg); opacity: 0; } 100% { transform: translateX(0) skewX(-12deg); opacity: 1; } }
+@keyframes p5blink { 0%, 100% { opacity: 1; } 50% { opacity: .15; } }
+@keyframes p5spin { to { transform: rotate(360deg); } }
+@keyframes p5zig { 0% { background-position: 30px 0, 30px 0, 0 0, 0 0; } 100% { background-position: 30px -60px, 30px -60px, 0 -60px, 0 -60px; } }
+@keyframes p5introslash { 0% { transform: translateX(-110%) skewX(-18deg); } 100% { transform: translateX(0) skewX(-18deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-hover: 0s; --dur-base: 0s; --dur-enter: 0s; --dur-stamp: 0s; --dur-rise: 0s; --dur-wipe: 0s; }
+}

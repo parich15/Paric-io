@@ -1,0 +1,16 @@
+@import '../../../design-system/tokens/tailwind.css';
+@source '../../../design-system/components/vue';
+
+html { scroll-padding-top: 100px; }
+body { min-width: 360px; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a { touch-action: manipulation; }
+button:disabled { cursor: not-allowed; }
+p { max-width: var(--content-max); }
+main:focus { outline: none; }
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 250; padding: 14px 22px; background: var(--p5-paper); color: var(--p5-ink); font-weight: 600; }
+.skip-link:focus { top: 20px; }
+@media (max-width: 760px), (max-height: 699px) { .keyboard-hints { display: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; scroll-behavior: auto !important; }
+}
