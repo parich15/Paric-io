@@ -1,4 +1,4 @@
-// Barril de componentes Paric.io (Vue 3). Uso: import { P5Button } from './components/vue'
+/** Exportaciones del sistema; los contratos de props y eventos se conservan al importar desde este módulo. */
 export { default as P5Button } from './P5Button.vue'
 export { default as P5Tag } from './P5Tag.vue'
 export { default as P5Badge } from './P5Badge.vue'
