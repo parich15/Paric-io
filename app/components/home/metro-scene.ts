@@ -14,13 +14,14 @@ import {
   Scene,
   ShadowMaterial,
   SRGBColorSpace,
+  Texture,
   WebGLRenderer,
 } from 'three'
 import type { BufferGeometry, Material, Object3D } from 'three'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
 
 /** Escena decorativa local a la portada: tres vagones, un recorrido y un único ciclo de render. */
-export function mountMetroScene(canvas: HTMLCanvasElement) {
+export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: readonly HTMLImageElement[]) {
   // Comprobar el contexto antes del constructor evita errores de Three en equipos sin WebGL.
   const context = canvas.getContext('webgl2', { alpha: true, antialias: true })
   if (!context) return () => {}
@@ -82,62 +83,15 @@ export function mountMetroScene(canvas: HTMLCanvasElement) {
   signTexture.colorSpace = SRGBColorSpace
   const signMaterial = new MeshBasicMaterial({ map: signTexture })
 
-  const graffitiTextures = ['FRONT END', 'BACKEND', 'FULL STACK', 'AI EDGERUNNER'].map((label) => {
-    const artwork = document.createElement('canvas')
-    artwork.width = 1024
-    artwork.height = 256
-    const paint = artwork.getContext('2d')!
-    const paperColor = `#${paper.getHexString()}`
-    const redColor = `#${red.getHexString()}`
-    const inkColor = `#${ink.getHexString()}`
-
-    // Pintura procedural: salpicaduras, sombra de tinta, letras recortadas y goteos.
-    paint.fillStyle = redColor
-    for (let speck = 0; speck < 85; speck++) {
-      const x = 70 + (speck * 137) % 880
-      const y = 32 + (speck * 73) % 188
-      paint.globalAlpha = 0.2 + (speck % 4) * 0.15
-      paint.beginPath()
-      paint.arc(x, y, 1 + speck % 4, 0, Math.PI * 2)
-      paint.fill()
-    }
-    paint.globalAlpha = 1
-    paint.translate(512, 131)
-    paint.rotate(-0.055)
-    paint.transform(1, 0, -0.18, 1, 0, 0)
-    paint.font = '128px Anton'
-    paint.textAlign = 'center'
-    paint.textBaseline = 'middle'
-    const scale = Math.min(1, 875 / paint.measureText(label).width)
-    paint.scale(scale, 1)
-    paint.lineJoin = 'round'
-    paint.strokeStyle = inkColor
-    paint.lineWidth = 24
-    paint.strokeText(label, 0, 0)
-    paint.strokeStyle = redColor
-    paint.lineWidth = 12
-    paint.strokeText(label, 8, 7)
-    paint.fillStyle = paperColor
-    paint.fillText(label, 0, 0)
-
-    for (let drip = 0; drip < 7; drip++) {
-      const x = -330 + drip * 111
-      paint.fillStyle = drip % 2 ? redColor : paperColor
-      paint.fillRect(x, 48, 3 + drip % 3, 12 + (drip * 13) % 35)
-    }
-    paint.strokeStyle = paperColor
-    paint.lineWidth = 5
-    paint.beginPath()
-    paint.moveTo(-410, 85)
-    paint.lineTo(370, 70)
-    paint.lineTo(298, 95)
-    paint.stroke()
-    const texture = new CanvasTexture(artwork)
+  const graffitiTextures = graffitiImages.map((image) => {
+    const texture = new Texture(image)
     texture.colorSpace = SRGBColorSpace
+    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy())
+    texture.needsUpdate = true
     return texture
   })
-  const graffiti = new MeshBasicMaterial({ map: graffitiTextures[0], transparent: true, depthWrite: false })
-  const graffitiGeometry = new PlaneGeometry(5.35, 1.06)
+  const graffiti = new MeshStandardMaterial({ map: graffitiTextures[0], transparent: true, depthWrite: false, roughness: 0.65, metalness: 0.18 })
+  const graffitiGeometry = new PlaneGeometry(5.2, 5.2 / 3)
 
   const train = new Group()
   const wheelGeometry = new CylinderGeometry(0.24, 0.24, 0.14, 12)
@@ -174,10 +128,13 @@ export function mountMetroScene(canvas: HTMLCanvasElement) {
         }
         box(car, [0.018, 1.3, 0.05], [x, 1.25, z + side * 0.05], black)
       }
-      const tag = new Mesh(graffitiGeometry, graffiti)
-      tag.position.set(0, 0.93, side * 0.91)
-      tag.rotation.y = side === -1 ? Math.PI : 0
-      car.add(tag)
+      if (carriage === 1) {
+        const tag = new Mesh(graffitiGeometry, graffiti)
+        tag.position.set(0, 1.24, side * 0.91)
+        tag.rotation.y = side === -1 ? Math.PI : 0
+        tag.receiveShadow = true
+        car.add(tag)
+      }
     }
 
     // Bogies, ejes y equipos de climatización hacen legible el volumen desde arriba.
@@ -250,22 +207,25 @@ export function mountMetroScene(canvas: HTMLCanvasElement) {
   let elapsed = 0.3
   let previousTime: number | undefined
   let travel = 22
-  const duration = 2.8
   const directions = [0, Math.PI / 2, Math.PI, -Math.PI / 2]
+  const mobileDirections = [0, Math.PI, 0.15, Math.PI + 0.15]
+  let mobile = false
   let pass = -1
 
   function render(time: number) {
+    const duration = mobile ? 5 : 3.6
     if (previousTime !== undefined) elapsed += (time - previousTime) / 1000
     previousTime = time
     const nextPass = reducedMotion.matches ? -1 : Math.floor(elapsed / duration)
     if (nextPass !== pass || reducedMotion.matches) {
       pass = nextPass
-      train.rotation.y = reducedMotion.matches ? 0 : directions[pass % directions.length]!
+      const routeDirections = mobile ? mobileDirections : directions
+      train.rotation.y = reducedMotion.matches ? 0 : routeDirections[pass % routeDirections.length]!
       graffiti.map = graffitiTextures[reducedMotion.matches ? 0 : pass % graffitiTextures.length]!
     }
     // Se reutiliza un solo tren y se cambia su sentido únicamente entre recorridos completos.
     const timeInPass = elapsed % duration
-    const progress = reducedMotion.matches ? 0.38 : Math.min(timeInPass / duration, 1)
+    const progress = reducedMotion.matches ? 0.46 : Math.min(timeInPass / duration, 1)
     const distance = travel * (1 - progress * 2)
     train.position.set(distance * Math.cos(train.rotation.y), 0, -distance * Math.sin(train.rotation.y))
     renderer.render(scene, camera)
@@ -283,7 +243,13 @@ export function mountMetroScene(canvas: HTMLCanvasElement) {
     const width = canvas.clientWidth
     const height = canvas.clientHeight
     if (!width || !height || contextLost) return
-    const viewHeight = 21
+    mobile = window.innerWidth < 760
+    camera.position.set(...(mobile ? [-10, 7, 17] : [-12, 9, 15]) as [number, number, number])
+    camera.lookAt(0, 0, 0)
+    if (mobile) camera.rotateZ(-1.06)
+    camera.updateMatrixWorld()
+    pass = -2
+    const viewHeight = mobile ? 18 : 21
     const viewWidth = viewHeight * width / height
     const panelWidth = canvas.closest<HTMLElement>('.hero-plane')?.clientWidth ?? width
     const panelViewWidth = viewHeight * panelWidth / height
@@ -294,7 +260,8 @@ export function mountMetroScene(canvas: HTMLCanvasElement) {
     camera.top = viewHeight / 2 - 0.7
     camera.bottom = -viewHeight / 2 - 0.7
     camera.updateProjectionMatrix()
-    travel = 10 + panelViewWidth
+    // En móvil la salida se calcula también con el alto: deben salir los tres vagones.
+    travel = 10 + Math.max(panelViewWidth, mobile ? viewHeight * 0.85 : 0)
     renderer.setSize(width, height, false)
     previousTime = undefined
     if (!document.hidden) render(performance.now())
