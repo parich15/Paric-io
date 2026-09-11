@@ -29,6 +29,18 @@
 @keyframes p5spin { to { transform: rotate(360deg); } }
 @keyframes p5zig { 0% { background-position: 30px 0, 30px 0, 0 0, 0 0; } 100% { background-position: 30px -60px, 30px -60px, 0 -60px, 0 -60px; } }
 @keyframes p5introslash { 0% { transform: translateX(-110%) skewX(-18deg); } 100% { transform: translateX(0) skewX(-18deg); } }
+@keyframes p5metro-drift {
+  0% { transform: translate(0, 0); }
+  19% { transform: translate(calc(var(--drift-x) * -.4), calc(var(--drift-y) * .7)); }
+  43% { transform: translate(var(--drift-x), calc(var(--drift-y) * .25)); }
+  68% { transform: translate(calc(var(--drift-x) * .2), var(--drift-y)); }
+  84% { transform: translate(calc(var(--drift-x) * -.65), calc(var(--drift-y) * -.3)); }
+  100% { transform: translate(calc(var(--drift-x) * .6), calc(var(--drift-y) * -.55)); }
+}
+@keyframes p5metro-halftone {
+  from { background-position: 0 0; }
+  to { background-position: var(--halftone-size); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   :root { --dur-hover: 0s; --dur-base: 0s; --dur-enter: 0s; --dur-stamp: 0s; --dur-rise: 0s; --dur-wipe: 0s; }

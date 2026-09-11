@@ -1,7 +1,16 @@
 .home-hero { position: relative; display: grid; align-content: center; min-height: 100svh; padding: 140px var(--page-x) 100px; isolation: isolate; overflow: hidden; }
 .hero-plane { position: absolute; z-index: -1; top: -10%; right: -12%; width: 52%; height: 130%; background: var(--p5-red); transform: skewX(var(--skew-lg)); overflow: hidden; }
-.hero-plane > div { width: 100%; height: 100%; opacity: .25; }
-.hero-ring { position: absolute; z-index: -1; top: 22%; right: 8vw; width: min(28vw, 340px); aspect-ratio: 1; border: var(--border-6) dashed var(--p5-ink); border-radius: var(--radius-full); }
+.hero-plane > .halftone-ink { width: 100%; height: 100%; opacity: .25; animation: p5metro-halftone calc(var(--dur-spin) * .3) linear infinite; }
+.hero-shapes { position: absolute; z-index: 1; inset: 0; transform: skewX(calc(-1 * var(--skew-lg))); pointer-events: none; }
+.hero-shape { position: absolute; width: clamp(90px, 10vw, 160px); aspect-ratio: 1; opacity: .12; animation: p5metro-drift calc(var(--dur-spin) * 1.7) ease-in-out infinite alternate; }
+.hero-shape svg { display: block; width: 100%; height: 100%; fill: none; stroke: var(--p5-ink); stroke-width: var(--border-3); stroke-dasharray: 8 6; animation: p5spin calc(var(--dur-spin) * 2.3) linear infinite; }
+.hero-shape circle, .hero-shape polygon { vector-effect: non-scaling-stroke; }
+.hero-shape--circle { --drift-x: 60px; --drift-y: -75px; top: 36%; right: 54%; width: clamp(120px, 13vw, 200px); animation-delay: -17s; }
+.hero-shape--hexagon { --drift-x: -48px; --drift-y: 65px; top: 20%; right: 38%; animation-duration: calc(var(--dur-spin) * 2.1); animation-delay: -32s; }
+.hero-shape--star { --drift-x: -65px; --drift-y: -50px; top: 58%; right: 31%; animation-duration: calc(var(--dur-spin) * 1.9); animation-delay: -9s; }
+.hero-shape--star svg { animation-direction: reverse; animation-duration: calc(var(--dur-spin) * 2.7); }
+.hero-shape--triangle { --drift-x: 45px; --drift-y: 80px; top: 75%; right: 57%; animation-duration: calc(var(--dur-spin) * 2.4); animation-delay: -43s; }
+.hero-shape--triangle svg { animation-direction: reverse; }
 .hero-content { min-width: 0; }
 .hero-role { display: inline-flex; align-items: center; gap: var(--space-6); padding: var(--space-2) var(--space-7); background: var(--p5-paper); color: var(--p5-ink); transform: rotate(var(--rot-2)) skewX(var(--skew-sm)); font-size: var(--size-btn); letter-spacing: var(--track-label-xwide); }
 .hero-role > span { width: 10px; height: 10px; background: var(--p5-red); transform: rotate(45deg); }
@@ -16,7 +25,11 @@
 @media (width < 760px) {
   .home-hero { padding-top: 120px; padding-bottom: var(--space-15); }
   .hero-plane { right: -35%; width: 70%; }
-  .hero-ring { right: -8vw; top: 18%; width: 40vw; }
+  .hero-shape { width: 76px; }
+  .hero-shape--circle { right: 20%; width: 100px; }
+  .hero-shape--hexagon { right: 6%; }
+  .hero-shape--star { right: 14%; }
+  .hero-shape--triangle { right: 22%; }
   .hero-title { flex-direction: column; gap: var(--space-6); }
   .hero-name { font-size: clamp(64px, 15.5vw, 112px); }
   .hero-copy { padding-right: var(--space-5); }

@@ -1,0 +1,17 @@
+.hero-metro {
+  position: absolute;
+  /* El canvas desinclinado debe cubrir también las esquinas del plano sesgado. */
+  inset: 0 -50%;
+  transform: skewX(calc(-1 * var(--skew-lg)));
+  pointer-events: none;
+}
+
+.hero-metro__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width < 760px) {
+  .hero-metro { bottom: 48%; }
+}

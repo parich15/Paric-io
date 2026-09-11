@@ -132,6 +132,8 @@ Ejemplos de vistas futuras resueltas con este método:
 ### 3.6 Cuándo romper las reglas
 Solo si la ruptura hace la vista **más clara** para el usuario y se documenta aquí como excepción con motivo. Ejemplo válido: un párrafo largo de artículo puede ir sin skew en su contenedor (la legibilidad manda), pero su titular y sus fichas siguen inclinados. Ejemplo inválido: "queda más limpio sin sombra".
 
+En la rama experimental `experiment/metro-3d`, por petición del usuario, el plano rojo de inicio contiene un metro 3D oscuro inspirado en Persona 5, con pasadas consecutivas en cuatro sentidos diagonales y grafitis FRONT END, BACKEND, FULL STACK y AI EDGERUNNER. Solo hay un tren a la vez. Su geometría admite curvatura y sombreado; las ventanillas son de gris claro neutro, sin dispersión. Por encima hay formas discontinuas muy translúcidas con deriva lenta e irregular. Con movimiento reducido, tren y formas se presentan estáticos.
+
 ---
 
 ## 4. Glosario
