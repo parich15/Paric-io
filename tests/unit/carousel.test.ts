@@ -32,23 +32,23 @@ describe('estado en URL y retorno', () => {
   })
 
   it('reinicia la selección al cambiar categoría y tolera queries inválidas', () => {
-    expect(resolveCarouselState({ category: 'personal', slug: 'velvet' })).toEqual({ category: 'personal', index: 0 })
+    expect(resolveCarouselState({ category: 'personal', slug: 'captotal' })).toEqual({ category: 'personal', index: 0 })
     expect(resolveCarouselState({ category: 'pro', slug: 'missing' })).toEqual({ category: 'pro', index: 0 })
-    expect(resolveCarouselState({ category: ['personal'], slug: ['kanji'] })).toEqual({ category: 'pro', index: 0 })
-    expect(resolveCarouselState({ slug: 'kanji' })).toEqual({ category: 'personal', index: 1 })
+    expect(resolveCarouselState({ category: ['personal'], slug: ['moof'] })).toEqual({ category: 'pro', index: 0 })
+    expect(resolveCarouselState({ slug: 'moof' })).toEqual({ category: 'personal', index: 1 })
     expect(resolveCarouselState({})).toEqual({ category: 'pro', index: 0 })
   })
 
   it('vuelve al origen exacto aunque se haya abierto el siguiente detalle', () => {
-    const original = findProject('kanji')!
-    const query = { category: 'personal', slug: 'kanji', source: 'home' }
+    const original = findProject('moof')!
+    const query = { category: 'personal', slug: 'moof', source: 'home' }
     expect(carouselReturnQuery(query, getNextProject(original))).toEqual(query)
     expect(projectQuery(original, { source: 'home' })).toEqual(query)
   })
 
   it('una URL de detalle sin query vuelve a ese proyecto', () => {
-    const project = findProject('p5ui')!
-    expect(carouselReturnQuery({}, project)).toEqual({ category: 'personal', slug: 'p5ui' })
+    const project = findProject('ayc')!
+    expect(carouselReturnQuery({}, project)).toEqual({ category: 'personal', slug: 'ayc' })
   })
 })
 

@@ -3,6 +3,7 @@
     "skip": "Skip to content",
     "menu": "Menu",
     "close": "Close",
+    "newTab": "(opens in a new tab)",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
@@ -23,14 +24,21 @@
     "image": "Image",
     "mainImage": "Main screenshot",
     "detailImage": "Interface detail",
-    "mobileImage": "Mobile view"
+    "mobileImage": "Mobile view",
+    "clients": "Clients"
   },
   "meta": {
     "homeTitle": "Oscar Paricio — Web developer",
-    "homeDescription": "Oscar Paricio's portfolio: web development, interfaces with character and projects to explore.",
+    "homeDescription": "I'm Oscar Paricio, a web developer building accessible interfaces with Vue, Nuxt and TypeScript. Explore my projects and get in touch about your next idea.",
     "projectsTitle": "Projects",
-    "projectsDescription": "Explore seven professional and personal web project demos by Oscar Paricio.",
-    "notFound": "Page not found"
+    "projectsDescription": "Professional and personal projects by Oscar Paricio.",
+    "notFound": "Page not found",
+    "clientsTitle": "Clients",
+    "clientsDescription": "Clients and projects by Oscar Paricio.",
+    "aboutTitle": "About me",
+    "aboutDescription": "Oscar Paricio: web development, interface design and the tools I work with.",
+    "contactTitle": "Contact",
+    "contactDescription": "Write to Oscar Paricio about your next idea: accessible web interfaces with Vue, Nuxt and TypeScript."
   },
   "nav": {
     "homeHint": "Back to the front page",
@@ -45,7 +53,9 @@
     "openQuick": "Open quick menu",
     "closeQuick": "Close quick menu",
     "choose": "Choose your next destination",
-    "keyboard": "Select"
+    "keyboard": "Select",
+    "clientsHint": "The organisations behind the projects",
+    "clientsWord": "Clients"
   },
   "home": {
     "role": "Web developer",
@@ -57,13 +67,13 @@
     "contactCta": "Let's talk",
     "scroll": "Scroll to explore",
     "featured": "Selected work",
-    "featuredLabel": "A selection of demos",
+    "featuredLabel": "Selected projects",
     "allProjects": "All projects",
     "aboutText": "I'm Oscar Paricio, a web developer. I care about the details: a well-timed transition, text with room to breathe, a button that responds. I enjoy working between design and development to turn ideas into useful interfaces.",
     "skills": "Skill range",
     "design": "Design",
-    "madeWith": "Made with Vue and coffee",
-    "marquee": "Design · Development · Interaction ·"
+    "marquee": "Vue · Nuxt · Angular · TypeScript · Node · Anime.js · Motion UI · Accessibility · Performance · Design ·",
+    "moreAbout": "More about me"
   },
   "contact": {
     "title": "Let's talk",
@@ -74,9 +84,11 @@
     "namePlaceholder": "Your name",
     "emailPlaceholder": "you{'@'}email.com",
     "messagePlaceholder": "What shall we build?",
-    "mock": "Mock form: it does not send or store any data.",
-    "submit": "Sending unavailable",
-    "write": "Write me an email"
+    "write": "Write me an email",
+    "notice": "Nothing is sent or stored by this site: the button opens your email app with your message already drafted.",
+    "compose": "Open in your email app",
+    "subject": "Message from paric.io",
+    "subjectFrom": "Message from paric.io · {name}"
   },
   "projects": {
     "professional": "Professional",
@@ -88,6 +100,8 @@
     "demoNotice": "Concept demo. Illustrative content, not a real commission.",
     "live": "View live",
     "code": "Source code",
+    "design": "View design",
+    "noRepository": "Repository unavailable.",
     "noDestination": "This demo has no public website or repository available.",
     "back": "Back to projects",
     "challenge": "The challenge",
@@ -100,11 +114,50 @@
     "drag": "Drag to explore",
     "details": "Project details",
     "all": "All projects",
-    "keyboardCategory": "Tab: controls"
+    "keyboardCategory": "Tab: controls",
+    "flow": "How it works",
+    "features": "Key pieces",
+    "enlarge": "Enlarge: {label}",
+    "lightbox": "{title} gallery",
+    "imagePosition": "Image {current} of {total}",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "sites": "Live sites",
+    "sitesMore": "A sample of more than {count} published sites."
   },
   "error": {
+    "code": "Error {code}",
+    "unavailable": "Something went wrong",
+    "retry": "We couldn't open this page. You can return home and try again.",
     "title": "Not found",
     "description": "This page has wandered off the map.",
     "back": "Back to home"
+  },
+  "clients": {
+    "intro": "Every project has a context. Meet the organisations behind the work and explore what I have created for each one.",
+    "demoNotice": "Example clients associated with the demo projects. They do not represent real commissions.",
+    "open": "Meet {name}",
+    "projectCount": "No projects | One project | {count} projects",
+    "back": "Back to clients",
+    "website": "Website",
+    "visitWebsite": "Visit website",
+    "noWebsite": "Not available yet",
+    "noProjects": "This client’s projects will be published here.",
+    "viewClient": "Meet the client"
+  },
+  "about": {
+    "approach": "I like to understand what an idea needs before turning it into code. Structure, interaction and finishing touches are all part of the same experience.",
+    "interests": "This portfolio is also a place to experiment: trying ways to navigate, exploring motion and giving interfaces character while keeping them clear.",
+    "skillsTitle": "Tools and skills",
+    "levels": {
+      "exploring": "Exploring",
+      "comfortable": "Regular use",
+      "advanced": "Advanced proficiency"
+    },
+    "stack": "Stack",
+    "viewStack": "View stack",
+    "hideStack": "Close",
+    "viewMore": "Show more",
+    "viewLess": "Show less"
   }
 }

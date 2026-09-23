@@ -1,4 +1,4 @@
-import { animate, createScope, createTimeline, cubicBezier, stagger, steps, utils } from 'animejs'
+import { animate, createScope, createTimeline, cubicBezier, set, stagger, steps } from 'animejs'
 
 /** Convierte los tokens CSS existentes a milisegundos y curvas de Anime.js. */
 function readMotion(element: HTMLElement, durationToken: string, easingToken: string) {
@@ -13,7 +13,7 @@ function readMotion(element: HTMLElement, durationToken: string, easingToken: st
   return { duration: Number.isFinite(duration) ? duration : 0, ease }
 }
 
-const anime = { animate, createScope, createTimeline, cubicBezier, stagger, steps, utils, readMotion } as const
+const anime = { animate, createScope, createTimeline, cubicBezier, stagger, steps, utils: { set }, readMotion } as const
 
 export type AnimeApi = typeof anime
 

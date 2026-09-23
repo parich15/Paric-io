@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import frontendUrl from '~/assets/img/metro/frontend.png'
-import backendUrl from '~/assets/img/metro/backend.png'
-import fullstackUrl from '~/assets/img/metro/fullstack.png'
+import frontendUrl from '~/assets/img/metro/frontend.webp'
+import backendUrl from '~/assets/img/metro/backend.webp'
+import fullstackUrl from '~/assets/img/metro/fullstack.webp'
 
 const canvas = useTemplateRef<HTMLCanvasElement>('canvas')
 let dispose: (() => void) | undefined
 let unmounted = false
+let idleHandle: number | undefined
+let idleTimer: ReturnType<typeof setTimeout> | undefined
 
-onMounted(async () => {
+async function mount() {
   try {
     // El modelo y WebGL se descargan aparte del HTML y del código inicial de la página.
     const [{ mountMetroScene }, graffitiImages] = await Promise.all([
@@ -25,10 +27,20 @@ onMounted(async () => {
   catch {
     // Sin WebGL o sin el chunk, el plano rojo sigue siendo el fondo de la portada.
   }
-})
+}
+
+function whenIdle(callback: () => void) {
+  if ('requestIdleCallback' in window) idleHandle = window.requestIdleCallback(callback, { timeout: 1500 })
+  else idleTimer = setTimeout(callback, 600)
+}
+
+/** WebGL arranca en reposo, sin competir con la hidratación; con intro, su carga queda oculta bajo la cortina en lugar de coincidir con el primer gesto. */
+onMounted(() => whenIdle(() => { if (!unmounted) void mount() }))
 
 onBeforeUnmount(() => {
   unmounted = true
+  if (idleHandle !== undefined) window.cancelIdleCallback(idleHandle)
+  if (idleTimer) clearTimeout(idleTimer)
   dispose?.()
 })
 </script>

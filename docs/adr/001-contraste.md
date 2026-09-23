@@ -6,5 +6,5 @@ Se conservan exactamente la paleta, los tamaños y las placas de los prototipos.
 
 Esta excepción se limita a esa combinación de texto pequeño. No constituye una declaración de conformidad AA del sitio. Permanecen exigibles semántica, nombres accesibles, foco visible, objetivos táctiles, teclado, gestión y restauración del foco, HTML legible sin JavaScript y respeto del movimiento reducido.
 
-Otras adaptaciones autorizadas del arranque: fuentes locales con licencia, interfaz bilingüe, datos demo explícitos y contacto sin envío ni confirmación ficticia. El menú rápido circular se conserva como en el prototipo. El CSS de composición de las vistas puede ser scoped; los tokens y componentes compartidos conservan su fuente única.
+Otras adaptaciones autorizadas del arranque: fuentes locales con licencia, interfaz bilingüe, datos demo explícitos y contacto sin envío desde el sitio ni confirmación ficticia: el formulario solo redacta un `mailto:` que abre el correo del visitante. El menú rápido circular se conserva como en el prototipo. El CSS de composición de las vistas puede ser scoped; los tokens y componentes compartidos conservan su fuente única.
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const aboutAnchor = computed(() => locale.value === 'es' ? 'sobre' : 'about')
 const skills = computed(() => ['Vue / Nuxt', 'Angular', 'TypeScript', 'Motion UI', 'Node', t('home.design')])
 </script>
@@ -15,6 +16,7 @@ const skills = computed(() => ['Vue / Nuxt', 'Angular', 'TypeScript', 'Motion UI
         <ul class="about-skills">
           <li v-for="skill in skills" :key="skill"><span class="display-p5">{{ skill }}</span><span aria-hidden="true"></span></li>
         </ul>
+        <div class="about-more"><P5Button :to="localePath('about')">{{ t('home.moreAbout') }}</P5Button></div>
       </div>
     </div>
   </section>

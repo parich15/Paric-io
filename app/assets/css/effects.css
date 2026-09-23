@@ -41,12 +41,14 @@
   /* Texturas */
   --halftone-ink: radial-gradient(var(--p5-ink) 1.4px, transparent 1.6px);
   --halftone-paper: radial-gradient(var(--p5-paper) 1.3px, transparent 1.5px);
-  --halftone-size: 12px 12px;
+  --halftone-step: 12px;
+  --halftone-size: var(--halftone-step) var(--halftone-step);
   --halftone-size-lg: 16px 16px;
   --halftone-size-xl: 18px 18px;
   --halftone-opacity: 0.14;
-  --zigzag: linear-gradient(135deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(225deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(45deg, var(--p5-ink) 25%, transparent 25%), linear-gradient(315deg, var(--p5-ink) 25%, var(--p5-paper) 25%);
-  --zigzag-size: 60px 60px;
-  --zigzag-position: 30px 0, 30px 0, 0 0, 0 0;
+  /* Una sola silueta SVG por baldosa que desborda sus bordes: los cuatro degradados anteriores dejaban costuras al inclinarse y animarse. */
+  --zigzag-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M-30 0L0-30 30 0 60-30 90 0V30L60 0 30 30 0 0-30 30ZM-30 60L0 30 30 60 60 30 90 60V90L60 60 30 90 0 60-30 90Z'/%3E%3C/svg%3E");
+  --zigzag-period: 60px;
+  --zigzag-size: var(--zigzag-period) var(--zigzag-period);
   --stripes-red: repeating-linear-gradient(100deg, var(--p5-red-dark) 0 6%, var(--p5-red) 6% 14%, var(--p5-red-deep) 14% 17%, var(--p5-red) 17% 30%);
 }

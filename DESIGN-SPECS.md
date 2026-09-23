@@ -29,6 +29,7 @@ Placeholders que dicen qué falta. Datos concretos ("+42% tiempo en página") en
 
 ### 2.1 Referencias y qué tomamos de cada una
 - **Menús de *Persona 5*** (Atlus, 2016): la opción activa que crece y se inclina, el rojo/negro/blanco, los recortes de letras a distintos tamaños, las transiciones de barrido. Tomamos la *gramática*, no los assets: ningún elemento gráfico se copia.
+- **[Ficha 72 de Game UI Database: análisis y capturas](references/persona-5-game-ui-database.md)**, aportada por Oscar: referencia para futuras mejoras del menú, inicio y proyectos. Incluye aplicaciones propuestas y el alcance de la consulta; complementa los prototipos y los tokens existentes.
 - **Cartelería punk / xerox**: sombras duras, halftone, pegado a mano, alternancia de rotaciones.
 - **Señalética y tipografía de estadio**: Anton como condensada de impacto, etiquetas condensadas con tracking abierto.
 - **Lo que NO somos**: brutalismo web frío (monoespaciadas, bordes 1px, gris), neón/synthwave (degradados, glow), corporativo SaaS (radios, sombras difusas, Inter).
@@ -67,12 +68,13 @@ Los pesos: fondo grande y quieto · protagonista grande y con vida (hover, drag)
 - **Cambiar de sitio** = barrido de tres planos + sello con el destino. El usuario debe poder decir a dónde ha ido sin leer la nueva vista.
 - **Tocar** = muelle (crece 6–8%, gira −2°). Los primarios invierten color: la sensación es de pulsador físico.
 - **Esperar** = "CARGANDO" parpadeando en `steps(2)`, nunca spinner circular suave.
-- **Reposo** = el fondo puede tener un movimiento lento y continuo (zigzag 3s, anillo 30s). Máximo un elemento en bucle por vista.
+- **Reposo** = el fondo puede tener un movimiento lento y continuo (zigzag 3s, anillo 30s). Máximo un fondo en bucle por vista. Excepción pedida por el usuario: las piezas de interfaz (opciones del menú, placas, sellos, CTA de portada, lanzador rápido) flotan en reposo como los menús de P5, con amplitud de pocos píxeles y desfases distintos. Es un balanceo, nunca un rebote que distraiga de la lectura.
 - Todo respeta `prefers-reduced-motion`: las entradas y el wipe pasan a instantáneo; el hover conserva el cambio de color.
 
 ### 2.6 Imagen y fotografía
 - Retratos y capturas se tratan como **carteles pegados**: marco con borde 4px, sombra dura roja/tinta, rotación ±2°, cuña roja asomando.
 - Fotografía en **duotono** rojo/tinta con halftone multiplicado. La foto nunca compite en color con la interfaz.
+- Las **capturas de producto** son la excepción: se enseñan en color, enmarcadas como navegador o móvil, porque demuestran el trabajo real. Se amplían en un visor a pantalla completa, no en un modal de caja.
 - Cuando el asset no existe, `P5Placeholder` con etiqueta descriptiva. Un hueco honesto es parte de la estética; un gris vacío no.
 
 ---
@@ -115,7 +117,7 @@ Plantilla mental, en orden:
 Ejemplos de vistas futuras resueltas con este método:
 
 - **SOBRE MÍ**: tema claro; plano tinta a la derecha con halftone; retrato duotono como protagonista (marco 4px, rot +2°); titular "OSCAR" letra a letra con placas; tres `P5FactCard` (Base · Años · Stack); primaria "DESCARGAR CV" (roja), secundaria "CONTACTO" (outline).
-- **CONTACTO**: tema oscuro; plano rojo a la izquierda con vetas; formulario (`P5Input` ×2 + `P5Textarea`) como protagonista, inclinado −6° como una ficha; titular "HABLEMOS"; primaria "ENVIAR"; al enviar, wipe con sello "ENVIADO" y vuelta a inicio.
+- **CONTACTO** (construida en `app/pages/contact.vue`): tema oscuro; plano rojo a la izquierda con vetas y halftone; formulario (`P5Input` ×2 + `P5Textarea`) como protagonista dentro de una ficha cuyo marco se inclina −6° mientras los campos siguen rectos; un sello rojo `01 / 03` marca el campo activo como la opción de un menú; titular "¿HABLAMOS?" letra a letra sobre placa de tinta (el rojo no sombrea sobre las vetas, la placa lleva sombra de papel); palabra del menú ("HABLA") gigante en outline abajo-derecha; primaria roja "ABRIR EN TU CORREO": el envío del formulario redacta un `mailto:` con asunto y cuerpo a partir del borrador y lo abre en el correo del visitante (sin JavaScript el formulario apunta al mismo `mailto:`); la placa del correo lleva el mismo borrador. Según el [ADR de contraste](docs/adr/001-contraste.md) el sitio no envía nada: sin sello "ENVIADO" ni confirmaciones ficticias.
 - **BLOG / NOTAS** (si existiera): lista vertical de placas grandes tipo `P5NavItem` horizontal, la activa roja; a la derecha vista previa como tarjeta; ↵ abre el artículo con wipe; el artículo es un detalle con la misma estructura que el de proyecto (fichas: FECHA · LECTURA · TEMA).
 - **404**: número "404" gigante en outline como fondo, sello rojo "NO ENCONTRADO", una sola acción papel "VOLVER AL MENÚ".
 - **Estado vacío** (categoría sin proyectos): `P5Placeholder` grande con "PRÓXIMAMENTE", sin fingir contenido.
@@ -132,7 +134,7 @@ Ejemplos de vistas futuras resueltas con este método:
 ### 3.6 Cuándo romper las reglas
 Solo si la ruptura hace la vista **más clara** para el usuario y se documenta aquí como excepción con motivo. Ejemplo válido: un párrafo largo de artículo puede ir sin skew en su contenedor (la legibilidad manda), pero su titular y sus fichas siguen inclinados. Ejemplo inválido: "queda más limpio sin sombra".
 
-Por petición del usuario, el plano rojo de inicio contiene un metro 3D oscuro inspirado en Persona 5, con pasadas consecutivas en cuatro sentidos diagonales. Alterna tres imágenes de grafiti —FRONTEND, BACKEND y FULLSTACK— integradas únicamente en el vagón central. Solo hay un tren a la vez; en móvil se acerca la cámara y se adapta el ángulo, la duración y la salida completa de cada recorrido. Su geometría admite curvatura y sombreado; las ventanillas son de gris claro neutro, sin dispersión. Por encima hay formas discontinuas muy translúcidas con deriva lenta e irregular, y el fondo punteado se desplaza en bucle. Con movimiento reducido, la escena se presenta estática.
+Por petición del usuario, el plano rojo de inicio contiene un metro 3D oscuro inspirado en Persona 5, con pasadas consecutivas en cuatro sentidos diagonales. Alterna tres imágenes de grafiti —FRONTEND, BACKEND y FULLSTACK— integradas únicamente en el vagón central. Solo hay un tren a la vez; en móvil se acerca la cámara y se adapta el ángulo, la duración y la salida completa de cada recorrido. Su geometría admite curvatura y sombreado; las ventanillas son de gris claro neutro, sin dispersión. Por encima hay formas discontinuas muy translúcidas con deriva lenta e irregular, y el fondo punteado se desplaza en bucle. Con movimiento reducido, la escena se presenta estática. Se monta cuando el navegador está en reposo, bajo la cortina de la intro, para no coincidir con el primer gesto. Con WebGL por software no se dibuja y se queda el plano rojo, porque bajaría toda la portada a unos 10 fps.
 
 ---
 

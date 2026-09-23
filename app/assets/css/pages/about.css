@@ -1,0 +1,62 @@
+/* El retrato ocupa 2/12 al leer; la selección cambia directamente el reparto de 8/4 a 3/9. */
+.about-page { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); grid-template-rows: minmax(0, 1fr); height: 100dvh; min-height: 0; background: var(--bg); color: var(--fg); overflow: hidden; transition: grid-template-columns var(--dur-base) var(--easing-slash), grid-template-rows var(--dur-base) var(--easing-slash); }
+.about-page:has([data-skill-group="backend"][open]) { --accent: var(--p5-skill-blue); }
+.about-page:has([data-skill-group="skills"][open]) { --accent: var(--p5-skill-green); }
+.about-page:has([data-skill-group="misc"][open]) { --accent: var(--p5-skill-yellow); --accent-fg: var(--p5-ink); }
+.about-personal { position: relative; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 6fr); min-width: 0; min-height: 0; transition: grid-template-columns var(--dur-base) var(--easing-slash); }
+.about-photo { position: relative; min-height: 0; background: var(--p5-ink); overflow: hidden; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); }
+.about-full-portrait { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; border: 0; box-shadow: none; transform: none; }
+.about-full-portrait :deep(img) { object-position: 38% 25%; }
+.about-full-portrait :deep(.portrait-color) { background: var(--accent); }
+.about-full-portrait :deep(figcaption) { bottom: var(--space-13); left: var(--space-7); font-size: var(--size-btn-lg); writing-mode: vertical-rl; transform: rotate(180deg); padding: var(--space-5); }
+.about-biography { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: calc(var(--page-top) + var(--space-13)) var(--space-14) var(--space-14); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--fg) var(--bg); }
+.about-biography-inner { min-width: 0; width: 100%; max-width: var(--content-max); margin-block: auto; }
+.about-biography:focus-visible { outline: var(--border-3) solid var(--accent); outline-offset: -6px; }
+.about-title { margin: 0 0 var(--space-14); rotate: var(--rot-4); }
+.about-title > span { font-size: clamp(52px, 6.5vw, 96px); }
+.about-role { display: inline-block; margin: 0 0 var(--space-11); padding: var(--space-1) var(--space-7) var(--space-2); background: var(--p5-ink); color: var(--p5-paper); box-shadow: var(--hard-sm); transform: skewX(var(--skew-sm)) rotate(var(--rot-2)); font-size: var(--size-label); letter-spacing: var(--track-label-wide); }
+.about-role > span { display: inline-block; transform: skewX(calc(-1 * var(--skew-sm))); }
+.about-biography p:not(.about-role) { margin: 0 0 var(--space-11); font-size: var(--size-body); line-height: 1.5; }
+.about-biography .about-lead { font-size: var(--size-body-lg); font-weight: 600; }
+.about-links { margin-top: var(--space-13); }
+.about-outline { position: absolute; inset: var(--page-top) 0 0; display: none; align-items: flex-end; justify-content: center; overflow: hidden; pointer-events: none; user-select: none; }
+.about-page:has(.skill-panel[open]) { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+.about-page:has(.skill-panel[open]) .about-personal { grid-template-columns: minmax(0, 3fr) minmax(0, 0fr); }
+.about-page:has(.skill-panel[open]) .about-biography { display: none; }
+.about-page:has(.skill-panel[open]) .about-photo { clip-path: none; }
+.about-page:has(.skill-panel[open]) .about-full-portrait { opacity: .45; }
+.about-page:has(.skill-panel[open]) .about-full-portrait :deep(figcaption) { display: none; }
+.about-page:has(.skill-panel[open]) .about-outline { display: flex; }
+.about-page:has([data-skill-group="frontend"][open]) .outline-front,
+.about-page:has([data-skill-group="backend"][open]) .outline-back,
+.about-page:has([data-skill-group="skills"][open]) .outline-skill,
+.about-page:has([data-skill-group="misc"][open]) .outline-misc { display: block; }
+.mobile-stack-toggle { display: none; }
+@media (760px <= width < 1100px) {
+  .about-biography { padding-inline: var(--space-11); }
+  .about-title > span { font-size: 64px; }
+}
+@media (width < 760px) {
+  .about-page, .about-page:has(.skill-panel[open]) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  .about-biography { padding: var(--page-top) var(--space-9) calc(100px + env(safe-area-inset-bottom)); }
+  .about-page .about-skills-stage { display: none; scroll-margin-top: var(--page-top); }
+  .mobile-stack-toggle { display: inline-flex; position: fixed; right: var(--page-x); bottom: calc(var(--space-11) + env(safe-area-inset-bottom)); z-index: 2; min-height: 44px; }
+  .mobile-stack-hide { display: none; }
+  .about-page:is(.mobile-stack-open, :not([data-enhanced="true"]):has(#about-stack:target)) { grid-template-rows: var(--page-top) minmax(0, 1fr); }
+  .about-page:is(.mobile-stack-open, :not([data-enhanced="true"]):has(#about-stack:target)) .about-skills-stage { display: flex; padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .about-page:is(.mobile-stack-open, :not([data-enhanced="true"]):has(#about-stack:target)) .about-personal { grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); }
+  .about-page:is(.mobile-stack-open, :not([data-enhanced="true"]):has(#about-stack:target)) .about-biography { display: none; }
+  .about-page:not([data-enhanced="true"]):has(#about-stack:target) .mobile-stack-show { display: none; }
+  .about-page:not([data-enhanced="true"]):has(#about-stack:target) .mobile-stack-hide { display: inline-flex; }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) .about-personal { grid-template-columns: minmax(0, 2fr) minmax(0, 6fr); }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) .about-biography { display: flex; }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) { --accent: var(--p5-red); --accent-fg: var(--p5-paper); }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) .about-full-portrait { opacity: 1; }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) .about-full-portrait :deep(figcaption) { display: block; }
+  .about-page:is([data-enhanced="true"]:not(.mobile-stack-open), :not([data-enhanced="true"]):not(:has(#about-stack:target))) .about-outline { display: none; }
+  .about-title { margin-bottom: var(--space-13); }
+  .about-title > span { font-size: 52px; }
+  .about-biography .about-lead { font-size: var(--size-body); }
+  .about-page:has(.skill-panel[open]) .about-full-portrait :deep(img) { object-position: 50% 30%; }
+  .about-outline { inset: 0; align-items: flex-end; justify-content: flex-end; }
+}

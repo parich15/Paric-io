@@ -1,7 +1,7 @@
 .project-image {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -10,6 +10,7 @@
   transition: transform var(--dur-hover) var(--easing-pop), box-shadow var(--dur-hover);
 }
 .project-image--hero { aspect-ratio: 16 / 11; box-shadow: var(--hard-2xl); }
+.project-image__screen { position: relative; display: grid; place-items: center; flex: 1; min-height: 0; overflow: hidden; }
 .project-image__texture { position: absolute; inset: 0; opacity: 0.14; }
 .project-image__wedge {
   position: absolute;
@@ -23,3 +24,22 @@
 @media (hover: hover) {
   .project-image:not(.project-image--hero):hover { transform: scale(1.03); box-shadow: var(--hard-lg); }
 }
+
+.project-image__screen > img,
+.project-image__screen > video { position: relative; width: 100%; height: 100%; object-fit: contain; min-height: 0; background: var(--bg); }
+
+/* Navegador: barra de tinta con tres pastillas y la dirección; la captura llena el marco desde arriba. */
+.project-image--browser { aspect-ratio: auto; background: var(--p5-ink); border-color: var(--p5-paper); box-shadow: var(--hard-xl); }
+.project-image--browser.project-image--hero { box-shadow: var(--hard-2xl); }
+.project-image__bar { display: flex; align-items: center; gap: var(--space-3); min-height: 30px; padding: 0 var(--space-7); background: var(--p5-ink); border-bottom: var(--border-3) solid var(--p5-paper); }
+.project-image__bar > span { width: 11px; height: 11px; background: var(--p5-paper); transform: skewX(var(--skew)); }
+.project-image__bar > span:nth-child(2) { background: var(--p5-red); }
+.project-image__bar > b { margin-left: var(--space-6); overflow: hidden; color: var(--p5-paper); font-size: var(--size-label-xs); font-weight: 800; letter-spacing: var(--track-label); text-overflow: ellipsis; white-space: nowrap; }
+.project-image--browser .project-image__screen { flex: none; aspect-ratio: 16 / 10; }
+.project-image--browser .project-image__screen > img { object-fit: cover; object-position: top; }
+
+/* Móvil: carcasa de tinta con muesca; la captura vertical se recorta desde arriba. */
+.project-image--phone { aspect-ratio: 9 / 19; padding: var(--space-4); background: var(--p5-ink); border: var(--border-4) solid var(--p5-paper); box-shadow: var(--hard-lg); }
+.project-image__notch { position: absolute; top: var(--space-4); left: 50%; z-index: 1; width: 34%; height: 14px; background: var(--p5-ink); translate: -50% 0; }
+.project-image--phone .project-image__screen { border: var(--border-3) solid var(--p5-ink); background: var(--p5-paper); }
+.project-image--phone .project-image__screen > img { object-fit: cover; object-position: top; }

@@ -3,6 +3,7 @@ import { usePreferredReducedMotion } from '@vueuse/core'
 import type { RouteLocationNormalized } from 'vue-router'
 import type { AnimeApi } from '~/plugins/anime.client'
 import { findProject } from '~/data/projects'
+import { findClient } from '~/data/clients'
 
 interface MotionNavigation {
   to: RouteLocationNormalized
@@ -43,8 +44,13 @@ function reset(allowed = false) {
 
 function destinationLabel(to: RouteLocationNormalized) {
   const locale = /^\/en(?:\/|$)/.test(to.path) ? 'en' : 'es'
-  const project = typeof to.params.slug === 'string' ? findProject(to.params.slug) : undefined
+  const slug = typeof to.params.slug === 'string' ? to.params.slug : ''
+  if (/\/(clientes|clients)(?:\/|$)/.test(to.path)) return findClient(slug)?.name ?? t('common.clients', {}, { locale })
+  if (/\/(sobre-mi|about)(?:\/|$)/.test(to.path)) return t('common.about', {}, { locale })
+  if (/\/(contacto|contact)(?:\/|$)/.test(to.path)) return t('common.contact', {}, { locale })
+  const project = findProject(slug)
   if (project) return project.title
+  if (to.hash === '#featured') return t('home.featured', {}, { locale })
   const hashLabels: Record<string, string> = { '#inicio': 'home', '#home': 'home', '#sobre': 'about', '#about': 'about', '#contacto': 'contact', '#contact': 'contact' }
   const key = hashLabels[to.hash]
     ?? (/\/(proyectos|projects)(?:\/|$)/.test(to.path) ? 'projects' : 'home')
@@ -57,7 +63,7 @@ function playEntries() {
   void entries.play()
 }
 
-/** El hash se resuelve sin selectores CSS y el foco temporal no altera el orden de tabulación. */
+/** Prioriza el ancla o la tarjeta de retorno; tabindex -1 conserva el foco sin añadir una parada de Tab. */
 function focusDestination(to: RouteLocationNormalized) {
   let anchor: HTMLElement | null = null
   try {
@@ -66,13 +72,14 @@ function focusDestination(to: RouteLocationNormalized) {
   catch {
     anchor = null
   }
-  const target = anchor ?? document.querySelector<HTMLElement>('main')
+  const main = document.querySelector<HTMLElement>('main')
+  const card = to.query.slug ? main?.querySelector<HTMLElement>('[data-project-card][aria-current="true"]') : null
+  const target = anchor ?? card ?? main
   if (!target) return
   if (anchor) anchor.scrollIntoView({ behavior: 'instant', block: 'start' })
   const tabindex = target.getAttribute('tabindex')
   if (tabindex === null) target.setAttribute('tabindex', '-1')
   target.focus({ preventScroll: true })
-  if (tabindex === null) target.removeAttribute('tabindex')
 }
 
 function reveal(current: MotionNavigation) {

@@ -6,7 +6,7 @@
 @import './effects.css';
 @import './motion.css';
 
-html { scroll-padding-top: 100px; }
+html { scroll-padding-top: 100px; scrollbar-color: var(--p5-red) var(--p5-ink); }
 body { min-width: 360px; }
 button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
 button:not(:disabled), a { touch-action: manipulation; }

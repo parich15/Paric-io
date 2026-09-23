@@ -5,7 +5,7 @@ withDefaults(defineProps<{ decorative?: boolean }>(), { decorative: false })
 
 <template>
   <figure class="home-portrait">
-    <img src="/images/retrato-oscar-paricio.jpg" :alt="decorative ? '' : 'Oscar Paricio'" width="800" height="1000" loading="lazy" />
+    <img src="/images/retrato-oscar-paricio.webp" :alt="decorative ? '' : 'Oscar Paricio'" width="640" height="640" loading="lazy" decoding="async" />
     <div class="portrait-color" aria-hidden="true"></div>
     <div class="portrait-dots" aria-hidden="true"></div>
     <figcaption v-if="!decorative" class="display-p5">Oscar Paricio</figcaption>

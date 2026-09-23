@@ -1,0 +1,26 @@
+.project-sites { margin-top: var(--space-16); }
+.sites-header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-9) var(--space-12); }
+.sites-float { animation: p5float var(--dur-float) ease-in-out -.4s infinite; }
+/* Cifra total en placa roja: el dato que dice que la lista es solo una muestra. */
+.sites-total { display: flex; align-items: center; gap: var(--space-6); margin: 0; padding: var(--space-2) var(--space-8) var(--space-3); background: var(--p5-red); color: var(--p5-paper); box-shadow: var(--hard-ink); transform: skewX(var(--skew)) rotate(var(--rot-pos-2)); --float-y: -6px; animation: p5float calc(var(--dur-float) * 1.2) ease-in-out -1.8s infinite; }
+.sites-total > span { transform: skewX(calc(-1 * var(--skew))); }
+.sites-total .display-p5 { font-size: clamp(44px, 5vw, 76px); line-height: .9; }
+.sites-total .label-p5 { max-width: 200px; font-size: var(--size-btn-sm); letter-spacing: var(--track-label-wide); line-height: 1.25; }
+.sites-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: var(--space-13); margin-top: var(--space-14); }
+.sites-group { min-width: 0; }
+.sites-label { display: inline-block; margin: 0 0 var(--space-8); padding: var(--space-1) var(--space-6); background: var(--fg); color: var(--bg); font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); transform: skewX(var(--skew)) rotate(var(--rot-1)); }
+.sites-list { display: flex; flex-direction: column; gap: var(--space-7); margin: 0; padding: 0; list-style: none; }
+.sites-list li { --float-y: -3px; animation: p5float calc(var(--dur-float) * 1.2) ease-in-out infinite; animation-delay: calc(var(--i, 0) * -.9s); }
+.site-link { display: flex; align-items: center; gap: var(--space-6); min-height: 56px; padding: var(--space-2) var(--space-7) var(--space-2) var(--space-2); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); box-shadow: var(--hard-md); transform: skewX(var(--skew-xs)) rotate(var(--rot-1)); transition: transform var(--dur-hover) var(--easing-pop), background var(--dur-hover), color var(--dur-hover); }
+.sites-list li:nth-child(even) .site-link { transform: skewX(var(--skew-xs)) rotate(.8deg); }
+.site-link > * { transform: skewX(calc(-1 * var(--skew-xs))); }
+/* El favicon conserva siempre su cuadro de papel para que ningún escudo pierda contraste en el hover rojo. */
+.site-icon { display: grid; place-items: center; flex: none; width: 44px; height: 44px; background: var(--p5-paper); border: var(--border-2) solid var(--p5-ink); }
+.site-icon img { width: 34px; height: 34px; object-fit: contain; }
+.site-name { flex: 1; min-width: 0; font-size: clamp(18px, 1.5vw, 24px); line-height: 1; }
+.site-arrow { font-family: var(--type-display); font-size: 22px; line-height: 1; }
+.site-link:hover { color: var(--p5-ink); }
+.site-link:focus-visible { outline: var(--border-3) solid var(--accent); outline-offset: 4px; }
+@media (hover: hover) {
+  .site-link:hover { background: var(--p5-red); color: var(--p5-paper); transform: skewX(var(--skew-xs)) scale(var(--hover-scale)) rotate(var(--hover-rotate)); }
+}

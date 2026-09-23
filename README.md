@@ -23,9 +23,11 @@ Playwright usa el Chromium instalado en WSL; `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PAT
 
 La entrega de producción es únicamente `.output/public`: HTML, JS, CSS, fuentes e imágenes. Servir directorios con su `index.html` y `404.html` para rutas inexistentes; no requiere Node en producción. No ejecutar `nuxt preview` como servidor de producción. `pnpm generate` genera inicio, galería y siete detalles en los dos idiomas.
 
-Castellano: `/` y `/proyectos`; inglés: `/en` y `/en/projects`. Solo una visita inicial a raíz detecta idioma en el navegador, después de hidratar. Las URLs concretas mantienen su idioma. El selector conserva página, slug, query y ancla y recuerda la elección manual.
+La página de error se genera con HTML completo: usar `/en/404.html` como fallback para rutas inexistentes bajo `/en/` y `/404.html` para el resto, conservando la URL solicitada y el estado HTTP 404. Ambos archivos incluyen el mensaje y un enlace de vuelta al inicio incluso sin JavaScript.
 
-El contacto es una maqueta: los campos no se envían ni almacenan y nunca se anuncia un envío. El enlace `mailto:oscar@paric.io` es la vía de contacto. Acciones demo sin destino están deshabilitadas.
+Castellano: `/`, `/proyectos`, `/sobre-mi`, `/clientes` y `/contacto`; inglés: `/en`, `/en/projects`, `/en/about`, `/en/clients` y `/en/contact`. Solo una visita inicial a raíz detecta idioma en el navegador, después de hidratar. Las URLs concretas mantienen su idioma. El selector conserva página, slug, query y ancla y recuerda la elección manual.
+
+El contacto (`/contacto`, sección `#contacto` del inicio) no envía ni guarda nada en el sitio: el formulario redacta un `mailto:oscar@paric.io` con asunto y cuerpo a partir del borrador y lo abre en la aplicación de correo del visitante; sin JavaScript el propio formulario apunta a ese `mailto:`. Nunca se anuncia un envío. Acciones demo sin destino están deshabilitadas.
 
 Guías y trabajo multiagente: [AGENTS.md](AGENTS.md), [DESIGN.md](DESIGN.md), [DESIGN-SPECS.md](DESIGN-SPECS.md). Referencias originales en `references/`, componentes en `app/components/`, CSS y tokens en `app/assets/css/`, y guidelines en `references/guidelines/`. Excepción de contraste: [ADR 001](docs/adr/001-contraste.md).
 

@@ -1,0 +1,54 @@
+/* Menú de contacto: plano de vetas a la izquierda, ficha de diálogo como protagonista y la palabra del menú vigilando desde el fondo. */
+.contact-page { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-14); align-items: center; min-height: 100dvh; padding: calc(var(--page-top) + var(--space-11)) var(--page-x) var(--space-14); overflow: clip; background: var(--bg); color: var(--fg); }
+.contact-plane { position: absolute; z-index: -1; inset: -10% auto -10% -16%; width: 54%; background: var(--stripes-red); transform: skewX(var(--skew-lg)); }
+.contact-plane::after { content: ''; position: absolute; inset: 0; background: var(--halftone-ink); background-size: var(--halftone-size); opacity: .16; }
+.contact-outline { position: absolute; z-index: -1; right: -2vw; bottom: -8vh; font-size: clamp(160px, 28vw, 420px); line-height: .8; rotate: var(--rot-6); opacity: .18; white-space: nowrap; pointer-events: none; user-select: none; }
+
+/* Intro sobre el plano rojo: el titular va en placa de tinta con sombra de papel; el rojo no sombrea sobre las vetas. */
+.contact-intro { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); min-width: 0; color: var(--p5-paper); }
+.contact-title { display: inline-block; max-width: 100%; padding: var(--space-4) var(--space-10) var(--space-6); background: var(--p5-ink); box-shadow: 8px 8px 0 var(--p5-paper); transform: skewX(var(--skew-sm)) rotate(var(--rot-2)); }
+.contact-title h1 { margin: 0; transform: skewX(calc(-1 * var(--skew-sm))); }
+.contact-title h1 > span { font-size: clamp(44px, 5.4vw, 88px); }
+.contact-copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-11); min-width: 0; }
+.contact-address { display: inline-flex; align-items: center; gap: var(--space-5); min-height: 44px; padding: var(--space-1) var(--space-8) var(--space-2); background: var(--p5-paper); color: var(--p5-ink); box-shadow: var(--hard-ink); transform: skewX(var(--skew-sm)) rotate(var(--rot-pos-2)); font-size: var(--size-btn); letter-spacing: var(--track-label-wide); transition: transform var(--dur-hover) var(--easing-pop); }
+.contact-address > span:first-child { flex: none; width: 10px; height: 10px; background: var(--p5-red); transform: skewX(calc(-1 * var(--skew-sm))) rotate(45deg); }
+.contact-address > span:last-child { transform: skewX(calc(-1 * var(--skew-sm))); }
+.contact-address:hover { color: var(--p5-ink); transform: skewX(var(--skew-sm)) rotate(var(--rot-pos-2)) scale(var(--hover-scale)); }
+.contact-lead { margin: 0; max-width: 420px; font-size: clamp(18px, 1.5vw, 22px); font-weight: 600; line-height: 1.45; }
+
+/* Ficha: el marco se inclina como una P5FactCard y los campos permanecen rectos; el foco engorda la sombra. */
+.contact-stage { min-width: 0; }
+.contact-sheet { --sheet-skew: var(--skew-xs); position: relative; isolation: isolate; display: flex; flex-direction: column; gap: var(--space-8); width: 100%; max-width: 620px; margin-inline: auto; padding: var(--space-14) var(--space-14) var(--space-13); }
+.contact-sheet::before { content: ''; position: absolute; z-index: -1; inset: 0; border: var(--border-3) solid var(--p5-paper); background: var(--p5-ink); box-shadow: var(--hard-xl); transform: skewX(var(--sheet-skew)); transition: box-shadow var(--dur-hover) var(--easing-pop), transform var(--dur-hover) var(--easing-pop); }
+.contact-sheet:focus-within::before { box-shadow: var(--hard-2xl); transform: skewX(var(--sheet-skew)) translate(-3px, -3px); }
+.contact-step { position: absolute; z-index: 1; top: -20px; right: -10px; padding: 0 var(--space-6) var(--space-1); background: var(--p5-red); color: var(--p5-paper); box-shadow: 5px 5px 0 var(--p5-paper); transform: rotate(var(--rot-4)); font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; white-space: nowrap; }
+.contact-step small { font-size: .6em; }
+.contact-notice { margin: 0 0 var(--space-2); color: var(--fg-muted); font-size: var(--size-body); line-height: 1.45; }
+.contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); margin-top: var(--space-5); }
+
+@media (width < 1100px) {
+  .contact-page { grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-14); padding-top: var(--page-top); }
+  .contact-intro { padding-top: var(--space-7); }
+  .contact-outline { right: -6vw; bottom: -4vh; font-size: clamp(140px, 32vw, 300px); }
+}
+@media (width < 760px) {
+  .contact-page { gap: var(--space-14); padding-bottom: calc(var(--space-15) + env(safe-area-inset-bottom)); }
+  .contact-plane { inset: -10% auto -10% -32%; width: 68%; }
+  .contact-title { padding: var(--space-2) var(--space-7) var(--space-4); box-shadow: 6px 6px 0 var(--p5-paper); }
+  .contact-title h1 > span { font-size: clamp(40px, 11vw, 56px); }
+  .contact-address { font-size: var(--size-btn-sm); }
+  .contact-lead { font-size: var(--size-body); }
+  /* La mitad de --skew-xs: a 360px la ficha sigue inclinada sin que los campos salgan del marco. */
+  .contact-sheet { --sheet-skew: -3deg; gap: var(--space-7); padding: var(--space-13) var(--space-11) var(--space-12); }
+  .contact-step { top: -16px; right: -4px; font-size: 24px; }
+  .contact-actions > * { max-width: 100%; }
+}
+@media (min-width: 760px) and (max-height: 760px) {
+  .contact-page { gap: var(--space-13); padding-top: var(--page-top); }
+  .contact-intro { gap: var(--space-9); }
+  .contact-title h1 > span { font-size: clamp(40px, 4.5vw, 64px); }
+  .contact-sheet { gap: var(--space-6); padding: var(--space-13) var(--space-14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-sheet::before, .contact-address { transition: none; }
+}

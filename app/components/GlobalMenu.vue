@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { clients } from '~/data/clients'
+
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
@@ -13,8 +15,9 @@ let previousOverflow = ''
 const items = computed(() => [
   { key: 'home', to: { path: localePath('index'), hash: locale.value === 'es' ? '#inicio' : '#home' } },
   { key: 'projects', to: { path: localePath('projects') } },
-  { key: 'about', to: { path: localePath('index'), hash: locale.value === 'es' ? '#sobre' : '#about' } },
-  { key: 'contact', to: { path: localePath('index'), hash: locale.value === 'es' ? '#contacto' : '#contact' } },
+  { key: 'clients', to: { path: localePath('clients') } },
+  { key: 'about', to: { path: localePath('about') } },
+  { key: 'contact', to: { path: localePath('contact') } },
 ])
 const activeItem = computed(() => items.value[activeIndex.value]!)
 
@@ -26,30 +29,28 @@ function open() {
   previousOverflow = document.body.style.overflow
   document.body.style.overflow = 'hidden'
   closing.value = false
-  activeIndex.value = String(route.name).startsWith('projects') ? 1 : ['#sobre', '#about'].includes(route.hash) ? 2 : ['#contacto', '#contact'].includes(route.hash) ? 3 : 0
+  const routeKey = ['#contacto', '#contact'].includes(route.hash) ? 'contact' : ['#sobre', '#about'].includes(route.hash) ? 'about' : String(route.name).split('___')[0]!.split('-')[0]
+  activeIndex.value = Math.max(0, items.value.findIndex(item => item.key === routeKey))
   dialog.showModal()
   emit('change', true)
   motion.open()
-  nextTick(() => dialog.querySelector<HTMLAnchorElement>(`[data-menu-link="${activeIndex.value}"]`)?.focus())
+  nextTick(() => dialog.querySelector<HTMLAnchorElement>(`[data-menu-link="${activeIndex.value}"]`)?.focus({ preventScroll: true }))
 }
 
-/** Escape y el botón de cierre esperan la salida visual antes de restaurar el foco nativo. */
+/** Una salida breve permite percibir el cierre sin encadenar esperas por opción. */
 async function close() {
   if (!root.value?.open || closing.value) return
   closing.value = true
-  try {
-    await motion.close()
-  }
-  finally {
-    root.value?.close()
-  }
+  try { await motion.close() }
+  finally { root.value?.close() }
 }
 
 function finishClose() {
+  motion.reset()
   document.body.style.overflow = previousOverflow
   closing.value = false
   emit('change', false)
-  if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true })
+  nextTick(() => { if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }) })
 }
 
 function select(index: number) {
@@ -86,26 +87,32 @@ defineExpose({ open, close })
 
 <template>
   <dialog id="global-menu" ref="root" class="global-menu" aria-labelledby="global-menu-title" @cancel.prevent="close" @close="finishClose" @keydown="onKeydown">
-    <div class="menu-stripes" aria-hidden="true"></div>
-    <div class="menu-zigzag" aria-hidden="true"></div>
-    <div class="menu-diagonal" aria-hidden="true"></div>
+    <div class="menu-curtain menu-curtain--left" data-menu-side="left" aria-hidden="true">
+      <div class="menu-stripes"></div>
+      <div class="menu-diagonal"></div>
+    </div>
+    <div class="menu-curtain menu-curtain--right" data-menu-side="right" aria-hidden="true">
+      <div class="menu-zigzag zigzag animate-zig"></div>
+      <div class="menu-diagonal"></div>
+    </div>
     <div class="menu-topbar">
-      <NuxtLink :to="items[0]!.to" class="menu-brand display-p5" @click="onNavigate">Paric.io</NuxtLink>
-      <div><LocaleSwitch /><button type="button" class="menu-close label-p5" :aria-label="t('common.closeMenu')" @click="close">{{ t('common.close') }} <span class="menu-bars" aria-hidden="true"></span></button></div>
+      <div><AppBrand :to="items[0]!.to" class="menu-brand display-p5" @click="onNavigate" /></div>
+      <div id="menu-header-actions"></div>
     </div>
     <div class="menu-layout">
-      <div class="menu-context">
+      <div class="menu-context" data-menu-side="right">
         <div class="menu-context-plate"><h2 id="global-menu-title" class="display-p5">{{ t('common.menu') }}</h2><p class="label-p5">{{ t('nav.choose') }}</p></div>
         <span class="menu-number display-p5" aria-hidden="true">{{ String(activeIndex + 1).padStart(2, '0') }}</span>
       </div>
-      <nav class="menu-navigation" :aria-label="t('nav.choose')">
+      <nav class="menu-navigation" data-cursor="plain" data-menu-side="left" :aria-label="t('nav.choose')">
         <ul>
-          <li v-for="(item, index) in items" :key="item.key" data-menu-item :style="{ marginLeft: `${Math.abs(index - activeIndex) * 1.2}vw` }">
+          <li v-for="(item, index) in items" :key="item.key" data-menu-item :style="{ 'marginLeft': `${Math.abs(index - activeIndex) * 1.2}vw`, '--i': index }">
             <NuxtLink :to="item.to" :data-menu-link="index" class="menu-option display-p5" :class="{ 'is-active': activeIndex === index }" @focus="select(index)" @pointerenter="select(index)" @click="onNavigate"><span>{{ t(`common.${item.key}`) }}</span></NuxtLink>
           </li>
         </ul>
       </nav>
-      <div class="menu-poster" :class="`poster-${activeItem.key}`" aria-hidden="true">
+      <div class="menu-poster-motion" data-menu-side="right" aria-hidden="true">
+      <div class="menu-poster" :class="`poster-${activeItem.key}`">
         <HomePortrait v-if="activeItem.key === 'about'" decorative />
         <svg v-else-if="activeItem.key === 'home'" viewBox="0 0 400 500" focusable="false">
           <rect width="400" height="500" fill="var(--p5-paper)" />
@@ -125,6 +132,9 @@ defineExpose({ open, close })
             <rect x="95" y="400" width="120" height="14" fill="var(--p5-red)" />
           </g>
         </svg>
+        <div v-else-if="activeItem.key === 'clients'" class="menu-client-poster">
+          <span v-for="client in clients.slice(0, 4)" :key="client.slug" class="display-p5">{{ client.initials }}</span>
+        </div>
         <svg v-else viewBox="0 0 400 500" focusable="false">
           <rect width="400" height="500" fill="var(--p5-paper)" />
           <polygon points="0,0 400,0 400,220 0,300" fill="var(--p5-ink)" />
@@ -135,12 +145,13 @@ defineExpose({ open, close })
           </g>
         </svg>
       </div>
-      <div class="menu-command">
+      </div>
+      <div class="menu-command" data-menu-side="left">
         <div :aria-label="t(`nav.${activeItem.key}Word`)"><P5Heading :text="t(`nav.${activeItem.key}Word`).toUpperCase()" :shadow="false" size="title" class="menu-word" aria-hidden="true" /></div>
         <p class="menu-hint label-p5">{{ t(`nav.${activeItem.key}Hint`) }}</p>
       </div>
-      <a class="menu-email display-p5" href="mailto:oscar@paric.io">oscar@paric.io</a>
-      <div class="menu-keys keyboard-hints label-p5"><span><kbd>Esc</kbd> {{ t('common.close') }}</span><span><kbd>↑↓</kbd> {{ t('common.navigate') }}</span><span><kbd>↵</kbd> {{ t('nav.keyboard') }}</span></div>
+      <a class="menu-email display-p5" data-menu-side="left" href="mailto:oscar@paric.io">oscar@paric.io</a>
+      <div class="menu-keys keyboard-hints label-p5" data-menu-side="right"><span><kbd>Esc</kbd> {{ t('common.close') }}</span><span><kbd>↑↓</kbd> {{ t('common.navigate') }}</span><span><kbd>↵</kbd> {{ t('nav.keyboard') }}</span></div>
     </div>
   </dialog>
 </template>

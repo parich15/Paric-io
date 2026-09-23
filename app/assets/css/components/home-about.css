@@ -11,4 +11,8 @@
 .about-skills li { display: flex; flex-direction: column; gap: var(--space-3); }
 .about-skills .display-p5 { font-size: var(--size-btn-lg); line-height: 1.2; }
 .about-skills li > span:last-child { height: 6px; background: var(--fg); transform: skewX(var(--skew-xl)); }
+.about-more { margin-top: var(--space-13); }
 @media (width < 760px) { .home-about { padding-top: var(--space-15); padding-bottom: var(--space-17); } .about-grid { gap: var(--space-14); } .about-portrait { max-width: 340px; } }
+/* Reposo P5 del sello y del retrato. */
+.about-heading h2 { animation: p5float calc(var(--dur-float) * 1.1) ease-in-out -1.2s infinite; }
+.about-portrait { --float-y: -8px; animation: p5float calc(var(--dur-float) * 1.6) ease-in-out -2.4s infinite; }

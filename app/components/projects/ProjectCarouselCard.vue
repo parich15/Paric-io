@@ -41,9 +41,9 @@ function activate(event: MouseEvent) {
   >
     <P5Card
       :num="String(index + 1).padStart(2, '0')" :title="project.title" :year="project.year"
-      :kind="t(project.category === 'pro' ? 'projects.professional' : 'projects.personal')" :tags="project.tags" :active="active"
+      :kind="t(project.category === 'pro' ? 'projects.professional' : 'projects.personal')" :tags="project.tags.slice(0, 3)" :active="active"
     >
-      <template #media><P5Placeholder :label="`${t('common.image')} · ${project.title}`" /></template>
+      <template #media><img v-if="project.cover" :src="project.cover" alt="" loading="lazy" class="project-cover" /><P5Placeholder v-else :label="`${t('common.image')} · ${project.title}`" /></template>
     </P5Card>
   </NuxtLink>
 </template>
