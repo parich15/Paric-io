@@ -3,40 +3,40 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/anton-400.ttf') format('truetype');
+  src: url('/fonts/anton-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Barlow';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/barlow-400.ttf') format('truetype');
+  src: url('/fonts/barlow-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Barlow';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/barlow-600.ttf') format('truetype');
+  src: url('/fonts/barlow-600.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Barlow';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url('/fonts/barlow-800.ttf') format('truetype');
+  src: url('/fonts/barlow-800.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Barlow Condensed';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/barlow-condensed-600.ttf') format('truetype');
+  src: url('/fonts/barlow-condensed-600.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Barlow Condensed';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url('/fonts/barlow-condensed-800.ttf') format('truetype');
+  src: url('/fonts/barlow-condensed-800.woff2') format('woff2');
 }

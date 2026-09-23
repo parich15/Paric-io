@@ -1,6 +1,7 @@
 .home-hero { position: relative; display: grid; align-content: center; min-height: 100svh; padding: 140px var(--page-x) 100px; isolation: isolate; overflow: hidden; }
 .hero-plane { position: absolute; z-index: -1; top: -10%; right: -12%; width: 52%; height: 130%; background: var(--p5-red); transform: skewX(var(--skew-lg)); overflow: hidden; }
-.hero-plane > .halftone-ink { width: 100%; height: 100%; opacity: .25; animation: p5metro-halftone calc(var(--dur-spin) * .3) linear infinite; }
+/* La lámina sobresale una baldosa y se desplaza con transform: se compone en GPU en lugar de repintar el plano cada fotograma. */
+.hero-plane > .halftone-ink { position: absolute; inset: calc(-1 * var(--halftone-step)) 0 0 calc(-1 * var(--halftone-step)); opacity: .25; animation: p5metro-halftone calc(var(--dur-spin) * .3) linear infinite; will-change: transform; }
 .hero-shapes { position: absolute; z-index: 1; inset: 0; transform: skewX(calc(-1 * var(--skew-lg))); pointer-events: none; }
 .hero-shape { position: absolute; width: clamp(90px, 10vw, 160px); aspect-ratio: 1; opacity: .12; animation: p5metro-drift calc(var(--dur-spin) * 1.7) ease-in-out infinite alternate; }
 .hero-shape svg { display: block; width: 100%; height: 100%; fill: none; stroke: var(--p5-ink); stroke-width: var(--border-3); stroke-dasharray: 8 6; animation: p5spin calc(var(--dur-spin) * 2.3) linear infinite; }
@@ -20,8 +21,6 @@
 .hero-copy p { margin: var(--space-7) 0 0; font-size: clamp(18px, 1.6vw, 22px); font-weight: 600; line-height: 1.45; }
 .hero-copy .hero-tagline { font-weight: 800; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: 40px; }
-.hero-scroll { display: inline-flex; align-items: center; gap: var(--space-5); min-height: 44px; margin-top: var(--space-13); color: var(--p5-paper); font-size: var(--size-label); }
-.hero-scroll span { font-size: var(--size-btn-lg); }
 @media (width < 760px) {
   .home-hero { padding-top: 120px; padding-bottom: var(--space-15); }
   .hero-plane { right: -35%; width: 70%; }
@@ -39,5 +38,8 @@
   .home-hero { padding-top: 120px; padding-bottom: var(--space-14); }
   .hero-name { font-size: clamp(64px, 10vw, 150px); }
   .hero-copy { margin-top: var(--space-11); }
-  .hero-scroll { margin-top: var(--space-7); }
 }
+/* Reposo P5: la placa de rol y los botones flotan desfasados; `translate` no pisa su skew ni el hover. */
+.hero-role { animation: p5float var(--dur-float) ease-in-out -.6s infinite; }
+.hero-actions > * { --float-y: -4px; animation: p5float calc(var(--dur-float) * 1.1) ease-in-out -1.4s infinite; }
+.hero-actions > :nth-child(2) { --float-x: -2px; animation-delay: -.3s; }

@@ -20,11 +20,18 @@ import {
 import type { BufferGeometry, Material, Object3D } from 'three'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
 
+/** Con WebGL por software (SwiftShader, llvmpipe) cada frame cuesta ~100 ms y toda la portada bajaría a ~10 fps: se queda el plano rojo estático. */
+function isSoftwareRenderer(context: WebGL2RenderingContext) {
+  const debug = context.getExtension('WEBGL_debug_renderer_info')
+  const name = String(context.getParameter(debug ? debug.UNMASKED_RENDERER_WEBGL : context.RENDERER))
+  return /swiftshader|llvmpipe|software/i.test(name)
+}
+
 /** Escena decorativa local a la portada: tres vagones, un recorrido y un único ciclo de render. */
 export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: readonly HTMLImageElement[]) {
   // Comprobar el contexto antes del constructor evita errores de Three en equipos sin WebGL.
   const context = canvas.getContext('webgl2', { alpha: true, antialias: true })
-  if (!context) return () => {}
+  if (!context || isSoftwareRenderer(context)) return () => {}
 
   const renderer = new WebGLRenderer({ canvas, context, alpha: true, antialias: true })
   renderer.setClearColor(0, 0)
@@ -211,6 +218,9 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
   const mobileDirections = [0, Math.PI, 0.15, Math.PI + 0.15]
   let mobile = false
   let pass = -1
+  // Hasta compilar los shaders no se dibuja: así el primer fotograma no bloquea el hilo principal.
+  let ready = false
+  let disposed = false
 
   function render(time: number) {
     const duration = mobile ? 5 : 3.6
@@ -234,7 +244,7 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
   function updatePlayback() {
     previousTime = undefined
     renderer.setAnimationLoop(null)
-    if (!visible || document.hidden || contextLost) return
+    if (!ready || !visible || document.hidden || contextLost) return
     if (reducedMotion.matches) render(performance.now())
     else renderer.setAnimationLoop(render)
   }
@@ -264,7 +274,7 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
     travel = 10 + Math.max(panelViewWidth, mobile ? viewHeight * 0.85 : 0)
     renderer.setSize(width, height, false)
     previousTime = undefined
-    if (!document.hidden) render(performance.now())
+    if (ready && !document.hidden) render(performance.now())
   }
 
   function loseContext(event: Event) {
@@ -291,8 +301,17 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
   canvas.addEventListener('webglcontextlost', loseContext)
   canvas.addEventListener('webglcontextrestored', restoreContext)
   resize()
+  // Compilación en paralelo (KHR_parallel_shader_compile) y subida anticipada de los grafitis alternos.
+  void renderer.compileAsync(scene, camera).catch(() => undefined).then(() => {
+    if (disposed) return
+    graffitiTextures.forEach(texture => renderer.initTexture(texture))
+    ready = true
+    resize()
+    updatePlayback()
+  })
 
   return () => {
+    disposed = true
     renderer.setAnimationLoop(null)
     resizeObserver.disconnect()
     intersectionObserver.disconnect()

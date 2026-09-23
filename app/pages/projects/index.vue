@@ -19,8 +19,10 @@ const total = computed(() => String(projects.value.length).padStart(2, '0'))
 useSeoMeta({
   title: () => t('meta.projectsTitle'),
   description: () => t('meta.projectsDescription'),
-  ogTitle: () => t('meta.projectsTitle'),
+  ogTitle: () => `${t('meta.projectsTitle')} · Paric.io`,
   ogDescription: () => t('meta.projectsDescription'),
+  twitterTitle: () => `${t('meta.projectsTitle')} · Paric.io`,
+  twitterDescription: () => t('meta.projectsDescription'),
 })
 
 onMounted(async () => {

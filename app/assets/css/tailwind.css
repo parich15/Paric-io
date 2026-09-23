@@ -87,7 +87,6 @@
   --animate-in: p5in var(--dur-enter) var(--easing-slash) both;
   --animate-blink: p5blink .8s steps(2) infinite;
   --animate-spin-slow: p5spin var(--dur-spin) linear infinite;
-  --animate-zig: p5zig 3s ease-in-out infinite;
 }
 
 /* Utilidades propias del sistema */
@@ -104,7 +103,11 @@
 @utility text-stroke-fg { -webkit-text-stroke: 3px var(--fg); color: transparent; }
 @utility halftone-ink { background-image: var(--halftone-ink); background-size: var(--halftone-size); }
 @utility halftone-paper { background-image: var(--halftone-paper); background-size: var(--halftone-size); }
-@utility zigzag { background-color: var(--p5-paper); background-image: var(--zigzag); background-size: var(--zigzag-size); background-position: var(--zigzag-position); }
+/* El plano recorta y una lámina ::before, una baldosa más alta, lleva el patrón: así animate-zig la desplaza por transform sin repintar. */
+@utility zigzag { overflow: hidden; background-color: var(--p5-paper); &::before { content: ''; position: absolute; inset: 0 0 calc(-1 * var(--zigzag-period)); background-color: var(--p5-ink); mask: var(--zigzag-mask) 0 0 / var(--zigzag-size) repeat; } }
+@utility animate-zig { &::before { animation: p5zig var(--dur-zig) linear infinite; will-change: transform; } }
+/* Desfasa cada pieza con --float-delay (negativo) para que no floten al unísono. */
+@utility animate-float { animation: p5float var(--dur-float) ease-in-out var(--float-delay, 0s) infinite; }
 @utility stripes-red { background: var(--stripes-red); }
 @utility label-p5 { font-family: var(--type-label); font-weight: var(--weight-label); text-transform: uppercase; letter-spacing: var(--track-label); }
 @utility display-p5 { font-family: var(--type-display); font-weight: 400; text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--track-display); }

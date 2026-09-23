@@ -132,7 +132,8 @@ Escala con el elemento: tags sin sombra; botones 5–6px; stamps 8px; tarjetas 1
 
 **Texturas** (siempre a baja opacidad, siempre sobre un plano inclinado, nunca sobre texto):
 - `halftone-ink` / `halftone-paper`: puntos radiales 12–18px, opacidad `.12–.32`.
-- `zigzag`: chevrones B/N de 60px, opacidad `.12–.16`, animado (`animate-zig`, 3s).
+- `zigzag`: chevrones B/N de 60px (`--zigzag-period`), opacidad `.12–.16`. El patrón es una única baldosa SVG (`--zigzag-mask`) aplicada como `mask` a una lámina `::before` de tinta una baldosa más alta: un solo tile no deja costuras al inclinarse ni al animarse, como sí hacían varios gradientes superpuestos. `animate-zig` la desplaza con `transform` lineal e infinito (`--dur-zig` 3s), nunca con `background-position`.
+- El halftone del plano de portada se desplaza igual: una capa un paso más grande (`--halftone-step`) movida con `transform`, para que la animación vaya en el compositor.
 - `stripes-red`: vetas diagonales en tres rojos, solo fondo del menú.
 - Número de proyecto gigante en outline (`text-stroke-fg`, 3px), opacidad `.18`, −6°, anclado abajo-derecha.
 
@@ -147,7 +148,7 @@ Valores exactos, no una rejilla de 8. Escala `--space-1…17`: 4, 6, 8, 10, 12, 
 - **Cabecera** fija: padding `20px 28px`; marca (placa tinta, skew −12°, rot −2°, sombra roja 5px) a la izquierda; a la derecha bloque "MENÚ: SECCIÓN" + botón rojo `clip-slant-tight` con hamburguesa de tres barras.
 - **Página**: padding horizontal `6vw` (`--page-x`), superior `110px` (`--page-top`) para dejar sitio a la cabecera.
 - **Selector de categoría**: columna vertical pegada a la izquierda (`left 2.5vw`, `writing-mode: vertical-rl`); en móvil (<760px) pasa a fila inferior.
-- **Rejillas**: `repeat(auto-fit, minmax(min(100%, N), 1fr))` con N = 220px (fichas), 280px (galería), 340px (reto/solución), 380px (cabecera de detalle). Gaps 24–48px.
+- **Rejillas**: `repeat(auto-fit, minmax(min(100%, N), 1fr))` con N = 220px (fichas), 300px (piezas clave), 340px (reto/solución), 380px (cabecera de detalle). La galería usa 12 columnas: capturas de escritorio de dos en dos (la impar final, centrada y más grande) y los móviles en una fila propia. Gaps 24–48px.
 - **Párrafos**: `max-width 560px` (`--content-max`), 520px dentro de columnas.
 - **Capas z**: `--z-bg 0 · --z-stage 10 · --z-ui 30 · --z-nav 40 · --z-detail 100 · --z-header 120 · --z-wipe 150 · --z-intro 200`.
 - **Pista de teclado**: solo en escritorio con alto ≥ 700px. Se oculta en móvil y pantallas bajas para no pisar el titular.
@@ -171,10 +172,13 @@ Valores exactos, no una rejilla de 8. Escala `--space-1…17`: 4, 6, 8, 10, 12, 
 **Entradas** (`@keyframes` en `app/assets/css/motion.css`, utilidades `animate-*`):
 - `stamp`: de `scale(2.2) rotate(-14deg)` a `scale(1) rotate(-4deg)`. Titulares, números, sello del wipe.
 - `rise`: 30px hacia arriba + fade. Bloques de contenido, escalonados `.2s / .3s / .45s / .55s`.
-- `in`: 60px desde la izquierda con skew. Opciones de menú, escalonadas `.08s`.
+- `in`: 60px desde la izquierda + fade, sin skew (se aplica al wrapper, la opción ya va inclinada). Opciones del menú en móvil, escalonadas `.08s` desde `--i`.
 - `pop`: `scale(0) rotate(-30deg)` → `rotate(-6deg)`. Badges que aparecen.
 - `blink`: `steps(2)` .8s. Solo "CARGANDO".
 - `spin-slow`: 30s lineal. Anillos discontinuos decorativos.
+- Cursor (`AppCursor`, solo puntero fino): un marco dashed de 2px encaja con muelle en el elemento bajo el puntero o con foco de teclado; tinta/papel del tema, acento y 3px sobre la acción primaria o la opción activa; sella al pulsar. Mientras rodea al elemento con foco sustituye al `outline`.
+- `zig`: desplaza la lámina `::before` del `zigzag` una baldosa por ciclo (`--dur-zig` 3s, lineal, infinito). Bucle de reposo, siempre lineal para que no frene en cada vuelta.
+- `float` (`p5float`, utilidad `animate-float`): reposo de las piezas de interfaz como los menús de P5. Solo anima `translate`, así convive con el skew/rotate de `transform`, con el hover y con las entradas sin wrappers extra. Amplitud `--float-x` 2px / `--float-y` −5px (hasta −12px en el póster del menú), `--dur-float` 3.4s `ease-in-out`, con desfases negativos distintos por pieza para que no floten al unísono. Con movimiento reducido quedan quietas.
 
 **Cambio de pantalla (`P5Wipe`):** tres planos (rojo, tinta, papel) con `skewX(-18deg)` barren de izquierda a derecha con desfase `.08s`; a los `.35s` aparece un sello con el nombre del destino; el contenido cambia a los `.5s`; todo termina a `1.15s`. Úsalo para **cada** cambio de sección o apertura de detalle. Nunca un fade.
 
@@ -239,6 +243,9 @@ Importa desde el barril: `import { P5Button, P5Card } from '~/components/p5'`. T
 - **No hay set de iconos.** Los iconos son tipográficos (flechas en Anton) o geométricos (barras, rombo, anillo). Si un caso lo exige de verdad, usa Lucide con `stroke-width: 3` y `stroke-linecap: square` para casar con los bordes de 3px — y documéntalo.
 - **La marca es tipográfica**: "PARIC.IO" en Anton sobre placa tinta/papel, skew −12°, rot −2°, sombra roja. No existe logotipo gráfico; no dibujes uno.
 - **Fotografía**: duotono rojo/tinta (`filter: grayscale(1) contrast(1.3)` + capa roja `mix-blend-mode: multiply`) con halftone de 7px multiplicado. Marcos con borde 4px y sombra roja 16px, rotados ±2°.
+- **Capturas de producto** (`ProjectImage`): sin duotono, porque la interfaz real es el contenido. Marco `browser` (barra tinta con tres píldoras inclinadas y el dominio del enlace público) o `phone` (muesca), borde 4px, sombra dura y rotación ±2°. En el detalle, el móvil se superpone a la captura principal.
+- **Visor de galería** (`ProjectGallery`): `<dialog>` nativo a pantalla completa en tinta con cuña roja, contador `NN / NN`, cierre papel con `Esc` y flechas ←→ en placas inclinadas. Devuelve el foco a la miniatura. Sin JavaScript cada miniatura enlaza a su archivo.
+- **Sites en producción** (`ProjectSites`): placas de papel con el favicon del cliente en un cuadro de papel fijo, nombre en Anton y `↗`; hover rojo con muelle, abren en otra pestaña. Se agrupan por sector bajo etiquetas de tinta y una placa roja da el total publicado. Los favicons se sirven en local.
 - **Imágenes ausentes**: `P5Placeholder` con etiqueta descriptiva en mayúsculas ("CAPTURA PRINCIPAL"), nunca un gris vacío.
 
 ---

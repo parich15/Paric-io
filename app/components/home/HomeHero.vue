@@ -43,7 +43,6 @@ const contactTarget = computed(() => ({ path: localePath('index'), hash: locale.
         <P5Button :to="localePath('projects')" size="lg">{{ t('home.viewProjects') }}</P5Button>
         <P5Button :to="contactTarget" variant="outline" size="lg">{{ t('home.contactCta') }}</P5Button>
       </div>
-      <a class="hero-scroll label-p5" href="#featured">{{ t('home.scroll') }} <span aria-hidden="true">↓</span></a>
     </div>
   </section>
 </template>

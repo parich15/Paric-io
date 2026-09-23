@@ -72,6 +72,7 @@ No hay set de iconos ni fuente de iconos. Todo icono es tipográfico o geométri
 Intentional additions: **P5Placeholder** (marcador de imagen; los prototipos lo usan en todas las tarjetas) y **P5Switch** (formaliza el cambio Profesional/Personal).
 
 ## Índice
+- [Persona 5 · Game UI Database](persona-5-game-ui-database.md) — referencia aportada por Oscar, capturas conservadas, análisis y aplicaciones propuestas al portfolio.
 - `../app/assets/css/main.css`, `../app/assets/css/` — tokens CSS y `tailwind.css` (entrada Tailwind 4)
 - `../app/components/p5/` — SFC + `index.ts` (barril) · `components/cards/` — specimens
 - `ui_kits/portfolio/index.html` — pantalla Proyectos + detalle, interactiva (←→, ↵, TAB, Esc)

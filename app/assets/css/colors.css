@@ -13,6 +13,11 @@
   --p5-red-dark: #B3000E;
   --p5-red-deep: #8F000B;
 
+  /* Acentos autorizados para los cajones abiertos de Sobre mí; el resto conserva el rojo. */
+  --p5-skill-blue: #0062EB;
+  --p5-skill-green: #007C3D;
+  --p5-skill-yellow: #FFD900;
+
   /* Semánticos · tema oscuro (por defecto: sección PROFESIONAL) */
   --bg: var(--p5-ink);
   --bg-2: var(--p5-ink-2);

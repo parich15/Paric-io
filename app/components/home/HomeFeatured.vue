@@ -4,7 +4,7 @@ import { getProjectCopy, projects } from '~/data/projects'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-/** La portada selecciona las demos compartidas sin duplicar sus textos ni su orden editorial. */
+/** La portada selecciona los proyectos compartidos sin duplicar sus textos ni su orden editorial. */
 const featuredProjects = computed(() => projects.filter(project => project.featured).map(project => ({
   ...project,
   copy: getProjectCopy(project, locale.value),
@@ -22,9 +22,9 @@ const featuredProjects = computed(() => projects.filter(project => project.featu
     </div>
     <div class="featured-grid">
       <div v-for="(project, index) in featuredProjects" :key="project.id" data-motion="rise">
-        <NuxtLink :to="localePath({ name: 'projects-slug', params: { slug: project.slug } })" class="featured-project" :aria-label="t('projects.openProject', { title: project.title })">
-          <P5Card :num="String(index + 1).padStart(2, '0')" :title="project.title" :year="project.year" :kind="t('common.demo')" class="featured-card">
-            <template #media><P5Placeholder :label="t('common.image')" /></template>
+        <NuxtLink :to="localePath({ name: 'projects-slug', params: { slug: project.slug } })" class="featured-project">
+          <P5Card :num="String(index + 1).padStart(2, '0')" :title="project.title" :year="project.year" :kind="t(project.category === 'pro' ? 'projects.professional' : 'projects.personal')" class="featured-card">
+            <template #media><img v-if="project.cover" :src="project.cover" alt="" loading="lazy" class="project-cover" /><P5Placeholder v-else :label="t('common.image')" /></template>
           </P5Card>
           <div class="featured-copy">
             <h3 class="display-p5">{{ project.title }}</h3>

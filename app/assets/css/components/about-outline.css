@@ -1,0 +1,7 @@
+.outline-word { position: relative; display: none; width: 1em; height: 3.3em; color: transparent; -webkit-text-stroke: var(--border-3) var(--p5-paper); font-size: clamp(120px, 18vw, 260px); line-height: .9; opacity: .18; }
+.outline-word-inner { position: absolute; bottom: 0; left: 0; display: flex; transform-origin: .45em .45em; transform: rotate(-96deg); white-space: pre; }
+.outline-letter { display: inline-block; transform-origin: center; }
+@media (width < 760px) {
+  .outline-word { width: auto; height: auto; font-size: clamp(80px, 23vw, 160px); }
+  .outline-word-inner { position: relative; transform: rotate(var(--rot-6)); }
+}

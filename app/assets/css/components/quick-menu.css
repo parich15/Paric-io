@@ -1,8 +1,17 @@
 .quick-launcher { position: fixed; right: var(--space-13); bottom: var(--space-13); z-index: var(--z-nav); }
-.quick-hint { position: absolute; right: 0; bottom: calc(100% + 12px); white-space: nowrap; font-size: var(--size-label-xs); color: var(--p5-paper); text-shadow: 2px 2px 0 var(--p5-ink); }
+.quick-hint { position: fixed; right: var(--space-13); bottom: calc(var(--space-13) + 72px + 14px); z-index: var(--z-nav); white-space: nowrap; font-size: var(--size-label-xs); pointer-events: none; }
+/* Placa de tinta en lugar de mezcla por diferencia: sobre el plano rojo aquella producía cian, fuera de la paleta.
+   El skew vive en la placa interior porque Anime.js escribe `transform` en la etiqueta al abrir y cerrar. */
+.quick-hint-plate { display: inline-block; padding: 2px var(--space-4); background: var(--p5-ink); color: var(--p5-paper); box-shadow: var(--hard-sm); transform: skewX(var(--skew)) rotate(var(--rot-2)); }
+.quick-hint-plate > span { display: inline-block; transform: skewX(calc(-1 * var(--skew))); }
+.quick-launcher { --float-y: -4px; animation: p5float calc(var(--dur-float) * 1.2) ease-in-out -1s infinite; }
+.quick-hint.is-open { opacity: 0; }
 .quick-toggle { display: grid; place-items: center; width: 72px; height: 72px; padding: 0; border: var(--border-4) solid var(--p5-paper); border-radius: var(--radius-full); background: var(--p5-red); color: var(--p5-paper); cursor: pointer; font: 30px/1 var(--type-display); transition: transform var(--dur-hover) var(--easing-pop); }
-.quick-toggle:hover { transform: scale(1.1) rotate(-8deg); }
-.quick-menu { position: fixed; inset: auto 0 0 auto; width: min(420px, 100vw); height: min(400px, 100dvh); max-width: none; max-height: none; margin: 0; padding: 0; overflow: hidden; border: 0; background: transparent; color: var(--p5-paper); }
+.quick-toggle:hover { background: var(--p5-paper); color: var(--p5-red); }
+/* Geometría centrada: no depende de la línea base del glifo de la fuente. */
+.quick-toggle > span { width: 30px; height: 30px; background: currentColor; font-size: 0; clip-path: polygon(50% 0, 64% 36%, 100% 50%, 64% 64%, 50% 100%, 36% 64%, 0 50%, 36% 36%); }
+.quick-close > span { transform: rotate(135deg); }
+.quick-menu { position: fixed; inset: auto 0 0 auto; width: min(420px, 100vw); height: min(400px, 100dvh); max-width: none; max-height: none; margin: 0; padding: 0; overflow-x: clip; overflow-y: visible; border: 0; background: transparent; color: var(--p5-paper); }
 .quick-menu::backdrop { background: transparent; }
 .quick-menu nav { position: absolute; right: var(--space-13); bottom: var(--space-13); width: 72px; height: 72px; }
 .quick-menu ul { margin: 0; padding: 0; list-style: none; }
@@ -13,9 +22,16 @@
 .quick-menu li:nth-child(4) { right: 0; bottom: 186px; }
 .quick-link { display: inline-flex; align-items: center; gap: var(--space-4); min-height: 44px; padding: var(--space-2) var(--space-6) var(--space-3) var(--space-3); background: var(--p5-ink); color: var(--p5-paper); border: var(--border-3) solid var(--p5-paper); white-space: nowrap; transform: rotate(var(--rot-6)); }
 .quick-link:hover, .quick-link:focus-visible { color: var(--p5-paper); background: var(--p5-red); }
+.quick-link::before { content: ''; position: absolute; left: -18px; top: -9px; width: 30px; height: 40px; background: var(--p5-paper); clip-path: polygon(0 0, 100% 16%, 55% 38%, 82% 64%, 48% 55%, 66% 100%, 8% 48%, 24% 36%); pointer-events: none; }
 .quick-link .display-p5 { font-size: 20px; }
 .quick-key { display: grid; place-items: center; width: 28px; height: 28px; border-radius: var(--radius-full); background: var(--p5-red); color: var(--p5-paper); font-family: var(--type-display); font-size: var(--size-btn-sm); }
-.quick-ring { position: absolute; inset: -34px; border: var(--border-4) dashed var(--p5-paper); border-radius: var(--radius-full); pointer-events: none; }
-.quick-close { transform: rotate(135deg); }
-@media (width < 760px) { .quick-launcher { right: var(--space-9); bottom: var(--space-9); } .quick-menu nav { right: var(--space-9); bottom: var(--space-9); } .quick-menu li:nth-child(2) { right: 100px; } }
+.quick-ring { position: absolute; inset: -28px; border: var(--border-4) dashed var(--p5-paper); border-radius: var(--radius-full); pointer-events: none; }
+@media (width < 760px) {
+  .quick-launcher { right: var(--space-9); bottom: var(--space-9); }
+  .quick-menu nav { right: var(--space-9); bottom: var(--space-9); }
+  .quick-ring { inset: -16px; }
+  .quick-menu li:nth-child(1) { right: 90px; }
+  .quick-menu li:nth-child(2) { right: 85px; }
+  .quick-menu li:nth-child(3) { right: 60px; }
+}
 @media (height < 400px) { .quick-menu { height: 100dvh; } .quick-menu li:nth-child(4) { bottom: 170px; } }

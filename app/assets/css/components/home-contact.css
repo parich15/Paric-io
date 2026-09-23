@@ -11,3 +11,6 @@
 .contact-form > p { margin: 0 0 var(--space-2); color: var(--p5-gray); font-size: var(--size-body); line-height: 1.45; }
 .contact-form > button { align-self: flex-start; max-width: 100%; margin-top: var(--space-3); }
 @media (width < 760px) { .home-contact { padding-top: var(--space-17); padding-bottom: var(--space-17); } .contact-plane { width: 65%; left: -32%; } .contact-form { padding: var(--space-9); } .contact-grid { gap: var(--space-14); } }
+/* Reposo P5 del número y del sello. */
+.contact-number { --float-y: -7px; animation: p5float calc(var(--dur-float) * .9) ease-in-out -.5s infinite; }
+.contact-copy h2 { animation: p5float calc(var(--dur-float) * 1.2) ease-in-out -1.7s infinite; }

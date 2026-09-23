@@ -27,11 +27,13 @@ for (const viewport of [
       await page.keyboard.press('Escape')
       await page.goto(galleryPath)
       await capture('professional')
-      await page.goto(`${galleryPath}?category=personal&slug=kanji`)
-      await expect(page.locator('main h1')).toHaveAccessibleName('Kanji Quest')
+      await page.goto(`${galleryPath}?category=personal&slug=moof`)
+      await expect(page.locator('main h1')).toHaveAccessibleName('Moof Fisioterapia')
       await capture('personal')
-      await page.goto(`${galleryPath}/nocturne`)
+      await page.goto(`${galleryPath}/hortec`)
       await capture('detail')
+      await page.goto(locale === 'es' ? '/contacto' : '/en/contact')
+      await capture('contact')
     })
   }
 }

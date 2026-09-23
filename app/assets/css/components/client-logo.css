@@ -1,0 +1,3 @@
+.client-logo { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1; background: var(--p5-paper); color: var(--p5-ink); border: var(--border-4) solid var(--p5-ink); box-shadow: var(--hard-lg); transform: skewX(var(--skew-xs)) rotate(var(--rot-2)); }
+.client-logo > span { font-size: clamp(40px, 7vw, 110px); transform: skewX(calc(-1 * var(--skew-xs))); }
+.client-logo img { width: 80%; height: 80%; object-fit: contain; transform: skewX(calc(-1 * var(--skew-xs))); }

@@ -1,0 +1,93 @@
+.about-skills-stage { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: calc(var(--page-top) + var(--space-13)) max(var(--space-13), 6dvh) var(--space-14) var(--space-11); background: var(--p5-ink); color: var(--p5-paper); }
+/* Compensa la proyección superior del skew de −6° para unir la diagonal al borde del grid. */
+.about-skills-stage::before { content: ''; position: absolute; top: -10%; right: 0; bottom: -10%; left: -5.3dvh; background: var(--p5-ink); transform: skewX(var(--skew-xs)); pointer-events: none; }
+.about-skills-stage::after { content: ''; position: absolute; top: -10%; bottom: -10%; left: -5.3dvh; width: 8px; background: var(--accent); transform: skewX(var(--skew-xs)); pointer-events: none; }
+.skills-title { --fg: var(--p5-paper); --bg: var(--p5-ink); position: relative; margin: 0 0 var(--space-13); rotate: var(--rot-4); }
+.skills-title > span { font-size: clamp(36px, 4vw, 56px); }
+.skills-accordion { position: relative; display: flex; flex: 1; min-height: 0; gap: var(--space-5); transform: skewX(var(--skew-xs)); }
+/* Lomos cerrados: placas papel con la sombra de su propio acento y giros alternados; abierto: caja tinta con borde de acento. */
+.skill-panel { --skill-accent: var(--p5-red); --skill-fg: var(--p5-paper); position: relative; flex: 1 1 0; min-width: 44px; min-height: 0; border: var(--border-3) solid var(--p5-ink); background: var(--p5-paper); color: var(--p5-ink); box-shadow: 8px 8px 0 var(--skill-accent); rotate: var(--rot-2); transition: flex-grow var(--dur-base) var(--easing-slash), rotate var(--dur-base) var(--easing-slash), box-shadow var(--dur-hover); }
+.skill-panel:nth-child(2) { rotate: var(--rot-pos-2); }
+.skill-panel:nth-child(3) { rotate: var(--rot-1); }
+.skill-panel:nth-child(4) { rotate: var(--rot-pos-3); }
+.skill-panel:nth-child(even) { margin-top: var(--space-11); margin-bottom: calc(-1 * var(--space-3)); }
+.skills-accordion:has([open]) .skill-panel:not([open]) { rotate: var(--rot-1); }
+.skills-accordion:has([open]) .skill-panel:not([open]):nth-child(even) { rotate: 1deg; }
+.skill-panel[data-skill-group="backend"] { --skill-accent: var(--p5-skill-blue); }
+.skill-panel[data-skill-group="skills"] { --skill-accent: var(--p5-skill-green); }
+.skill-panel[data-skill-group="misc"] { --skill-accent: var(--p5-skill-yellow); --skill-fg: var(--p5-ink); }
+.skill-panel[open] { flex-grow: 12; rotate: 0deg; border-color: var(--accent); background: var(--p5-ink); color: var(--p5-paper); box-shadow: var(--hard-xl); }
+.skill-spine { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: var(--space-11); width: 100%; height: 100%; min-height: 44px; padding: var(--space-13) var(--space-3); list-style: none; cursor: pointer; transition: background var(--dur-hover), color var(--dur-hover); }
+.skill-spine::-webkit-details-marker { display: none; }
+.skill-spine-title { writing-mode: vertical-rl; transform: rotate(180deg); font-size: clamp(32px, 3.5vw, 56px); line-height: 1; }
+/* El «+» va en su propia placa de acento: anticipa el color del grupo antes de abrirlo. */
+.skill-spine-arrow { position: relative; display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; background: var(--skill-accent); color: var(--skill-fg); font-size: 0; line-height: 1; transform: skewX(6deg); transition: transform var(--dur-hover) var(--easing-pop), background var(--dur-hover), color var(--dur-hover); }
+.skill-spine-arrow::before { content: ''; position: absolute; inset: 11px; background: currentColor; clip-path: polygon(40% 0, 60% 0, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%, 0 40%, 40% 40%); }
+.skill-spine:hover { background: var(--skill-accent); color: var(--skill-fg); }
+.skill-spine:hover .skill-spine-arrow { background: var(--skill-fg); color: var(--skill-accent); transform: skewX(6deg) scale(var(--hover-scale-lg)) rotate(var(--rot-6)); }
+.skill-spine:focus-visible { outline: var(--border-3) solid var(--accent); outline-offset: 5px; }
+.skill-panel[open] .skill-spine { position: absolute; inset: 0 auto 0 0; width: 72px; background: var(--accent); color: var(--accent-fg); }
+.skill-panel[open] .skill-spine:focus-visible { outline-color: var(--accent-fg); outline-offset: -6px; }
+.skill-panel[open] .skill-spine-arrow { background: var(--accent-fg); color: var(--accent); transform: skewX(6deg) rotate(45deg); }
+.skill-panel-content { position: absolute; inset: 0 0 0 72px; min-width: 0; min-height: 0; padding: var(--space-13) clamp(28px, 4vw, 64px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.skill-panel-content::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.skill-panel-unskew { display: flex; flex-direction: column; gap: var(--space-11); min-height: 100%; transform: skewX(6deg); }
+.skill-panel-content:focus-visible { outline: var(--border-3) solid var(--p5-paper); outline-offset: -6px; }
+.skill-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-13) var(--space-9); margin: 0; padding: 0; list-style: none; max-width: 640px; }
+.skill-more { display: none; }
+/* Placa de una línea con el skill destacado: sustituye al tooltip flotante y ocupa el pie del panel. */
+.skill-legend { position: sticky; bottom: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name count' 'text count'; align-items: end; gap: var(--space-1) var(--space-9); width: fit-content; max-width: min(640px, 100%); margin: auto 0 0; padding: var(--space-4) var(--space-9) var(--space-5); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); box-shadow: var(--hard-sm); transform: skewX(var(--skew)) rotate(var(--rot-1)); }
+.skill-legend > span { transform: skewX(calc(-1 * var(--skew))); }
+.skill-legend-name { grid-area: name; font-size: var(--size-label); }
+.skill-legend-text { grid-area: text; font-family: var(--type-body); font-size: 16px; line-height: 1.35; text-transform: none; }
+.skill-legend-count { grid-area: count; font-size: var(--size-h3); line-height: .9; text-shadow: 3px 3px 0 var(--accent); }
+.skill-legend-count small { margin-left: var(--space-2); font-size: var(--size-label); letter-spacing: .1em; }
+.skills-keyboard { position: absolute; right: max(var(--space-13), 6dvh); bottom: var(--space-9); z-index: 2; display: flex; align-items: center; gap: var(--space-9); padding: var(--space-2) var(--space-8); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); box-shadow: var(--hard-md); transform: skewX(var(--skew)); white-space: nowrap; pointer-events: none; }
+@media (760px <= width < 1100px) {
+  .about-skills-stage { padding-left: var(--space-7); padding-right: max(var(--space-13), 6dvh); }
+  .skills-accordion { gap: var(--space-3); }
+  .skill-spine { padding-inline: var(--space-1); }
+  .skill-spine-title { font-size: 32px; }
+  .skill-panel[open] .skill-spine { width: 52px; }
+  .skill-panel-content { left: 52px; padding: var(--space-11) var(--space-13); }
+  .skill-legend { max-width: 100%; }
+}
+@media (width < 760px) {
+  .about-skills-stage { padding: var(--space-7) var(--page-x); }
+  .about-skills-stage::before { inset: -6px 0 auto; width: 100%; height: 12px; transform: none; }
+  .about-skills-stage::after { inset: -6px 0 auto; width: 100%; height: 12px; transform: none; clip-path: polygon(0 65%, 100% 0, 100% 35%, 0 100%); }
+  .skills-title { margin-bottom: var(--space-7); }
+  .skills-title > span { font-size: 28px; }
+  .skills-accordion { flex-direction: column; gap: var(--space-3); transform: none; }
+  .skill-panel, .skills-accordion:has([open]) .skill-panel:not([open]) { flex: 1 1 0; rotate: 0deg; box-shadow: 4px 4px 0 var(--skill-accent); }
+  .skill-panel:nth-child(even) { margin: 0; }
+  .skill-panel[open] { flex-grow: 1; box-shadow: var(--hard-md); }
+  .skills-accordion:has([open]) .skill-panel:not([open]) { flex: 0 0 50px; }
+  .skill-spine, .skill-panel[open] .skill-spine { position: relative; inset: auto; width: 100%; height: 100%; flex-direction: row; gap: var(--space-5); padding: var(--space-1) var(--space-9); }
+  .skill-panel[open] .skill-spine { height: 50px; }
+  .skill-spine-title { writing-mode: horizontal-tb; transform: skewX(var(--skew-xs)); font-size: 28px; }
+  .skill-spine-arrow { width: 32px; height: 32px; transform: none; }
+  .skill-spine-arrow::before { inset: 9px; }
+  .skill-panel[open] .skill-spine-arrow { transform: rotate(45deg); }
+  .skill-panel-content { inset: 50px 0 0; padding: var(--space-11) var(--space-9); }
+  .skill-panel-unskew { transform: none; }
+  .about-skills-stage[data-enhanced="true"] .skill-list:not(.is-expanded) .skill-item:nth-child(n + 10) { display: none; }
+  .skill-more { display: block; }
+  .skill-list { gap: var(--space-11) var(--space-5); }
+  /* En móvil la placa no se pega al pie: taparía el botón «Ver más» hasta el final del scroll. */
+  .skill-legend { position: static; width: 100%; max-width: 100%; }
+}
+
+/* El vaivén pertenece a la caja; títulos y controles acompañan su geometría. */
+.skills-accordion:not(:has(.skill-panel[open])) .skill-panel { transform-origin: 50% 10%; animation: about-panel-sway calc(var(--dur-spin) * .2) ease-in-out infinite; }
+.skills-accordion:not(:has(.skill-panel[open])) .skill-panel:nth-child(2) { animation-duration: calc(var(--dur-spin) * .24); animation-delay: -1.2s; }
+.skills-accordion:not(:has(.skill-panel[open])) .skill-panel:nth-child(3) { animation-duration: calc(var(--dur-spin) * .18); animation-delay: -2.7s; }
+.skills-accordion:not(:has(.skill-panel[open])) .skill-panel:nth-child(4) { animation-duration: calc(var(--dur-spin) * .22); animation-delay: -1.9s; }
+@keyframes about-panel-sway {
+  0%, 100% { transform: translate(.5px, 0) rotate(-.2deg); }
+  33% { transform: translate(-1px, 2px) rotate(.25deg); }
+  66% { transform: translate(1px, -1px) rotate(-.15deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-accordion:not(:has(.skill-panel[open])) .skill-panel { animation: none; }
+}

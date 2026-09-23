@@ -1,0 +1,14 @@
+.skill-item { position: relative; min-width: 0; }
+.skill-name { display: flex; align-items: flex-end; min-height: 44px; max-width: 100%; padding: 0 0 var(--space-3); border: 0; background: none; color: inherit; font-size: clamp(16px, 1.8vw, 24px); line-height: 1.1; letter-spacing: .025em; text-align: left; cursor: pointer; text-decoration: underline transparent; text-decoration-thickness: var(--border-3); text-underline-offset: 5px; transition: text-decoration-color var(--dur-hover); }
+.skill-item.is-current .skill-name, .skill-name:hover { text-decoration-color: var(--accent); }
+.skill-name:focus-visible { outline: var(--border-2) solid var(--p5-paper); outline-offset: 4px; }
+/* Medidor de cinco cuñas: relleno de acento, huecos con borde papel de 2px. */
+.skill-level { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; width: min(100%, 132px); transform: skewX(var(--skew-xl)); }
+.skill-segment { display: block; height: 10px; border: var(--border-2) solid var(--p5-paper); }
+.skill-segment.is-filled { border-color: var(--accent); }
+.skill-segment-fill { display: block; height: 100%; background: var(--accent); transform-origin: left; }
+@media (width < 760px) {
+  .skill-name { font-size: 16px; overflow-wrap: anywhere; }
+  .skill-level { gap: 3px; }
+  .skill-segment { height: 8px; }
+}

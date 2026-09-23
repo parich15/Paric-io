@@ -1,4 +1,14 @@
-.locale-switch { display: flex; gap: var(--space-1); background: var(--p5-ink); color: var(--p5-paper); padding: 0 var(--space-1); transform: skewX(var(--skew)); }
+.locale-switch { position: relative; display: flex; gap: var(--space-1); background: var(--p5-ink); color: var(--p5-paper); padding: 0 var(--space-1); transform: skewX(var(--skew)); }
 .locale-switch a { display: grid; place-items: center; min-width: 44px; min-height: 44px; color: var(--p5-paper); font-size: var(--size-label); }
 .locale-switch a[aria-current], .locale-switch a:hover { background: var(--p5-paper); color: var(--p5-ink); }
 .locale-switch a:focus-visible { outline: var(--border-3) solid var(--p5-red); outline-offset: 3px; }
+
+/* Cambio en curso: el destino responde en rojo al instante, como un pulsador; el parpadeo queda reservado a CARGANDO. */
+.locale-switch a.is-pending { background: var(--p5-red); color: var(--p5-paper); }
+/* La placa CARGANDO cuelga del selector sin ocupar sitio en la cabecera ni en el menú; el retardo evita un destello en cambios rápidos. */
+.locale-switch-status { position: absolute; top: calc(100% + var(--space-2)); right: 0; padding: var(--space-1) var(--space-3); background: var(--p5-paper); color: var(--p5-ink); box-shadow: var(--hard-sm); font-size: var(--size-label-xs); letter-spacing: var(--track-loader); white-space: nowrap; opacity: 0; pointer-events: none; }
+.is-loading .locale-switch-status { animation: p5blink .8s steps(2) .2s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .is-loading .locale-switch-status { animation: none; opacity: 1; transition: opacity 0s .2s; }
+}

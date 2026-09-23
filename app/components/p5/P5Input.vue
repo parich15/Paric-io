@@ -27,19 +27,24 @@ function handleInput(event: Event) {
 }
 </script>
 <template>
-  <div :class="['flex flex-col gap-2', props.class]">
-    <label v-if="label" :for="controlId" class="label-p5 text-label tracking-label-xwide text-fg">{{ label }}</label>
-    <input
-      v-bind="attrs"
-      :id="controlId"
-      :type="type"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :aria-invalid="error ? true : attrs['aria-invalid']"
-      :aria-describedby="[attrs['aria-describedby'], error ? `${controlId}-error` : undefined].filter(Boolean).join(' ') || undefined"
-      :class="['bg-bg text-fg font-body font-semibold text-body px-4 py-3 border-3 placeholder:text-fg-muted transition-shadow duration-150 focus:shadow-hard-md disabled:opacity-40 disabled:pointer-events-none', error ? 'border-red' : 'border-fg']"
-      @input="handleInput"
-    />
+  <div :class="['p5-field', { 'has-error': error }, props.class]">
+    <label v-if="label" :for="controlId" class="p5-field-label label-p5 text-label tracking-label-xwide"><span>{{ label }}</span></label>
+    <div class="p5-field-panel">
+      <span class="p5-field-comma" aria-hidden="true"></span>
+      <input
+        v-bind="attrs"
+        :id="controlId"
+        :type="type"
+        :value="modelValue"
+        :placeholder="placeholder"
+        :aria-invalid="error ? true : attrs['aria-invalid']"
+        :aria-describedby="[attrs['aria-describedby'], error ? `${controlId}-error` : undefined].filter(Boolean).join(' ') || undefined"
+        class="p5-field-control font-body font-semibold text-body placeholder:text-fg-muted"
+        @input="handleInput"
+      />
+    </div>
     <span v-if="error" :id="`${controlId}-error`" class="label-p5 text-label-xs text-red">{{ error }}</span>
   </div>
 </template>
+
+<style src="~/assets/css/components/p5-field.css"></style>

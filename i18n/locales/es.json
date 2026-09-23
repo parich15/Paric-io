@@ -3,6 +3,7 @@
     "skip": "Saltar al contenido",
     "menu": "Menú",
     "close": "Cerrar",
+    "newTab": "(se abre en una pestaña nueva)",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "language": "Idioma",
@@ -23,14 +24,21 @@
     "image": "Imagen",
     "mainImage": "Captura principal",
     "detailImage": "Detalle de interfaz",
-    "mobileImage": "Vista móvil"
+    "mobileImage": "Vista móvil",
+    "clients": "Clientes"
   },
   "meta": {
     "homeTitle": "Oscar Paricio — Desarrollador web",
-    "homeDescription": "Portfolio de Oscar Paricio: desarrollo web, interfaces con carácter y proyectos que explorar.",
+    "homeDescription": "Soy Oscar Paricio, desarrollador web. Diseño y construyo interfaces accesibles con Vue, Nuxt y TypeScript. Explora mis proyectos y hablemos de tu próxima idea.",
     "projectsTitle": "Proyectos",
-    "projectsDescription": "Explora siete demos de proyectos web profesionales y personales de Oscar Paricio.",
-    "notFound": "Página no encontrada"
+    "projectsDescription": "Proyectos profesionales y personales de Oscar Paricio.",
+    "notFound": "Página no encontrada",
+    "clientsTitle": "Clientes",
+    "clientsDescription": "Clientes y proyectos de Oscar Paricio.",
+    "aboutTitle": "Sobre mí",
+    "aboutDescription": "Oscar Paricio: desarrollo web, diseño de interfaces y las herramientas con las que trabajo.",
+    "contactTitle": "Contacto",
+    "contactDescription": "Escribe a Oscar Paricio para hablar de tu próxima idea: interfaces web accesibles con Vue, Nuxt y TypeScript."
   },
   "nav": {
     "homeHint": "Volver a la portada",
@@ -45,7 +53,9 @@
     "openQuick": "Abrir menú rápido",
     "closeQuick": "Cerrar menú rápido",
     "choose": "Elige tu siguiente destino",
-    "keyboard": "Seleccionar"
+    "keyboard": "Seleccionar",
+    "clientsHint": "Las empresas detrás de los proyectos",
+    "clientsWord": "Clientes"
   },
   "home": {
     "role": "Desarrollador web",
@@ -57,13 +67,13 @@
     "contactCta": "Hablemos",
     "scroll": "Desliza para explorar",
     "featured": "Destacados",
-    "featuredLabel": "Una selección de demos",
+    "featuredLabel": "Una selección de proyectos",
     "allProjects": "Todos los proyectos",
     "aboutText": "Soy Oscar Paricio, desarrollador web. Me interesa el detalle: una transición bien medida, un texto que respira, un botón que responde. Disfruto trabajando entre diseño y desarrollo para convertir ideas en interfaces útiles.",
     "skills": "Rango de habilidades",
     "design": "Diseño",
-    "madeWith": "Hecho con Vue y café",
-    "marquee": "Diseño · Desarrollo · Interacción ·"
+    "marquee": "Vue · Nuxt · Angular · TypeScript · Node · Anime.js · Motion UI · Accesibilidad · Performance · Diseño ·",
+    "moreAbout": "Más sobre mí"
   },
   "contact": {
     "title": "¿Hablamos?",
@@ -74,9 +84,11 @@
     "namePlaceholder": "Tu nombre",
     "emailPlaceholder": "tu{'@'}email.com",
     "messagePlaceholder": "¿Qué construimos?",
-    "mock": "Formulario de maqueta: no envía ni guarda datos.",
-    "submit": "Envío no disponible",
-    "write": "Escríbeme por correo"
+    "write": "Escríbeme por correo",
+    "notice": "Nada se envía ni se guarda desde esta web: el botón abre tu aplicación de correo con el mensaje ya redactado.",
+    "compose": "Abrir en tu correo",
+    "subject": "Mensaje desde paric.io",
+    "subjectFrom": "Mensaje desde paric.io · {name}"
   },
   "projects": {
     "professional": "Profesional",
@@ -88,6 +100,8 @@
     "demoNotice": "Demo conceptual. Contenido ilustrativo; no es un encargo real.",
     "live": "Ver en vivo",
     "code": "Código",
+    "design": "Ver diseño",
+    "noRepository": "Repositorio no disponible.",
     "noDestination": "Esta demo no tiene enlace público ni repositorio disponible.",
     "back": "Volver a proyectos",
     "challenge": "El reto",
@@ -100,11 +114,50 @@
     "drag": "Arrastra para explorar",
     "details": "Ficha del proyecto",
     "all": "Todos los proyectos",
-    "keyboardCategory": "Tab: controles"
+    "keyboardCategory": "Tab: controles",
+    "flow": "Cómo funciona",
+    "features": "Piezas clave",
+    "enlarge": "Ampliar: {label}",
+    "lightbox": "Galería de {title}",
+    "imagePosition": "Imagen {current} de {total}",
+    "previousImage": "Imagen anterior",
+    "nextImage": "Imagen siguiente",
+    "sites": "Sites en producción",
+    "sitesMore": "Una muestra de más de {count} sites publicados."
   },
   "error": {
+    "code": "Error {code}",
+    "unavailable": "Algo ha fallado",
+    "retry": "No hemos podido abrir esta página. Puedes volver al inicio e intentarlo de nuevo.",
     "title": "No encontrado",
     "description": "Esta página se ha salido del mapa.",
     "back": "Volver al inicio"
+  },
+  "clients": {
+    "intro": "Cada proyecto tiene un contexto. Aquí puedes conocer a las empresas detrás de los trabajos y explorar lo que he creado para cada una.",
+    "demoNotice": "Clientes de ejemplo asociados a los proyectos demo. No representan encargos reales.",
+    "open": "Conocer a {name}",
+    "projectCount": "Sin proyectos | Un proyecto | {count} proyectos",
+    "back": "Volver a clientes",
+    "website": "Web",
+    "visitWebsite": "Visitar web",
+    "noWebsite": "Todavía no disponible",
+    "noProjects": "Los proyectos de este cliente se publicarán aquí.",
+    "viewClient": "Conocer al cliente"
+  },
+  "about": {
+    "approach": "Me gusta entender qué necesita una idea antes de convertirla en código. Trabajo la estructura, la interacción y el acabado como partes de una misma experiencia.",
+    "interests": "Este portfolio es también un espacio para experimentar: probar formas de navegar, explorar el movimiento y dar carácter a las interfaces sin perder claridad.",
+    "skillsTitle": "Herramientas y habilidades",
+    "levels": {
+      "exploring": "En exploración",
+      "comfortable": "Uso habitual",
+      "advanced": "Dominio avanzado"
+    },
+    "stack": "Stack",
+    "viewStack": "Ver stack",
+    "hideStack": "Cerrar",
+    "viewMore": "Ver más",
+    "viewLess": "Ver menos"
   }
 }
