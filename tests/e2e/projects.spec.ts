@@ -51,16 +51,16 @@ test('teclado, selección visible y Escape contextual en detalle', async ({ page
 test('la selección por tarjeta y el cambio de idioma conservan el proyecto', async ({ page }) => {
   await page.goto('/proyectos')
   await expect(page.locator('.project-static-list')).toHaveCount(0)
-  const nextCard = await page.getByRole('link', { name: 'Seleccionar SeatGeek Sites', exact: true }).boundingBox()
+  const nextCard = await page.getByRole('link', { name: 'Seleccionar PSP Chelsea FC', exact: true }).boundingBox()
   expect(nextCard).not.toBeNull()
   await page.mouse.click(nextCard!.x + nextCard!.width * .9, nextCard!.y + nextCard!.height * .5)
-  await expect(page.locator('main h1')).toHaveAccessibleName('SeatGeek Sites')
+  await expect(page.locator('main h1')).toHaveAccessibleName('PSP Chelsea FC')
   await page.getByRole('button', { name: 'Abrir menú', exact: true }).click()
   await page.getByRole('dialog').getByRole('link', { name: 'EN', exact: true }).click()
-  await expect(page).toHaveURL(/\/en\/projects\?category=pro&slug=seatgeek-sites$/)
-  await expect(page.locator('main h1')).toHaveAccessibleName('SeatGeek Sites')
-  await page.getByRole('link', { name: 'Open SeatGeek Sites', exact: true }).click()
-  await expect(page.locator('main')).toContainText('Season-ticket relocation and sales portals')
+  await expect(page).toHaveURL(/\/en\/projects\?category=pro&slug=psp-chelsea-fc$/)
+  await expect(page.locator('main h1')).toHaveAccessibleName('PSP Chelsea FC')
+  await page.getByRole('link', { name: 'Open PSP Chelsea FC', exact: true }).click()
+  await expect(page.locator('main')).toContainText('protected sales portal for season-ticket holders')
 })
 
 test('gesto táctil horizontal cambia de tarjeta sin abrir detalle', async ({ page, context }) => {
@@ -78,7 +78,7 @@ test('gesto táctil horizontal cambia de tarjeta sin abrir detalle', async ({ pa
     await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: startX - step * 22, y: startY }] })
   }
   await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
-  await expect(page.locator('main h1')).toHaveAccessibleName('SeatGeek Sites')
+  await expect(page.locator('main h1')).toHaveAccessibleName('PSP Chelsea FC')
   await expect(page).toHaveURL(/\/proyectos\?/)
   await session.detach()
 })

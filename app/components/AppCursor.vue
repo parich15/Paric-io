@@ -6,6 +6,9 @@ const FOCUSABLE = 'a[href], button, input:not([type="hidden"]), textarea, select
 const PRIMARY = '.is-active, [aria-current], [aria-pressed="true"], .header-toggle, [class~="before:bg-red"]'
 /** Zonas con su propio cursor de menú (anillo del menú rápido): conservan la flecha y no reciben marco. */
 const PLAIN = '[data-cursor="plain"]'
+/** Solo los campos donde se escribe llevan cursor de texto; radios, casillas y sus etiquetas son acciones. */
+const TEXT_FIELD = 'textarea:not(:disabled), input:not(:disabled):not([type="radio"], [type="checkbox"], [type="range"], [type="color"], [type="file"], [type="button"], [type="submit"], [type="reset"]), [contenteditable="true"]'
+const ACTION = 'a[href], button:not(:disabled), summary, [role="button"], label, input[type="radio"]:not(:disabled), input[type="checkbox"]:not(:disabled)'
 
 interface Frame { x: number, y: number, width: number, height: number, round: boolean, primary: boolean, color: string }
 
@@ -90,9 +93,9 @@ function update() {
   if (event) {
     const target = event.target instanceof Element ? event.target : null
     hovered = focusable(target)
-    nextKind = target?.closest('textarea:not(:disabled), input:not(:disabled), [contenteditable="true"]')
+    nextKind = target?.closest(TEXT_FIELD)
       ? 'text'
-      : target?.closest('a[href], button:not(:disabled), summary, [role="button"]') ? 'action' : 'default'
+      : target?.closest(ACTION) ? 'action' : 'default'
   }
   // :focus-visible se resuelve después de focusin, antes de este frame.
   focused = focused?.matches(':focus-visible') ? focused : null
