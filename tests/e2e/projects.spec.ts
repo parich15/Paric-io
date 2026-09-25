@@ -117,3 +117,14 @@ test('sites builder enlaza sus sites en producción en otra pestaña con su favi
   await icons.last().scrollIntoViewIfNeeded()
   await expect.poll(() => icons.evaluateAll(images => images.every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true)
 })
+
+test('la tarjeta principal abre el velo de puntillismo y las vecinas lo conservan en blanco y negro', async ({ page }) => {
+  await page.goto('/proyectos')
+  const veil = (card: number) => page.locator('[data-project-card]').nth(card).locator('.card-dots--left')
+  await expect.poll(() => veil(0).evaluate(element => getComputedStyle(element).transform)).not.toBe('none')
+  await expect.poll(() => veil(1).evaluate(element => getComputedStyle(element).transform)).toBe('none')
+  await expect(page.locator('[data-project-card]').first().locator('.project-cover')).toHaveCSS('filter', /grayscale\(1\)/)
+  await page.getByRole('button', { name: 'Proyecto siguiente', exact: true }).click()
+  await expect.poll(() => veil(1).evaluate(element => getComputedStyle(element).transform)).not.toBe('none')
+  await expect.poll(() => veil(0).evaluate(element => getComputedStyle(element).transform)).toBe('none')
+})

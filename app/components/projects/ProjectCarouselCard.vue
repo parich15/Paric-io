@@ -43,7 +43,14 @@ function activate(event: MouseEvent) {
       :num="String(index + 1).padStart(2, '0')" :title="project.title" :year="project.year"
       :kind="t(project.category === 'pro' ? 'projects.professional' : 'projects.personal')" :tags="project.tags.slice(0, 3)" :active="active"
     >
-      <template #media><img v-if="project.cover" :src="project.cover" alt="" loading="lazy" class="project-cover" /><P5Placeholder v-else :label="`${t('common.image')} · ${project.title}`" /></template>
+      <template #media>
+        <!-- Velo de puntillismo: dos mitades que se abren hacia los lados cuando la tarjeta pasa a ser la principal. -->
+        <span class="card-media" :class="{ 'is-open': active }">
+          <img v-if="project.cover" :src="project.cover" alt="" loading="lazy" class="project-cover" /><P5Placeholder v-else :label="`${t('common.image')} · ${project.title}`" />
+          <span class="card-dots card-dots--left" aria-hidden="true"></span>
+          <span class="card-dots card-dots--right" aria-hidden="true"></span>
+        </span>
+      </template>
     </P5Card>
   </NuxtLink>
 </template>
