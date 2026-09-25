@@ -1370,7 +1370,7 @@ export const projects: Project[] = [
     "id": "og-stickers",
     "slug": "og-stickers",
     "title": "OG Stickers",
-    "year": "",
+    "year": "2025",
     "client": "OG Stickers",
     "category": "personal",
     "tags": [
@@ -1432,6 +1432,10 @@ export const projects: Project[] = [
             "value": "OG Stickers"
           },
           {
+            "label": "Año",
+            "value": "2025"
+          },
+          {
             "label": "Web",
             "value": "ogstickers.net"
           },
@@ -1467,6 +1471,10 @@ export const projects: Project[] = [
           {
             "label": "Client",
             "value": "OG Stickers"
+          },
+          {
+            "label": "Year",
+            "value": "2025"
           },
           {
             "label": "Website",
