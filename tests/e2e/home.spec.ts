@@ -52,6 +52,12 @@ test('la carta cambia de habilidad con las estrellas y con las flechas', async (
   await expect(panel).toContainText('Node.js')
 })
 
+test('las estrellas de la carta usan el cursor de acción, no el de texto', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('.ability-star').nth(2).hover()
+  await expect(page.locator('.p5-cursor')).toHaveClass(/p5-cursor--action/)
+})
+
 test.describe('sin JavaScript', () => {
   test.use({ javaScriptEnabled: false })
 
