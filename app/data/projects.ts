@@ -72,7 +72,7 @@ export const projects: Project[] = [
     ],
     "featured": true,
     "demo": false,
-    "website": "https://preview.3ddigitalvenue.com/la-angels",
+    "website": "https://preview.3ddigitalvenue.com/manutd",
     "designUrl": "https://xd.adobe.com/view/b71261a0-3720-4b10-adc7-44901b2bfa42-e241/grid",
     "cover": "/projects/sites-builder/live-la-angels.webp",
     "media": [
@@ -83,6 +83,15 @@ export const projects: Project[] = [
         "caption": {
           "es": "El rediseño en producción: Angel Stadium para Los Angeles Angels.",
           "en": "The redesign in production: Angel Stadium for the Los Angeles Angels."
+        }
+      },
+      {
+        "src": "/projects/sites-builder/live-manutd.webp",
+        "type": "image",
+        "frame": "browser",
+        "caption": {
+          "es": "Minisite del Manchester United: Old Trafford con localidades regulares y premium.",
+          "en": "Manchester United minisite: Old Trafford with regular and premium seating."
         }
       },
       {
@@ -164,6 +173,15 @@ export const projects: Project[] = [
         "caption": {
           "es": "Buscador por sección, fila y asiento.",
           "en": "Search by section, row and seat."
+        }
+      },
+      {
+        "src": "/projects/sites-builder/mobile-manutd.webp",
+        "type": "image",
+        "frame": "phone",
+        "caption": {
+          "es": "Old Trafford en móvil.",
+          "en": "Old Trafford on mobile."
         }
       },
       {
