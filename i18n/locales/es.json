@@ -95,8 +95,8 @@
     "write": "Escríbeme por correo",
     "notice": "Nada se envía ni se guarda desde esta web: el botón abre tu aplicación de correo con el mensaje ya redactado.",
     "compose": "Abrir en tu correo",
-    "subject": "Mensaje desde paric.io",
-    "subjectFrom": "Mensaje desde paric.io · {name}"
+    "subject": "Mensaje desde oscarparic.io",
+    "subjectFrom": "Mensaje desde oscarparic.io · {name}"
   },
   "projects": {
     "professional": "Profesional",

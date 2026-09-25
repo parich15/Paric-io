@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { clients } from '~/data/clients'
+import { CONTACT_EMAIL } from '~/utils/contact'
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -169,7 +170,7 @@ defineExpose({ open, close })
         <div :aria-label="t(`nav.${activeItem.key}Word`)"><P5Heading :text="t(`nav.${activeItem.key}Word`).toUpperCase()" :shadow="false" size="title" class="menu-word" aria-hidden="true" /></div>
         <p class="menu-hint label-p5">{{ t(`nav.${activeItem.key}Hint`) }}</p>
       </div>
-      <a class="menu-email display-p5" data-menu-side="left" href="mailto:oscar@paric.io">oscar@paric.io</a>
+      <a class="menu-email display-p5" data-menu-side="left" :href="`mailto:${CONTACT_EMAIL}`">{{ CONTACT_EMAIL }}</a>
       <div class="menu-keys keyboard-hints label-p5" data-menu-side="right"><P5Kbd keys="Esc">{{ t('common.close') }}</P5Kbd><P5Kbd keys="↑↓">{{ t('common.navigate') }}</P5Kbd><P5Kbd keys="↵">{{ t('nav.keyboard') }}</P5Kbd></div>
     </div>
   </dialog>

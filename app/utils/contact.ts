@@ -1,4 +1,4 @@
-export const CONTACT_EMAIL = 'oscar@paric.io'
+export const CONTACT_EMAIL = 'oscar@oscarparic.io'
 
 export interface ContactDraft { name: string, email: string, message: string }
 

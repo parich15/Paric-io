@@ -27,7 +27,7 @@ La página de error se genera con HTML completo: usar `/en/404.html` como fallba
 
 Castellano: `/`, `/proyectos`, `/sobre-mi`, `/clientes` y `/contacto`; inglés: `/en`, `/en/projects`, `/en/about`, `/en/clients` y `/en/contact`. Solo una visita inicial a raíz detecta idioma en el navegador, después de hidratar. Las URLs concretas mantienen su idioma. El selector conserva página, slug, query y ancla y recuerda la elección manual.
 
-El contacto (`/contacto`, sección `#contacto` del inicio) no envía ni guarda nada en el sitio: el formulario redacta un `mailto:oscar@paric.io` con asunto y cuerpo a partir del borrador y lo abre en la aplicación de correo del visitante; sin JavaScript el propio formulario apunta a ese `mailto:`. Nunca se anuncia un envío. Acciones demo sin destino están deshabilitadas.
+El contacto (`/contacto`, sección `#contacto` del inicio) no envía ni guarda nada en el sitio: el formulario redacta un `mailto:oscar@oscarparic.io` con asunto y cuerpo a partir del borrador y lo abre en la aplicación de correo del visitante; sin JavaScript el propio formulario apunta a ese `mailto:`. Nunca se anuncia un envío. Acciones demo sin destino están deshabilitadas.
 
 Guías y trabajo multiagente: [AGENTS.md](AGENTS.md), [DESIGN.md](DESIGN.md), [DESIGN-SPECS.md](DESIGN-SPECS.md). Referencias originales en `references/`, componentes en `app/components/`, CSS y tokens en `app/assets/css/`, y guidelines en `references/guidelines/`. Excepción de contraste: [ADR 001](docs/adr/001-contraste.md).
 

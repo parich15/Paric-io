@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { projects } from './app/data/projects'
 import { clients } from './app/data/clients'
 
-const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://paric.io'
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://oscarparic.io'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-10',

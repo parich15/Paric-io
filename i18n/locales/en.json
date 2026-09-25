@@ -95,8 +95,8 @@
     "write": "Write me an email",
     "notice": "Nothing is sent or stored by this site: the button opens your email app with your message already drafted.",
     "compose": "Open in your email app",
-    "subject": "Message from paric.io",
-    "subjectFrom": "Message from paric.io · {name}"
+    "subject": "Message from oscarparic.io",
+    "subjectFrom": "Message from oscarparic.io · {name}"
   },
   "projects": {
     "professional": "Professional",
