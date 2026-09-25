@@ -4,6 +4,8 @@ export interface Skill {
   name: Record<Locale, string>
   description: Record<Locale, string>
   fill: 1 | 2 | 3 | 4 | 5
+  /** Habilidad que la portada muestra en la carta de confidente, en el orden de sus grupos. */
+  featured?: boolean
 }
 
 interface SkillGroup {
@@ -15,9 +17,9 @@ interface SkillGroup {
 /** Demos editables: fill indica cuántos de los cinco segmentos se rellenan. */
 export const skillGroups: SkillGroup[] = [
   { id: 'frontend', title: 'FrontEnd', skills: [
-    { name: { es: 'Vue / Nuxt', en: 'Vue / Nuxt' }, fill: 5, description: { es: 'Interfaces reactivas y aplicaciones web con renderizado estático.', en: 'Reactive interfaces and web apps with static rendering.' } },
-    { name: { es: 'Angular', en: 'Angular' }, fill: 5, description: { es: 'Framework para construir aplicaciones web estructuradas.', en: 'A framework for building structured web applications.' } },
-    { name: { es: 'TypeScript', en: 'TypeScript' }, fill: 4, description: { es: 'JavaScript con tipos para trabajar con mayor claridad.', en: 'JavaScript with types for clearer application code.' } },
+    { name: { es: 'Vue / Nuxt', en: 'Vue / Nuxt' }, featured: true, fill: 5, description: { es: 'Interfaces reactivas y aplicaciones web con renderizado estático.', en: 'Reactive interfaces and web apps with static rendering.' } },
+    { name: { es: 'Angular', en: 'Angular' }, featured: true, fill: 5, description: { es: 'Framework para construir aplicaciones web estructuradas.', en: 'A framework for building structured web applications.' } },
+    { name: { es: 'TypeScript', en: 'TypeScript' }, featured: true, fill: 4, description: { es: 'JavaScript con tipos para trabajar con mayor claridad.', en: 'JavaScript with types for clearer application code.' } },
     { name: { es: 'HTML / CSS', en: 'HTML / CSS' }, fill: 5, description: { es: 'Estructura semántica y estilos adaptables para la web.', en: 'Semantic structure and responsive styling for the web.' } },
     { name: { es: 'Anime.js', en: 'Anime.js' }, fill: 4, description: { es: 'Animaciones y secuencias de movimiento en interfaces.', en: 'Interface animations and motion sequences.' } },
     { name: { es: 'JavaScript', en: 'JavaScript' }, fill: 5, description: { es: 'Lógica e interacción en el navegador.', en: 'Logic and interaction in the browser.' } },
@@ -35,7 +37,7 @@ export const skillGroups: SkillGroup[] = [
     { name: { es: 'Three.js', en: 'Three.js' }, fill: 2, description: { es: 'Escenas y gráficos 3D en el navegador.', en: '3D scenes and graphics in the browser.' } },
   ] },
   { id: 'backend', title: 'Backend', skills: [
-    { name: { es: 'Node.js', en: 'Node.js' }, fill: 4, description: { es: 'Ejecución de JavaScript fuera del navegador.', en: 'Running JavaScript outside the browser.' } },
+    { name: { es: 'Node.js', en: 'Node.js' }, featured: true, fill: 4, description: { es: 'Ejecución de JavaScript fuera del navegador.', en: 'Running JavaScript outside the browser.' } },
     { name: { es: 'APIs REST', en: 'REST APIs' }, fill: 4, description: { es: 'Comunicación entre aplicaciones mediante recursos HTTP.', en: 'Communication between applications through HTTP resources.' } },
     { name: { es: 'SQL', en: 'SQL' }, fill: 3, description: { es: 'Consultas y organización de datos relacionales.', en: 'Querying and organising relational data.' } },
     { name: { es: 'CMS headless', en: 'Headless CMS' }, fill: 2, description: { es: 'Gestión de contenido independiente de la interfaz.', en: 'Content management independent of the interface.' } },
@@ -55,10 +57,10 @@ export const skillGroups: SkillGroup[] = [
     { name: { es: 'WebSockets', en: 'WebSockets' }, fill: 3, description: { es: 'Comunicación persistente entre cliente y servidor.', en: 'Persistent communication between client and server.' } },
   ] },
   { id: 'skills', title: 'Skills', skills: [
-    { name: { es: 'Motion UI', en: 'Motion UI' }, fill: 5, description: { es: 'Movimiento que ayuda a entender y recorrer una interfaz.', en: 'Motion that helps people understand and navigate an interface.' } },
+    { name: { es: 'Motion UI', en: 'Motion UI' }, featured: true, fill: 5, description: { es: 'Movimiento que ayuda a entender y recorrer una interfaz.', en: 'Motion that helps people understand and navigate an interface.' } },
     { name: { es: 'Accesibilidad', en: 'Accessibility' }, fill: 4, description: { es: 'Interfaces utilizables con distintas capacidades y dispositivos.', en: 'Interfaces usable across different abilities and devices.' } },
     { name: { es: 'Rendimiento', en: 'Performance' }, fill: 4, description: { es: 'Carga y respuesta ágiles en la experiencia web.', en: 'Fast loading and responsive web experiences.' } },
-    { name: { es: 'Diseño UI', en: 'UI design' }, fill: 4, description: { es: 'Jerarquía, composición y estados de una interfaz.', en: 'Hierarchy, composition and interface states.' } },
+    { name: { es: 'Diseño UI', en: 'UI design' }, featured: true, fill: 4, description: { es: 'Jerarquía, composición y estados de una interfaz.', en: 'Hierarchy, composition and interface states.' } },
     { name: { es: 'Responsive', en: 'Responsive' }, fill: 4, description: { es: 'Composiciones adaptadas a distintos tamaños de pantalla.', en: 'Layouts adapted to different screen sizes.' } },
     { name: { es: 'Testing', en: 'Testing' }, fill: 3, description: { es: 'Pruebas para verificar el comportamiento del producto.', en: 'Tests that verify product behaviour.' } },
     { name: { es: 'Sistemas UI', en: 'UI systems' }, fill: 3, description: { es: 'Componentes y reglas visuales compartidos.', en: 'Shared components and visual rules.' } },
@@ -95,3 +97,6 @@ export const skillGroups: SkillGroup[] = [
     { name: { es: 'DevTools', en: 'DevTools' }, fill: 5, description: { es: 'Inspección del navegador para depurar y medir interfaces.', en: 'Browser inspection for debugging and measuring interfaces.' } },
   ] },
 ]
+
+/** Habilidades de la carta de la portada con el nombre de su grupo. */
+export const featuredSkills = skillGroups.flatMap(group => group.skills.filter(skill => skill.featured).map(skill => ({ ...skill, group: group.title })))

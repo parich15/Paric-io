@@ -1,33 +1,82 @@
-.home-featured { position: relative; padding: 120px var(--page-x); }
-.featured-header { display: flex; align-items: flex-end; gap: var(--space-11); margin-bottom: 56px; }
+/* Obras: texto y paradas a la izquierda, plano de la ruta a la derecha. En móvil el plano queda entre el texto y las paradas. */
+.home-featured { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto 1fr auto; grid-template-areas: "head map" "text map" "stops map" "action map"; column-gap: clamp(32px, 5vw, 80px); padding: 120px var(--page-x); }
+.featured-header { grid-area: head; display: flex; align-items: flex-end; gap: var(--space-11); }
 .featured-number { color: var(--p5-red); font-size: clamp(40px, 5vw, 72px); }
-.featured-header p { margin: 0 0 var(--space-7); font-size: var(--size-label); }
+.featured-header p { margin: 0 0 var(--space-7); font-size: var(--size-label); letter-spacing: var(--track-label-xwide); }
 .featured-header h2 { max-width: 100%; overflow-wrap: anywhere; }
-.featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: var(--space-13); }
-.featured-grid > div { min-width: 0; }
-.featured-project { display: flex; flex-direction: column; height: 100%; border: var(--border-3) solid var(--p5-paper); color: var(--p5-paper); background: var(--p5-ink); transition: transform var(--dur-hover) var(--easing-pop), box-shadow var(--dur-hover); }
-.featured-project:hover { color: var(--p5-paper); transform: translate(-6px, -6px) rotate(var(--rot-1)); box-shadow: var(--hard-xl); }
-.featured-card { border: 0; border-bottom: var(--border-3) solid var(--p5-paper); box-shadow: none; aspect-ratio: 4/3; }
-.featured-copy { display: flex; flex-direction: column; gap: var(--space-5); padding: var(--space-10) var(--space-10) 26px; flex: 1; }
-.featured-copy h3 { margin: 0; font-size: 30px; line-height: 1.05; }
-.featured-copy p { margin: 0; color: var(--p5-gray); font-size: var(--size-body); line-height: 1.45; font-weight: 600; }
-.featured-tags { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: auto; padding-top: var(--space-2); }
-.featured-action { display: flex; justify-content: flex-end; margin-top: var(--space-14); }
+.featured-text { grid-area: text; max-width: 520px; margin: var(--space-13) 0 0; font-size: clamp(18px, 1.4vw, 20px); font-weight: 600; line-height: 1.5; }
+
+.featured-map { grid-area: map; align-self: center; justify-self: end; width: 100%; max-width: 720px; }
+.featured-map svg { display: block; width: 100%; height: auto; overflow: visible; rotate: var(--rot-pos-2); }
+.map-shadow { fill: var(--p5-red); }
+.map-sheet { fill: var(--p5-paper); stroke: var(--p5-ink); stroke-width: 6; stroke-linejoin: miter; }
+.map-blocks { fill: var(--p5-paper-3); }
+.map-dots { fill: url(#featured-dots); opacity: .32; }
+#featured-dots circle { fill: var(--p5-ink); }
+.map-title polygon { fill: var(--p5-ink); }
+.map-title text, .map-target-label { fill: var(--p5-paper); font-family: var(--type-label); font-size: 17px; font-weight: 800; letter-spacing: var(--track-label-xwide); text-anchor: middle; text-transform: uppercase; }
+/* El plan va discontinuo; la ruta roja con sombra de tinta lo recorre al hacer scroll. */
+.map-plan { fill: none; stroke: var(--p5-ink); stroke-width: 3; stroke-dasharray: 10 9; stroke-linejoin: miter; }
+.map-route { fill: none; stroke: var(--p5-red); stroke-width: 18; stroke-linecap: square; stroke-linejoin: miter; }
+.map-route--shadow { stroke: var(--p5-ink); }
+.map-start circle { fill: var(--p5-paper); stroke: var(--p5-ink); stroke-width: 6; }
+.map-start .map-start-dot { fill: var(--p5-red); stroke: none; }
+.map-start, .map-stop, .map-target { transform-box: fill-box; transform-origin: center; }
+.map-stop { transition: scale var(--dur-hover) var(--easing-pop); }
+.map-stop rect { fill: var(--p5-ink); stroke: var(--p5-paper); stroke-width: 5; transition: fill var(--dur-fast); }
+.map-stop text { fill: var(--p5-paper); font-family: var(--type-display); font-size: 26px; text-anchor: middle; dominant-baseline: central; }
+.map-stop.is-active { scale: 1.25; }
+.map-stop.is-active rect { fill: var(--p5-red); }
+.map-speed { fill: none; stroke: var(--p5-ink); stroke-width: 7; stroke-linecap: square; }
+.map-target { rotate: -8deg; }
+.map-target polygon { fill: var(--p5-red); stroke: var(--p5-ink); stroke-width: 8; stroke-linejoin: miter; }
+.map-target-count { fill: var(--p5-paper); stroke: var(--p5-ink); stroke-width: 10px; stroke-linejoin: miter; paint-order: stroke; font-family: var(--type-display); font-size: 72px; text-anchor: middle; }
+
+/* Paradas: opciones de menú enlazadas; la activa se pinta roja aquí y en el plano. */
+.featured-stops { grid-area: stops; align-self: start; margin-top: var(--space-14); }
+.featured-stops h3 { margin: 0 0 var(--space-8); color: var(--p5-red); font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); }
+.featured-stops ol { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); margin: 0; padding: 0 0 0 var(--space-4); list-style: none; }
+.featured-stops li { max-width: 100%; }
+.featured-stops li:nth-child(1) { rotate: var(--rot-1); }
+.featured-stops li:nth-child(2) { rotate: .8deg; margin-left: 1.4vw; }
+.featured-stops li:nth-child(3) { rotate: -.6deg; margin-left: .6vw; }
+.featured-stop { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "media title" "media meta"; column-gap: var(--space-10); align-items: center; min-height: 44px; padding: var(--space-4) var(--space-10) var(--space-4) var(--space-4); color: var(--p5-paper); background: var(--p5-ink); border: var(--border-3) solid var(--p5-paper); transform: skewX(var(--skew)); transition: transform var(--dur-hover) var(--easing-pop), background-color var(--dur-fast), border-color var(--dur-fast), box-shadow var(--dur-hover); }
+.featured-stop > * { transform: skewX(calc(-1 * var(--skew))); }
+/* Captura en blanco y negro; al pasar o enfocar, duotono rojo/tinta con semitono multiplicado, como la fotografía del sistema. */
+.stop-media { grid-area: media; position: relative; width: clamp(104px, 9vw, 140px); aspect-ratio: 16 / 10; background: var(--p5-ink); border: var(--border-3) solid var(--p5-paper); }
+.stop-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(1) contrast(1.3); }
+.stop-media::before, .stop-media::after { content: ''; position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0; pointer-events: none; transition: opacity var(--dur-hover) ease-out; }
+.stop-media::before { background: var(--p5-red); }
+.stop-media::after { background: var(--halftone-ink); background-size: 7px 7px; }
+.featured-stop:hover .stop-media::before, .featured-stop:focus-visible .stop-media::before { opacity: 1; }
+.featured-stop:hover .stop-media::after, .featured-stop:focus-visible .stop-media::after { opacity: .32; }
+.stop-num { position: absolute; z-index: 1; top: -12px; left: -14px; padding: 0 var(--space-4) var(--space-1); background: var(--p5-paper); color: var(--p5-ink); box-shadow: 4px 4px 0 var(--p5-ink); font-size: 30px; line-height: 1; rotate: var(--rot-4); }
+.stop-title { grid-area: title; overflow-wrap: anywhere; font-size: clamp(24px, 2.3vw, 34px); line-height: 1; }
+.stop-meta { grid-area: meta; margin-top: var(--space-2); color: var(--p5-gray); font-size: var(--size-label); letter-spacing: var(--track-label-wide); }
+/* La placa sigue en tinta al activarse: el rojo lo ponen el borde, la sombra y la captura en duotono. */
+.featured-stop:hover, .featured-stop:focus-visible { color: var(--p5-paper); border-color: var(--p5-red); box-shadow: var(--hard-md); transform: skewX(var(--skew)) scale(var(--hover-scale)) rotate(var(--hover-rotate)); }
+.featured-stop:hover .stop-num, .featured-stop:focus-visible .stop-num { background: var(--p5-red); color: var(--p5-paper); }
+.featured-stop:focus-visible { outline-color: var(--p5-paper); }
+.featured-action { grid-area: action; margin-top: var(--space-14); }
+
+@media (width < 1000px) {
+  .home-featured { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "head" "text" "map" "stops" "action"; }
+  .featured-map { justify-self: center; max-width: 600px; margin-top: var(--space-14); }
+}
 @media (width < 760px) {
   .home-featured { padding-top: var(--space-16); padding-bottom: var(--space-16); }
   .featured-header { gap: var(--space-6); }
   .featured-header h2 { font-size: clamp(32px, 7.5vw, 56px); }
   .featured-number { font-size: 40px; }
-  .featured-action { justify-content: flex-start; }
+  .featured-map { margin-top: var(--space-13); }
+  .featured-stops li:nth-child(n) { margin-left: 0; }
+  .featured-stop { column-gap: var(--space-8); padding-right: var(--space-8); }
+  .stop-media { width: 92px; }
+  .stop-num { font-size: 24px; }
 }
 
-.project-cover { width: 100%; height: 100%; object-fit: cover; }
-/* Collage pegado a mano: las tarjetas alternan giro y flotan desfasadas sin tocar el `transform` del hover. */
+/* Reposo P5 del sello y de las paradas; `translate` no pisa su skew ni el hover. */
 .featured-header h2 { animation: p5float calc(var(--dur-float) * 1.15) ease-in-out -.8s infinite; }
-.featured-grid > div { --float-y: -6px; animation: p5float calc(var(--dur-float) * 1.3) ease-in-out infinite; }
-.featured-grid > div:nth-child(3n + 1) { animation-delay: -.4s; }
-.featured-grid > div:nth-child(3n + 2) { --float-x: -2px; animation-delay: -1.9s; }
-.featured-grid > div:nth-child(3n) { animation-delay: -3.1s; }
-.featured-grid > div:nth-child(3n + 1) .featured-project { rotate: -1deg; }
-.featured-grid > div:nth-child(3n + 2) .featured-project { rotate: .8deg; }
-.featured-grid > div:nth-child(3n) .featured-project { rotate: -.6deg; }
+.featured-stops li { --float-y: -4px; animation: p5float calc(var(--dur-float) * 1.3) ease-in-out infinite; }
+.featured-stops li:nth-child(2) { --float-x: -2px; animation-delay: -1.9s; }
+.featured-stops li:nth-child(3) { animation-delay: -3.1s; }
