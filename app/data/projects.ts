@@ -43,6 +43,8 @@ export interface Project {
   tags: string[]
   featured: boolean
   demo: boolean
+  /** Oculto en todo el sitio sin borrar sus datos: ni listas, ni detalle, ni ruta generada. */
+  hidden?: boolean
   website?: string
   designUrl?: string
   cover?: string
@@ -54,7 +56,7 @@ export interface Project {
 }
 
 /** Selección de proyectos profesionales y personales; el orden es editorial: lo más reciente primero. */
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     "id": "sites-builder",
     "slug": "sites-builder",
@@ -433,6 +435,7 @@ export const projects: Project[] = [
       "PrimeNG",
       "SeatGeek API"
     ],
+    "hidden": true,
     "featured": false,
     "demo": false,
     "content": {
@@ -1755,6 +1758,9 @@ export const projects: Project[] = [
     }
   }
 ]
+
+/** Proyectos visibles: todas las vistas, rutas y recuentos parten de aquí. */
+export const projects = allProjects.filter(project => !project.hidden)
 
 export function getProjects(category: ProjectCategory): Project[] {
   return projects.filter(project => project.category === category)
