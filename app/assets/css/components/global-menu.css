@@ -74,7 +74,8 @@
 .menu-email { position: absolute; left: 4vw; bottom: 6vh; z-index: 6; display: flex; align-items: center; min-height: 44px; color: var(--p5-paper); text-shadow: var(--text-shadow-ink); font-size: clamp(16px, 1.9vw, 28px); }
 .menu-email:hover { color: var(--p5-paper); text-decoration: underline; }
 .menu-keys { position: absolute; right: 3vw; bottom: 3vh; z-index: 6; display: flex; gap: var(--space-10); padding: var(--space-3) var(--space-9); border: var(--border-3) solid var(--p5-ink); background: var(--p5-paper); color: var(--p5-ink); box-shadow: var(--hard-md); transform: skewX(var(--skew)); font-size: var(--size-btn); letter-spacing: .12em; }
-.menu-keys kbd { padding: 1px var(--space-3); border: var(--border-3) solid currentColor; font-family: inherit; font-size: var(--size-label); }
+.menu-keys > span { font-size: inherit; letter-spacing: inherit; }
+.menu-keys :deep(kbd) { padding-inline: var(--space-3); font-size: var(--size-label); }
 @media (width < 1100px) and (width >= 760px) {
   .menu-context p { max-width: 240px; }
   .menu-command { left: 26vw; max-width: 70vw; }

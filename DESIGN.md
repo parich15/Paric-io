@@ -201,7 +201,7 @@ Importa desde el barril: `import { P5Button, P5Card } from '~/components/p5'`. T
 | `P5FactCard` | Ficha clave/valor (ROL · Front-end lead) | `label`, `value` |
 | `P5Input` / `P5Textarea` | Formularios (contacto) | `label`, `v-model`, `placeholder`, `error` |
 | `P5NavItem` | Opción de menú o categoría; la activa es roja, mayor y con rombo | `active`, `vertical`, `rotate` |
-| `P5Kbd` | Pista de teclado dentro de una barra de tinta | `keys` |
+| `P5Kbd` | Pista de teclado dentro de una barra de tinta. `↵` se dibuja en SVG con trazo cuadrado: ninguna fuente local lo trae y la fuente del sistema costaba ~160 ms al aparecer | `keys` |
 | `P5Switch` | Dos estados con etiqueta (Profesional/Personal) | `v-model`, `on`, `off` |
 | `P5Wipe` | Transición entre pantallas | `show`, `label`, `fixed` |
 | `P5Placeholder` | Hueco de imagen mientras no hay asset real | `label` |

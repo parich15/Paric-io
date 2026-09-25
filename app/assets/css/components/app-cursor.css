@@ -13,6 +13,22 @@
 .p5-target svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .p5-target rect { x: 1px; y: 1px; width: calc(100% - 2px); height: calc(100% - 2px); fill: none; stroke: currentColor; stroke-width: var(--border-2); stroke-dasharray: 8 6; }
 .p5-target.is-primary rect { stroke-width: var(--border-3); }
-.p5-target.is-on rect { animation: p5ants .6s linear infinite; }
+/* El anillo gira entero: rotar el SVG va por compositor. */
+.p5-target.is-on svg { animation: p5spin 3s linear infinite; }
+/* Hormigas del marco recto: cuatro tiras de guiones 8/6 que avanzan un periodo en sentido horario. Con stroke-dashoffset, el marco forzaba frames y recálculos de estilo en el hilo principal mientras enmarcaba algo; `transform` corre en el compositor. */
+.p5-ants { position: absolute; overflow: hidden; --ants-width: var(--border-2); }
+.p5-target.is-primary .p5-ants { --ants-width: var(--border-3); }
+.p5-ants--top, .p5-ants--bottom { inset-inline: 0; height: var(--ants-width); }
+.p5-ants--left, .p5-ants--right { inset-block: 0; width: var(--ants-width); }
+.p5-ants--top { top: 0; }
+.p5-ants--bottom { bottom: 0; }
+.p5-ants--left { left: 0; }
+.p5-ants--right { right: 0; }
+.p5-ants::before { content: ''; position: absolute; background: repeating-linear-gradient(90deg, currentColor 0 8px, transparent 8px 14px); }
+.p5-ants--top::before, .p5-ants--bottom::before { inset: 0 0 0 -14px; }
+.p5-ants--left::before, .p5-ants--right::before { inset: -14px 0 0; background-image: repeating-linear-gradient(180deg, currentColor 0 8px, transparent 8px 14px); }
+.p5-target.is-on .p5-ants--top::before, .p5-target.is-on .p5-ants--bottom::before { animation: p5ants-x .6s linear infinite; }
+.p5-target.is-on .p5-ants--left::before, .p5-target.is-on .p5-ants--right::before { animation: p5ants-y .6s linear infinite; }
+.p5-target.is-on .p5-ants--bottom::before, .p5-target.is-on .p5-ants--left::before { animation-direction: reverse; }
 /* Mientras el marco rodea al elemento con foco, sustituye al outline nativo. */
-.has-p5-target :focus-visible { outline-color: transparent; }
+[data-p5-framed]:focus-visible { outline-color: transparent; }

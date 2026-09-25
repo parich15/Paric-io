@@ -21,6 +21,15 @@ let hovered: Element | null = null
 let focused: Element | null = null
 let pendingPointer: PointerEvent | null = null
 let pendingFrame: number | undefined
+let framed: Element | null = null
+
+/** Marca solo el control enmarcado: una clase en <html> con `:focus-visible` descendiente invalidaba el estilo de todo el documento en cada cambio de foco. */
+function markFramed(element: Element | null) {
+  if (framed === element) return
+  framed?.removeAttribute('data-p5-framed')
+  framed = element
+  framed?.setAttribute('data-p5-framed', '')
+}
 
 function hide() {
   pendingPointer = null
@@ -47,7 +56,7 @@ function release() {
   hovered = null
   focused = null
   frame.value = null
-  document.documentElement.classList.remove('has-p5-target')
+  markFramed(null)
 }
 
 /** El marco encaja en el elemento bajo el puntero o, si no hay, en el que tiene el foco de teclado. */
@@ -55,7 +64,7 @@ function measure() {
   const element = hovered ?? focused
   if (!element?.isConnected) {
     frame.value = null
-    document.documentElement.classList.remove('has-p5-target')
+    markFramed(null)
     return
   }
   const rect = element.getBoundingClientRect()
@@ -69,7 +78,7 @@ function measure() {
     color: style.getPropertyValue(primary ? '--accent' : '--fg').trim() || style.color,
   }
   if (Object.entries(nextFrame).some(([key, value]) => frame.value?.[key as keyof Frame] !== value)) frame.value = nextFrame
-  document.documentElement.classList.toggle('has-p5-target', element === document.activeElement)
+  markFramed(element === document.activeElement ? element : null)
 }
 
 /** Agrupa eventos de un mismo frame; lee el objetivo antes de publicar el estado visual. */
@@ -157,7 +166,8 @@ onBeforeUnmount(() => {
       :style="frame ? { translate: `${frame.x}px ${frame.y}px`, width: `${frame.width}px`, height: `${frame.height}px`, color: frame.color } : undefined"
       aria-hidden="true"
     >
-      <svg focusable="false"><rect :rx="frame?.round ? '50%' : 0" /></svg>
+      <svg v-if="frame?.round" focusable="false"><rect rx="50%" /></svg>
+      <template v-else><span v-for="side in ['top', 'right', 'bottom', 'left']" :key="side" :class="`p5-ants p5-ants--${side}`"></span></template>
     </div>
   </Teleport>
 </template>

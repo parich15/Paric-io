@@ -10,14 +10,14 @@ export function useMenuMotion(root: Ref<HTMLElement | null>) {
   let selection: ReturnType<AnimeApi['createScope']> | undefined
   let moving = false
   let disposed = false
-  let entrance: ReturnType<AnimeApi['createTimeline']> | undefined
+  let entrance: ReturnType<AnimeApi['waapi']['animate']>[] = []
   let entranceTimer: ReturnType<typeof setTimeout> | undefined
   let settle: (() => void) | undefined
 
   /** En móvil la entrada es una animación CSS por compositor; aquí solo se retira su clase. */
   function stopEntrance() {
-    entrance?.cancel()
-    entrance = undefined
+    entrance.forEach(animation => animation.cancel())
+    entrance = []
     if (entranceTimer) clearTimeout(entranceTimer)
     entranceTimer = undefined
     root.value?.classList.remove('is-entering')
@@ -44,13 +44,11 @@ export function useMenuMotion(root: Ref<HTMLElement | null>) {
     scope.add(() => {
       const timing = anime.readMotion(element, '--dur-enter', '--easing-slash')
       if (element.querySelector('.menu-curtain') && window.matchMedia('(min-width: 760px)').matches) {
-        const left = [...element.querySelectorAll<HTMLElement>('[data-menu-side="left"]')]
-        const right = [...element.querySelectorAll<HTMLElement>('[data-menu-side="right"]')]
-        anime.utils.set(left, { x: '-100vw' })
-        anime.utils.set(right, { x: '100vw' })
-        entrance = anime.createTimeline({ onComplete: cleanup })
-          .add(left, { ...timing, ease: 'inOut(2)', x: ['-100vw', '0vw'] }, 0)
-          .add(right, { ...timing, ease: 'inOut(2)', x: ['100vw', '0vw'] }, 0)
+        // WAAPI sobre `translate`: el telón corre en el compositor aunque el hilo principal esté ocupado, y conserva el skew de cada pieza.
+        entrance = [
+          anime.waapi.animate(element.querySelectorAll('[data-menu-side="left"]'), { ...timing, ease: 'inOut(2)', translate: ['-100vw 0px', '0px 0px'] }),
+          anime.waapi.animate(element.querySelectorAll('[data-menu-side="right"]'), { ...timing, ease: 'inOut(2)', translate: ['100vw 0px', '0px 0px'], onComplete: cleanup }),
+        ]
       }
       else {
         const count = element.querySelectorAll('[data-menu-item]').length
@@ -75,9 +73,8 @@ export function useMenuMotion(root: Ref<HTMLElement | null>) {
       scope!.add(() => {
         const timing = { ...anime.readMotion(element, '--dur-fast', '--easing-slash'), ease: 'in(2)' }
         if (window.matchMedia('(min-width: 760px)').matches) {
-          anime.createTimeline({ onComplete: () => resolve() })
-            .add(element.querySelectorAll('[data-menu-side="left"]'), { ...timing, x: '-100vw' }, 0)
-            .add(element.querySelectorAll('[data-menu-side="right"]'), { ...timing, x: '100vw' }, 0)
+          anime.waapi.animate(element.querySelectorAll('[data-menu-side="left"]'), { ...timing, translate: '-100vw 0px' })
+          anime.waapi.animate(element.querySelectorAll('[data-menu-side="right"]'), { ...timing, translate: '100vw 0px', onComplete: () => resolve() })
         }
         else anime.animate(element.querySelectorAll('[data-menu-item]'), { ...timing, opacity: 0, x: -30, onComplete: () => resolve() })
       })

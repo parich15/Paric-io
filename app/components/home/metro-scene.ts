@@ -31,7 +31,7 @@ function isSoftwareRenderer(context: WebGL2RenderingContext) {
 export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: readonly HTMLImageElement[]) {
   // Comprobar el contexto antes del constructor evita errores de Three en equipos sin WebGL.
   const context = canvas.getContext('webgl2', { alpha: true, antialias: true })
-  if (!context || isSoftwareRenderer(context)) return () => {}
+  if (!context || isSoftwareRenderer(context)) return { dispose: () => {}, setPaused: () => {} }
 
   const renderer = new WebGLRenderer({ canvas, context, alpha: true, antialias: true })
   renderer.setClearColor(0, 0)
@@ -210,6 +210,8 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let visible = false
+  // El menú global cubre la portada entera: renderizar debajo solo restaba hilo principal y GPU a su telón.
+  let paused = false
   let contextLost = false
   let elapsed = 0.3
   let previousTime: number | undefined
@@ -244,7 +246,7 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
   function updatePlayback() {
     previousTime = undefined
     renderer.setAnimationLoop(null)
-    if (!ready || !visible || document.hidden || contextLost) return
+    if (!ready || !visible || paused || document.hidden || contextLost) return
     if (reducedMotion.matches) render(performance.now())
     else renderer.setAnimationLoop(render)
   }
@@ -310,7 +312,13 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
     updatePlayback()
   })
 
-  return () => {
+  function setPaused(value: boolean) {
+    if (paused === value) return
+    paused = value
+    updatePlayback()
+  }
+
+  function dispose() {
     disposed = true
     renderer.setAnimationLoop(null)
     resizeObserver.disconnect()
@@ -336,4 +344,6 @@ export function mountMetroScene(canvas: HTMLCanvasElement, graffitiImages: reado
     renderer.dispose()
     renderer.forceContextLoss()
   }
+
+  return { dispose, setPaused }
 }
