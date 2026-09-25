@@ -1,18 +1,73 @@
-.home-about { padding: 120px var(--page-x) 140px; background: var(--bg); color: var(--fg); clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 calc(100% - 3vw)); }
-.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 56px; align-items: center; padding-top: 40px; }
-.about-portrait { max-width: 440px; margin-inline: auto; }
-.about-copy { min-width: 0; }
-.about-heading { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-9); margin-bottom: var(--space-12); }
+/* Sobre mí como carta de confidente: una banda roja une carta, identidad y rango; las estrellas eligen la habilidad. */
+.home-about { position: relative; isolation: isolate; overflow: hidden; padding: 120px var(--page-x) 150px; background: var(--bg); color: var(--fg); clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0 calc(100% - 3vw)); }
+/* El wrapper crece desde la izquierda al entrar; la banda inclinada vive en su ::before. */
+.about-band { position: absolute; z-index: -1; inset: 0; transform-origin: left center; pointer-events: none; }
+/* Anclada a la carta y no a la sección: cruza carta e identidad y nunca queda bajo el párrafo. */
+.about-band::before { content: ''; position: absolute; left: -60vw; right: -60vw; top: var(--band-top, 12%); height: clamp(130px, 13vw, 200px); background: var(--p5-red); transform: translateY(-50%) rotate(-7deg) skewX(var(--skew-lg)); }
+.about-heading { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-9); padding-top: 40px; }
 .about-heading > span { color: var(--p5-red); font-size: clamp(36px, 4vw, 60px); }
 .about-heading h2 { font-size: clamp(40px, 6vw, 92px); }
-.about-copy p { margin: 0; font-size: clamp(18px, 1.4vw, 20px); line-height: 1.5; font-weight: 600; }
-.about-copy h3 { margin: var(--space-13) 0 var(--space-7); color: var(--p5-red); font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); }
-.about-skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6) var(--space-11); margin: 0; padding: 0; list-style: none; }
-.about-skills li { display: flex; flex-direction: column; gap: var(--space-3); }
-.about-skills .display-p5 { font-size: var(--size-btn-lg); line-height: 1.2; }
-.about-skills li > span:last-child { height: 6px; background: var(--fg); transform: skewX(var(--skew-xl)); }
-.about-more { margin-top: var(--space-13); }
-@media (width < 760px) { .home-about { padding-top: var(--space-15); padding-bottom: var(--space-17); } .about-grid { gap: var(--space-14); } .about-portrait { max-width: 340px; } }
-/* Reposo P5 del sello y del retrato. */
+
+.confidant { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: center; gap: clamp(40px, 6vw, 110px); margin-top: var(--space-15); perspective: 1000px; }
+.confidant-card { position: relative; display: flex; flex-direction: column; gap: var(--space-5); width: min(100%, 380px); aspect-ratio: 5 / 8; margin-inline: auto; padding: var(--space-8) var(--space-8) var(--space-7); background: var(--p5-paper); border: var(--border-6) solid var(--p5-ink); box-shadow: 16px 16px 0 var(--p5-ink); transform: rotate(var(--rot-4)); }
+.confidant-card::before { content: ''; position: absolute; inset: var(--space-2); border: var(--border-3) solid var(--p5-red); pointer-events: none; }
+.card-numeral { align-self: center; font-size: clamp(40px, 4vw, 60px); line-height: .9; }
+.confidant-card .card-portrait { flex: 1; min-height: 0; aspect-ratio: auto; border-width: var(--border-3); box-shadow: none; transform: none; }
+.card-title { align-self: center; padding: 0 var(--space-7) var(--space-1); background: var(--p5-ink); color: var(--p5-paper); font-size: clamp(22px, 2.1vw, 30px); letter-spacing: .06em; rotate: var(--rot-pos-2); }
+
+.confidant-panel { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); min-width: 0; }
+.confidant-identity { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); max-width: 100%; }
+.identity-kicker { margin: 0; padding: var(--space-1) var(--space-7) var(--space-2); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); font-size: var(--size-btn); letter-spacing: var(--track-label-xwide); transform: skewX(var(--skew)) rotate(var(--rot-3)); }
+.identity-name { max-width: 100%; margin: 0 0 0 var(--space-6); padding: var(--space-1) var(--space-10) var(--space-3); overflow-wrap: anywhere; background: var(--p5-ink); color: var(--p5-paper); box-shadow: 8px 8px 0 var(--p5-paper); font-size: clamp(44px, 5.4vw, 88px); line-height: .95; transform: skewX(var(--skew-md)) rotate(var(--rot-2)); }
+.identity-arcana { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-7); margin: var(--space-4) 0 0 var(--space-13); }
+.identity-arcana .label-p5 { padding: var(--space-1) var(--space-5); background: var(--p5-ink); color: var(--p5-paper); font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); transform: skewX(var(--skew)); }
+.identity-arcana .display-p5 { padding: 0 var(--space-7) var(--space-1); background: var(--p5-paper); color: var(--p5-ink); border: var(--border-3) solid var(--p5-ink); box-shadow: var(--hard-ink); font-size: clamp(28px, 2.6vw, 42px); transform: skewX(var(--skew)) rotate(var(--rot-pos-2)); }
+.confidant-text { max-width: 540px; margin: 0; font-size: clamp(18px, 1.4vw, 20px); font-weight: 600; line-height: 1.5; }
+
+/* Cada habilidad agrupa su estrella y su placa; display: contents las reparte en la misma rejilla. */
+.confidant-abilities { display: grid; grid-template-columns: repeat(6, 44px) minmax(0, 1fr); column-gap: var(--space-2); row-gap: var(--space-10); width: 100%; max-width: 660px; }
+.ability { display: contents; }
+.ability-star { position: relative; display: grid; place-items: center; grid-row: 1; grid-column: var(--star); width: 44px; height: 44px; cursor: pointer; }
+.ability-star input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; appearance: none; }
+.ability-star span { width: 34px; height: 34px; pointer-events: none; background: var(--p5-ink); clip-path: var(--star-shape); transition: scale var(--dur-hover) var(--easing-pop), rotate var(--dur-hover) var(--easing-pop), background-color var(--dur-fast); }
+.ability-star span::before { content: ''; display: block; width: 100%; height: 100%; background: var(--p5-paper); clip-path: var(--star-shape); scale: .56; }
+.confidant-abilities { --star-shape: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+/* Estrellas ganadas: todas las anteriores a la elegida se rellenan; la elegida es la roja. */
+.ability:has(~ .ability input:checked) .ability-star span::before { background: var(--p5-ink); }
+.ability-star:has(input:checked) span, .ability-star:has(input:checked) span::before { background: var(--p5-red); }
+.ability-star:has(input:checked) span { scale: 1.25; rotate: -8deg; }
+.ability-star:hover span { scale: 1.15; rotate: var(--hover-rotate); }
+.ability-star:has(input:focus-visible:not([data-p5-framed])) { outline: var(--border-3) solid var(--accent); outline-offset: 2px; }
+.ability-panel { display: none; grid-row: 2; grid-column: 1 / -1; }
+.ability:has(input:checked) .ability-panel { display: block; }
+.ability-plate { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-11); padding: var(--space-10) var(--space-13) var(--space-11); background: var(--p5-ink); color: var(--p5-paper); box-shadow: var(--hard-xl); transform: skewX(var(--skew-xs)); }
+.ability-plate > * { transform: skewX(calc(-1 * var(--skew-xs))); }
+.ability-kicker { display: flex; align-items: center; gap: var(--space-5); margin: 0; font-size: var(--size-label); letter-spacing: var(--track-label-xwide); }
+.ability-kicker::before { content: ''; flex: none; width: 10px; height: 10px; background: var(--p5-red); rotate: 45deg; }
+.ability-name { margin: var(--space-5) 0 0; overflow-wrap: anywhere; font-size: clamp(34px, 3.4vw, 56px); line-height: .95; }
+.ability-text { max-width: 420px; margin: var(--space-5) 0 0; color: var(--p5-gray); font-size: var(--size-body); font-weight: 600; line-height: 1.45; }
+.ability-rank { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); margin: 0; }
+.ability-rank .label-p5 { font-size: var(--size-btn-sm); letter-spacing: var(--track-label-xwide); }
+.ability-rank-value { color: var(--p5-red); font-size: clamp(88px, 9vw, 150px); line-height: .85; text-shadow: 5px 5px 0 var(--p5-paper); rotate: var(--rot-6); }
+.about-more { margin-top: var(--space-3); }
+
+@media (width < 1000px) {
+  .confidant { grid-template-columns: minmax(0, 1fr); gap: var(--space-15); }
+  .confidant-card { width: min(78vw, 320px); }
+  .about-band { --band-top: 22%; }
+}
+@media (width < 760px) {
+  .home-about { padding-top: var(--space-15); padding-bottom: var(--space-17); }
+  .about-heading { padding-top: var(--space-13); }
+  .about-band { --band-top: 20%; }
+  .about-band::before { height: 150px; }
+  .identity-name { margin-left: 0; padding-inline: var(--space-8); }
+  .identity-arcana { margin-left: var(--space-6); }
+  .ability-plate { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); padding: var(--space-9) var(--space-10) var(--space-10); }
+  .ability-rank { flex-direction: row; align-items: flex-end; justify-content: flex-end; gap: var(--space-5); }
+  .ability-rank-value { font-size: 88px; }
+}
+
+/* Reposo P5 del sello y de la carta; `translate` no pisa su giro ni la entrada. */
 .about-heading h2 { animation: p5float calc(var(--dur-float) * 1.1) ease-in-out -1.2s infinite; }
-.about-portrait { --float-y: -8px; animation: p5float calc(var(--dur-float) * 1.6) ease-in-out -2.4s infinite; }
+.confidant-card { --float-y: -8px; animation: p5float calc(var(--dur-float) * 1.6) ease-in-out -2.4s infinite; }

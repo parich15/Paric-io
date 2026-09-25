@@ -9,8 +9,11 @@ const motion = useMenuMotion(root)
 const emit = defineEmits<{ change: [open: boolean] }>()
 const activeIndex = ref(0)
 const closing = ref(false)
+/** Compartido con la portada: el metro deja de renderizar mientras el menú lo cubre. */
+const menuOpen = useState('menu:open', () => false)
 let returnFocus: HTMLElement | null = null
 let previousOverflow = ''
+let previousPadding = ''
 
 const items = computed(() => [
   { key: 'home', to: { path: localePath('index'), hash: locale.value === 'es' ? '#inicio' : '#home' } },
@@ -21,17 +24,31 @@ const items = computed(() => [
 ])
 const activeItem = computed(() => items.value[activeIndex.value]!)
 
+/** Con barra de scroll clásica (Windows), quitarla ensanchaba la página: relayout completo y un nuevo búfer WebGL al abrir y al cerrar. El relleno conserva el ancho. */
+function lockScroll() {
+  const scrollbar = window.innerWidth - document.documentElement.clientWidth
+  previousOverflow = document.body.style.overflow
+  previousPadding = document.body.style.paddingRight
+  document.body.style.overflow = 'hidden'
+  if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`
+}
+
+function unlockScroll() {
+  document.body.style.overflow = previousOverflow
+  document.body.style.paddingRight = previousPadding
+}
+
 /** Abre el diálogo nativo para mantener Tab dentro del menú y recordar su botón de origen. */
 function open() {
   const dialog = root.value
   if (!dialog || dialog.open) return
   returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
-  previousOverflow = document.body.style.overflow
-  document.body.style.overflow = 'hidden'
+  lockScroll()
   closing.value = false
   const routeKey = ['#contacto', '#contact'].includes(route.hash) ? 'contact' : ['#sobre', '#about'].includes(route.hash) ? 'about' : String(route.name).split('___')[0]!.split('-')[0]
   activeIndex.value = Math.max(0, items.value.findIndex(item => item.key === routeKey))
   dialog.showModal()
+  menuOpen.value = true
   emit('change', true)
   motion.open()
   nextTick(() => dialog.querySelector<HTMLAnchorElement>(`[data-menu-link="${activeIndex.value}"]`)?.focus({ preventScroll: true }))
@@ -47,7 +64,8 @@ async function close() {
 
 function finishClose() {
   motion.reset()
-  document.body.style.overflow = previousOverflow
+  unlockScroll()
+  menuOpen.value = false
   closing.value = false
   emit('change', false)
   nextTick(() => { if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }) })
@@ -79,7 +97,8 @@ watch(() => route.fullPath, () => { if (root.value?.open) root.value.close() })
 onBeforeUnmount(() => {
   if (root.value?.open) {
     root.value.close()
-    document.body.style.overflow = previousOverflow
+    unlockScroll()
+    menuOpen.value = false
   }
 })
 defineExpose({ open, close })
@@ -151,7 +170,7 @@ defineExpose({ open, close })
         <p class="menu-hint label-p5">{{ t(`nav.${activeItem.key}Hint`) }}</p>
       </div>
       <a class="menu-email display-p5" data-menu-side="left" href="mailto:oscar@paric.io">oscar@paric.io</a>
-      <div class="menu-keys keyboard-hints label-p5" data-menu-side="right"><span><kbd>Esc</kbd> {{ t('common.close') }}</span><span><kbd>↑↓</kbd> {{ t('common.navigate') }}</span><span><kbd>↵</kbd> {{ t('nav.keyboard') }}</span></div>
+      <div class="menu-keys keyboard-hints label-p5" data-menu-side="right"><P5Kbd keys="Esc">{{ t('common.close') }}</P5Kbd><P5Kbd keys="↑↓">{{ t('common.navigate') }}</P5Kbd><P5Kbd keys="↵">{{ t('nav.keyboard') }}</P5Kbd></div>
     </div>
   </dialog>
 </template>
