@@ -35,7 +35,7 @@ describe('estado en URL y retorno', () => {
     expect(resolveCarouselState({ category: 'personal', slug: 'captotal' })).toEqual({ category: 'personal', index: 0 })
     expect(resolveCarouselState({ category: 'pro', slug: 'missing' })).toEqual({ category: 'pro', index: 0 })
     expect(resolveCarouselState({ category: ['personal'], slug: ['moof'] })).toEqual({ category: 'pro', index: 0 })
-    expect(resolveCarouselState({ slug: 'moof' })).toEqual({ category: 'personal', index: 1 })
+    expect(resolveCarouselState({ slug: 'moof' })).toEqual({ category: 'personal', index: getProjects('personal').findIndex(project => project.slug === 'moof') })
     expect(resolveCarouselState({})).toEqual({ category: 'pro', index: 0 })
   })
 

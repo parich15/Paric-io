@@ -72,19 +72,10 @@ export const projects: Project[] = [
     ],
     "featured": true,
     "demo": false,
-    "website": "https://preview.3ddigitalvenue.com/manutd",
+    "website": "https://preview.3ddigitalvenue.com/la-angels",
     "designUrl": "https://xd.adobe.com/view/b71261a0-3720-4b10-adc7-44901b2bfa42-e241/grid",
-    "cover": "/projects/sites-builder/live-manutd.webp",
+    "cover": "/projects/sites-builder/live-la-angels.webp",
     "media": [
-      {
-        "src": "/projects/sites-builder/live-manutd.webp",
-        "type": "image",
-        "frame": "browser",
-        "caption": {
-          "es": "Minisite del Manchester United: Old Trafford con localidades regulares y premium.",
-          "en": "Manchester United minisite: Old Trafford with regular and premium seating."
-        }
-      },
       {
         "src": "/projects/sites-builder/live-la-angels.webp",
         "type": "image",
@@ -164,15 +155,6 @@ export const projects: Project[] = [
         "caption": {
           "es": "Marca blanca: demo del Spotify Camp Nou.",
           "en": "White label: Spotify Camp Nou demo."
-        }
-      },
-      {
-        "src": "/projects/sites-builder/mobile-manutd.webp",
-        "type": "image",
-        "frame": "phone",
-        "caption": {
-          "es": "Old Trafford en móvil.",
-          "en": "Old Trafford on mobile."
         }
       },
       {
@@ -1379,6 +1361,138 @@ export const projects: Project[] = [
           {
             "label": "Duration",
             "value": "6 months"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "og-stickers",
+    "slug": "og-stickers",
+    "title": "OG Stickers",
+    "year": "",
+    "client": "OG Stickers",
+    "category": "personal",
+    "tags": [
+      "Nuxt",
+      "Vue",
+      "E-commerce",
+      "i18n"
+    ],
+    "featured": false,
+    "demo": false,
+    "website": "https://ogstickers.net",
+    "cover": "/projects/og-stickers/home.webp",
+    "media": [
+      {
+        "src": "/projects/og-stickers/home.webp",
+        "type": "image",
+        "frame": "browser",
+        "caption": {
+          "es": "Portada de la tienda: stickers, packaging y diseño.",
+          "en": "Store home: stickers, packaging and design."
+        }
+      },
+      {
+        "src": "/projects/og-stickers/sticker-builder.webp",
+        "type": "image",
+        "frame": "browser",
+        "caption": {
+          "es": "Creador de pegatinas: vista previa y precio por unidad según la cantidad.",
+          "en": "Sticker builder: preview and unit price by quantity."
+        }
+      },
+      {
+        "src": "/projects/og-stickers/portfolio.webp",
+        "type": "image",
+        "frame": "browser",
+        "caption": {
+          "es": "Portfolio con los diseños realizados para otras marcas.",
+          "en": "Portfolio of designs made for other brands."
+        }
+      },
+      {
+        "src": "/projects/og-stickers/contacto.webp",
+        "type": "image",
+        "frame": "browser",
+        "caption": {
+          "es": "Contacto: el formulario clasifica cada petición por tipo de encargo.",
+          "en": "Contact: the form sorts each request by type of job."
+        }
+      }
+    ],
+    "content": {
+      "es": {
+        "description": "Tienda online de stickers personalizados, packaging y merchandising con un creador de pegatinas en el navegador.",
+        "challenge": "OG Stickers vende pegatinas, packaging y merchandising personalizados para marcas pequeñas. El precio de cada pedido depende del material, el tamaño, la forma, el acabado y la cantidad, así que no cabía en una ficha de producto fija.",
+        "solution": "Una tienda en Nuxt con catálogo por familias (stickers, packaging, merchandising y plantillas), cuentas de cliente y carrito. El creador de pegatinas permite subir hasta dos imágenes, elegir tamaño, forma y acabado y ver el precio por unidad según la cantidad antes de añadir el pedido al carrito. Un portfolio de diseños y un formulario de contacto por tipo de encargo completan el sitio, en castellano e inglés.",
+        "facts": [
+          {
+            "label": "Cliente",
+            "value": "OG Stickers"
+          },
+          {
+            "label": "Web",
+            "value": "ogstickers.net"
+          },
+          {
+            "label": "Idiomas",
+            "value": "ES / EN"
+          }
+        ],
+        "features": [
+          {
+            "title": "Creador de pegatinas",
+            "text": "Sube tu diseño y elige vinilo, tamaño, forma y acabado con vista previa."
+          },
+          {
+            "title": "Precio por cantidad",
+            "text": "Tabla de 50 a 1000 unidades con su descuento, o una cantidad personalizada."
+          },
+          {
+            "title": "Portfolio",
+            "text": "Galería de diseños hechos para otras marcas como punto de partida."
+          },
+          {
+            "title": "Contacto por encargo",
+            "text": "El formulario separa stickers, packaging, merchandising, diseño y otras peticiones."
+          }
+        ]
+      },
+      "en": {
+        "description": "Online store for custom stickers, packaging and merchandise, with an in-browser sticker builder.",
+        "challenge": "OG Stickers sells custom stickers, packaging and merchandise to small brands. The price of each order depends on the material, size, shape, finish and quantity, so it did not fit a fixed product page.",
+        "solution": "A Nuxt store with a catalogue by family (stickers, packaging, merchandise and templates), customer accounts and a cart. The sticker builder lets you upload up to two images, choose size, shape and finish, and see the unit price for each quantity before adding the order to the cart. A design portfolio and a contact form sorted by type of job complete the site, in Spanish and English.",
+        "facts": [
+          {
+            "label": "Client",
+            "value": "OG Stickers"
+          },
+          {
+            "label": "Website",
+            "value": "ogstickers.net"
+          },
+          {
+            "label": "Languages",
+            "value": "ES / EN"
+          }
+        ],
+        "features": [
+          {
+            "title": "Sticker builder",
+            "text": "Upload your design and pick vinyl, size, shape and finish with a live preview."
+          },
+          {
+            "title": "Price by quantity",
+            "text": "A table from 50 to 1000 units with each discount, or a custom quantity."
+          },
+          {
+            "title": "Portfolio",
+            "text": "A gallery of designs made for other brands as a starting point."
+          },
+          {
+            "title": "Contact by job",
+            "text": "The form separates stickers, packaging, merchandise, design and other requests."
           }
         ]
       }
